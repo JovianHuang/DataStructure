@@ -58,13 +58,15 @@ void ClearBuf(void);
 
 void ReadStr(char * source);
 
-Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node *, Node*));
+Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node * &, Node*));
 
 void CarryOrNot(numType &num, numType &carry);
 
-Node * Add(Node *head1, Node *head2);
+Node * Add(Node *(&result), Node *head2);
 
-Node * Subtract(Node *head1, Node *head2);
+bool Compare(Node *a, Node *b);
+
+Node * Subtract(Node *(&result), Node *head2);
 
 Node * Multiply(Node *head1, Node *head2);
 // Process Functions

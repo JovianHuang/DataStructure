@@ -67,7 +67,11 @@ void PrintList(Node * head) {
   }
   do {
     if (!current->next) {
-      printf("%-d", current->num);
+      if (current->num < 0) {
+        printf("%-d", current->num);
+      } else if (current->num){
+        printf("%d", current->num);
+      }
       if (current->num) {
         printf(",");  // what if it's a '0'
       }
@@ -172,9 +176,8 @@ void ReadStr(char * source) {
   source[i] = '\0';
 }
 
-Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node *, Node*)) {
+Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node * &, Node*)) {
   Node * result = CopyList(head1);
-
   result = (*operation)(result, head2);
   return result;
 }
@@ -183,12 +186,15 @@ void CarryOrNot(numType &num, numType &carry) {
   if (num > 999) {
     carry = num / 100;
     num -= 1000;
+  } else if (num < 0){
+    carry = 1;
+    num += 1000;
   } else {
     carry = 0;
   }
 }
 
-Node * Add(Node *result, Node *head2) {
+Node * Add(Node *(&result), Node *head2) {
   Node * current0 = result->next;
   Node * current2 = head2->next;
   numType carry = 0;
@@ -212,9 +218,57 @@ Node * Add(Node *result, Node *head2) {
   return result;
 }
 
-Node * Subtract(Node *head1, Node *head2) {
-  Node * result = NewHead();
+bool Compare(Node *a, Node *b) {
+  bool aIsgreater = true;
+  if (a->length < b->length) {
+    aIsgreater = false;
+  } else if (a->length == b->length) {
+    Node *aptr = a->next;
+    Node *bptr = b->next;
+    while (aptr->next) {
+      aptr = aptr->next;
+      bptr = bptr->next;
+    }
+    if (aptr->num < bptr->num) {
+      aIsgreater = false;
+    }
+  }
+  return aIsgreater;
+}
 
+Node * Subtract(Node *(&result), Node *head2) { 
+  /*  Suppose there is an equation: a - b. 
+    At this time, 'a' is called the minuend, and 'b' is called the subtrahend.*/
+  Node * minuend = result->next;
+  Node * subtrahend = head2->next;
+  // if 'a' < 'b', let 'b' subtract 'a' and then change the sign
+  bool changesign = false;
+  if (!Compare(result, head2)) {
+    minuend = head2->next;
+    subtrahend = result->next;
+    result = minuend->prev;
+    // to let 'b' subtract 'a'
+    changesign = true;
+  }
+  numType carry = 0;
+  while (subtrahend) {
+    minuend->num -= subtrahend->num - carry;
+    CarryOrNot(minuend->num, carry);
+    minuend = minuend->next;
+    subtrahend = subtrahend->next;
+  }
+  while (minuend) {
+    minuend->num -= carry;
+    CarryOrNot(minuend->num, carry);
+    minuend = minuend->next;
+  }
+  if (changesign) {
+    minuend = result->next;
+    while (minuend->next) {  // locate the higest digit
+      minuend = minuend->next;
+    }
+    minuend->num = -minuend->num;
+  }
   return result;
 }
 
