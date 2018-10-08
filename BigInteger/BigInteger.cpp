@@ -66,8 +66,13 @@ void PrintList(BigIntNode * head) {
     current = current->next;
   }
   do {
-    printf("%d", current->num);
-    current = current->prev;
+    if (!current->next) {
+      printf("%-d", current->num);
+      current = current->prev;
+    } else {
+      printf("%03d", current->num);
+      current = current->prev;
+    }
   } while (current->prev);  // util to the head
 }
 // Output Functions
@@ -144,4 +149,24 @@ void ReadStr(char * source) {
   }
   source[i] = '\0';
 }
+
+BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2) {
+  BigIntNode * result = NewHead();
+  BigIntNode * current0 = result;
+  BigIntNode * current1 = head1->next;
+  BigIntNode * current2 = head2->next;
+  int carry = 0;
+  
+  int temp = 0;
+  temp = current1->num + current2->num;
+  if (temp > 999) {
+    carry = temp / 1000;
+    temp -= 1000;
+  }
+  AddNode(current0, temp);
+  
+
+  return result;
+}
+
 // Process Functions
