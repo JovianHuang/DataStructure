@@ -176,7 +176,7 @@ void ReadStr(char * source) {
   source[i] = '\0';
 }
 
-Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node * &, Node*)) {
+Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node * , Node*)) {
   Node * result = CopyList(head1);
   result = (*operation)(result, head2);
   return result;
@@ -194,7 +194,7 @@ void CarryOrNot(numType &num, numType &carry) {
   }
 }
 
-Node * Add(Node *(&result), Node *head2) {
+Node * Add(Node *result, Node *head2) {
   Node * current0 = result->next;
   Node * current2 = head2->next;
   numType carry = 0;
@@ -236,7 +236,7 @@ bool Compare(Node *a, Node *b) {
   return aIsgreater;
 }
 
-Node * Subtract(Node *(&result), Node *head2) { 
+Node * Subtract(Node *result, Node *head2) { 
   /*  Suppose there is an equation: a - b. 
     At this time, 'a' is called the minuend, and 'b' is called the subtrahend.*/
   Node * minuend = result->next;
@@ -272,10 +272,9 @@ Node * Subtract(Node *(&result), Node *head2) {
   return result;
 }
 
-Node * Multiply(Node *head1, Node *head2) {
+Node * Multiply(Node *result, Node *head2) {
   Node * result = NewHead();
  
   return result;
 }
-
 // Process Functions
