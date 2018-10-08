@@ -24,8 +24,8 @@ Status YesOrNo(void) {
 // Input Functions
 char * ObtainedAsStr(int &size) {
   char * source = (char *)malloc(sizeof(char) * MAXLEN + 1);
-  // malloc a large enough temporary space to prevent overflow
-  // '+ 1' is to consider that the input just reaches the upper limit
+  /* malloc a large enough temporary space to prevent overflow
+     '+ 1' is to consider that the input just reaches the upper limit */
   Status status = RUNNING;
   while (status) {
     ReadStr(source);
