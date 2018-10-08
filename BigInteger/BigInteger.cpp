@@ -172,102 +172,56 @@ void ReadStr(char * source) {
   source[i] = '\0';
 }
 
-//Node * Operate(Node *head1, Node *head2, Node(*operation)(Node *, Node*)) {
-//
-//}
+Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node *, Node*)) {
+  Node * result = CopyList(head1);
 
-Node * Addition(Node *head1, Node *head2) {
-  Node * result = NewHead();
-  Node * current0 = result;
-  Node * current1 = head1->next;
-  Node * current2 = head2->next;
-  int i = 0;
-  int difference = head1->length - head2->length;
-  if (difference > 0) {
-    i = head2->length;
-  } else{
-    i = head1->length;
+  result = (*operation)(result, head2);
+  return result;
+}
+
+void CarryOrNot(numType &num, numType &carry) {
+  if (num > 999) {
+    carry = num / 100;
+    num -= 1000;
+  } else {
+    carry = 0;
   }
-  int temp = 0;
-  int carry = 0;
-  for (i; i > 0; i--) {
-    temp = current1->num + current2->num + carry;
-    if (temp > 999) {
-      carry = temp / 1000;
-      temp -= 1000;
-    } else {
-      carry = 0;
-    }
-    AddNode(current0, temp);
-    result->length++;
+}
+
+Node * Add(Node *result, Node *head2) {
+  Node * current0 = result->next;
+  Node * current2 = head2->next;
+  numType carry = 0;
+  while (current0 && current2) {
+    current0->num += current2->num + carry;
+    CarryOrNot(current0->num, carry);
     current0 = current0->next;
-    current1 = current1->next;
     current2 = current2->next;
   }
-  if (difference > 0) {
-    while (current1) {
-      temp = current1->num + carry;
-      if (temp > 999) {
-        carry = temp / 1000;
-        temp -= 1000;
-      } else {
-        carry = 0;
-      }
-      AddNode(current0, temp);
-      result->length++;
-      current0 = current0->next;
-      current1 = current1->next;
-    }
-  } else if (difference < 0) {
-    while (current2) {
-      temp = current2->num + carry;
-      if (temp > 999) {
-        carry = temp / 1000;
-        temp -= 1000;
-      } else {
-        carry = 0;
-      }
-      AddNode(current0, temp);
-      result->length++;
-      current0 = current0->next;
-      current1 = current2->next;
-    }
+  while (current0 && carry) {
+    current0->num += carry;
+    CarryOrNot(current0->num, carry);
+    current0 = current0->next;
+  }
+  while (current2) {
+    current2->num += carry;
+    CarryOrNot(current2->num, carry);
+    AddNode(current0, current2->num);
+    current2 = current2->next;
   }
   return result;
 }
 
-//Node * Subtraction(Node *head1, Node *head2) {
-//  Node * result = NewHead();
-//  Node * current0 = result;
-//  Node * current1 = head1->next;
-//  Node * current2 = head2->next;
-//  int carry = 0;
-//  int temp = 0;
-//  int i = 0;
-//  int difference = head1->length - head2->length;
-//  if (difference > 0) {
-//    i = head2->length;
-//  } else {
-//    i = head1->length;
-//  }
-//
-//  return result;
-//}
-//
-//Node * Multiplication(Node *head1, Node *head2) {
-//  Node * result = NewHead();
-//  Node * current0 = result;
-//  Node * current1 = head1->next;
-//  Node * current2 = head2->next;
-//  int carry = 1;
-//  int temp = 0;
-//  int i = 0;
-//  int difference = head1->length - head2->length;
-//  if (difference > 0) {
-//    i = head2->length;
-//  } else {
-//    i = head1->length;
-//  }
-//}
+Node * Subtract(Node *head1, Node *head2) {
+  Node * result = NewHead();
+
+  return result;
+}
+
+Node * Multiply(Node *head1, Node *head2) {
+  Node * result = NewHead();
+ 
+  return result;
+}
 
 // Process Functions
