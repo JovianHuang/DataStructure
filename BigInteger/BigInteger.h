@@ -23,7 +23,7 @@ typedef struct bigintnode {
   numType num;
   int length;
   struct bigintnode * next;
-} BigIntNode;
+} Node;
 // predefine
 
 
@@ -38,16 +38,18 @@ char * ObtainedAsStr(int &size);
 
 
 // Output Functions
-void PrintList(BigIntNode * head);
+void PrintList(Node * head);
 // Output Functions
 
 
 // Linked List Operation
-BigIntNode * NewHead(void);
+Node * NewHead(void);
 
-void AddNode(BigIntNode *current, int num);
+void AddNode(Node *current, int num);
 
-BigIntNode * StrToNum(int size, char * str);
+Node * StrToNum(int size, char * str);
+
+Node * CopyList(Node *source);
 // Linked List Operation
 
 
@@ -56,7 +58,7 @@ void ClearBuf(void);
 
 void ReadStr(char * source);
 
-BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2);
+Node * Addition(Node *head1, Node *head2);
 // Process Functions
 
 #endif // !BIGINTEGER_H

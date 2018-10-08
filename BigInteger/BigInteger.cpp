@@ -60,8 +60,8 @@ char * ObtainedAsStr(int &size) {
 
 
 // Output Functions
-void PrintList(BigIntNode * head) {
-  BigIntNode * current = head->next;
+void PrintList(Node * head) {
+  Node * current = head->next;
   while (current->next) { // reach to the end
     current = current->next;
   }
@@ -85,8 +85,8 @@ void PrintList(BigIntNode * head) {
 
 
 // Linked List Operation
-BigIntNode * NewHead(void) {
-  BigIntNode *head = (BigIntNode *)malloc(sizeof(BigIntNode));
+Node * NewHead(void) {
+  Node *head = (Node *)malloc(sizeof(Node));
   head->next = NULL;
   head->prev = NULL;
   head->num = -1;
@@ -94,8 +94,8 @@ BigIntNode * NewHead(void) {
   return head;
 }
 
-void AddNode(BigIntNode *current, int num) {
-  BigIntNode * node = (BigIntNode *)malloc(sizeof(BigIntNode));
+void AddNode(Node *current, int num) {
+  Node * node = (Node *)malloc(sizeof(Node));
   node->num = num;
   current->next = node;
   node->prev = current;
@@ -103,12 +103,12 @@ void AddNode(BigIntNode *current, int num) {
   node->length = -1;
 }
 
-BigIntNode * StrToNum(int size, char * str) {
+Node * StrToNum(int size, char * str) {
   int i;
   int temp = 0, coefficient = 1;
   int position = size - 1;
-  BigIntNode * head = NewHead();
-  BigIntNode * current = head;
+  Node * head = NewHead();
+  Node * current = head;
   for (position; position >= 0; ) {
     for (i = 0; i < 3; i++) {
       if (!(str[position] >= '0' && str[position] <= '9')) {
@@ -125,6 +125,20 @@ BigIntNode * StrToNum(int size, char * str) {
     coefficient = 1;
   }
   return head;
+}
+
+Node * CopyList(Node *source) {
+  Node * destination = NewHead();
+  Node * current0 = destination;
+  Node * current1 = source->next;
+  while (current1) {
+    AddNode(current0, current1->num);
+    destination->length++;
+    current0 = current0->next;
+    current1 = current1->next;
+  }
+
+  return destination;
 }
 // Linked List Operation
 
@@ -158,13 +172,15 @@ void ReadStr(char * source) {
   source[i] = '\0';
 }
 
-BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2) {
-  BigIntNode * result = NewHead();
-  BigIntNode * current0 = result;
-  BigIntNode * current1 = head1->next;
-  BigIntNode * current2 = head2->next;
-  int carry = 0;
-  int temp = 0;
+//Node * Operate(Node *head1, Node *head2, Node(*operation)(Node *, Node*)) {
+//
+//}
+
+Node * Addition(Node *head1, Node *head2) {
+  Node * result = NewHead();
+  Node * current0 = result;
+  Node * current1 = head1->next;
+  Node * current2 = head2->next;
   int i = 0;
   int difference = head1->length - head2->length;
   if (difference > 0) {
@@ -172,6 +188,8 @@ BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2) {
   } else{
     i = head1->length;
   }
+  int temp = 0;
+  int carry = 0;
   for (i; i > 0; i--) {
     temp = current1->num + current2->num + carry;
     if (temp > 999) {
@@ -217,5 +235,39 @@ BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2) {
   }
   return result;
 }
+
+//Node * Subtraction(Node *head1, Node *head2) {
+//  Node * result = NewHead();
+//  Node * current0 = result;
+//  Node * current1 = head1->next;
+//  Node * current2 = head2->next;
+//  int carry = 0;
+//  int temp = 0;
+//  int i = 0;
+//  int difference = head1->length - head2->length;
+//  if (difference > 0) {
+//    i = head2->length;
+//  } else {
+//    i = head1->length;
+//  }
+//
+//  return result;
+//}
+//
+//Node * Multiplication(Node *head1, Node *head2) {
+//  Node * result = NewHead();
+//  Node * current0 = result;
+//  Node * current1 = head1->next;
+//  Node * current2 = head2->next;
+//  int carry = 1;
+//  int temp = 0;
+//  int i = 0;
+//  int difference = head1->length - head2->length;
+//  if (difference > 0) {
+//    i = head2->length;
+//  } else {
+//    i = head1->length;
+//  }
+//}
 
 // Process Functions
