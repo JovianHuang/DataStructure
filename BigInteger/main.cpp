@@ -6,13 +6,14 @@ int main(void) {
   puts("Please enter the first BigInterger:");
   char *str1 = ObtainedAsStr(size1);
   BigIntNode * head1 = StrToNum(size1, str1);
-  //puts("Please enter the second BigInterger:");
-  //char *str2 = ObtainedAsStr(size2);
-  //BigIntNode * head2 = StrToNum(size2, str2);
+  puts("Please enter the second BigInterger:");
+  char *str2 = ObtainedAsStr(size2);
+  BigIntNode * head2 = StrToNum(size2, str2);
 
 
   // test module
-  PrintList(head1);
+  BigIntNode * result = Addition(head1, head2);
+  PrintList(result);
   // test module
 
   return 0;

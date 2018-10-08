@@ -21,6 +21,7 @@ typedef short numType;
 typedef struct bigintnode {
   struct bigintnode * prev;
   numType num;
+  int length;
   struct bigintnode * next;
 } BigIntNode;
 // predefine
@@ -54,6 +55,8 @@ BigIntNode * StrToNum(int size, char * str);
 void ClearBuf(void);
 
 void ReadStr(char * source);
+
+BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2);
 // Process Functions
 
 #endif // !BIGINTEGER_H

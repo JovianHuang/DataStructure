@@ -68,10 +68,16 @@ void PrintList(BigIntNode * head) {
   do {
     if (!current->next) {
       printf("%-d", current->num);
+      if (current->num) {
+        printf(",");  // what if it's a '0'
+      }
       current = current->prev;
     } else {
       printf("%03d", current->num);
       current = current->prev;
+      if (current->prev) {
+        printf(",");  // ',' is no need in tha last
+      }
     }
   } while (current->prev);  // util to the head
 }
@@ -84,6 +90,7 @@ BigIntNode * NewHead(void) {
   head->next = NULL;
   head->prev = NULL;
   head->num = -1;
+  head->length = 0;
   return head;
 }
 
@@ -93,6 +100,7 @@ void AddNode(BigIntNode *current, int num) {
   current->next = node;
   node->prev = current;
   node->next = NULL;
+  node->length = -1;
 }
 
 BigIntNode * StrToNum(int size, char * str) {
@@ -111,6 +119,7 @@ BigIntNode * StrToNum(int size, char * str) {
       position--;
     }
     AddNode(current, temp);
+    head->length++;
     current = current->next;
     temp = 0;
     coefficient = 1;
@@ -130,7 +139,6 @@ void ReadStr(char * source) {
   int c;
   int i = 0;
   Status status = RUNNING;
-  puts("Please enter:");
   while ((c = getchar()) != '\n' && c != EOF) {
     if (c >= '0' && c <= '9') {
       source[i++] = c;
@@ -156,16 +164,57 @@ BigIntNode * Addition(BigIntNode *head1, BigIntNode *head2) {
   BigIntNode * current1 = head1->next;
   BigIntNode * current2 = head2->next;
   int carry = 0;
-  
   int temp = 0;
-  temp = current1->num + current2->num;
-  if (temp > 999) {
-    carry = temp / 1000;
-    temp -= 1000;
+  int i = 0;
+  int difference = head1->length - head2->length;
+  if (difference > 0) {
+    i = head2->length;
+  } else{
+    i = head1->length;
   }
-  AddNode(current0, temp);
-  
-
+  for (i; i > 0; i--) {
+    temp = current1->num + current2->num + carry;
+    if (temp > 999) {
+      carry = temp / 1000;
+      temp -= 1000;
+    } else {
+      carry = 0;
+    }
+    AddNode(current0, temp);
+    result->length++;
+    current0 = current0->next;
+    current1 = current1->next;
+    current2 = current2->next;
+  }
+  if (difference > 0) {
+    while (current1) {
+      temp = current1->num + carry;
+      if (temp > 999) {
+        carry = temp / 1000;
+        temp -= 1000;
+      } else {
+        carry = 0;
+      }
+      AddNode(current0, temp);
+      result->length++;
+      current0 = current0->next;
+      current1 = current1->next;
+    }
+  } else if (difference < 0) {
+    while (current2) {
+      temp = current2->num + carry;
+      if (temp > 999) {
+        carry = temp / 1000;
+        temp -= 1000;
+      } else {
+        carry = 0;
+      }
+      AddNode(current0, temp);
+      result->length++;
+      current0 = current0->next;
+      current1 = current2->next;
+    }
+  }
   return result;
 }
 
