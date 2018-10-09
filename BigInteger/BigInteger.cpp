@@ -72,8 +72,8 @@ void PrintList(Node * head) {
       } else if (current->num){
         printf("%d", current->num);
       }
-      if (current->num) {
-        printf(",");  // what if it's a '0'
+      if (current->num && current->prev->num != -1) {
+        printf(",");  // if it's a '0'
       }
       current = current->prev;
     } else {
@@ -184,8 +184,8 @@ Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node * , Node*)) {
 
 void CarryOrNot(numType &num, numType &carry) {
   if (num > 999) {
-    carry = num / 100;
-    num -= 1000;
+    carry = num / 1000;
+    num %= 1000;
   } else if (num < 0){
     carry = 1;
     num += 1000;
@@ -272,9 +272,55 @@ Node * Subtract(Node *result, Node *head2) {
   return result;
 }
 
-Node * Multiply(Node *result, Node *head2) {
+Node * Multiply(Node *head1, Node *head2) {
+  // a bit different from "Add" and "Subtract"
   Node * result = NewHead();
- 
+  // The result of multiplying any number by 0 is 0
+  if (head1->length == 1 && head1->next->num == 0) {
+    AddNode(result, 0);
+    return result;
+  } else if (head2->length == 1 && head2->next->num == 0) {
+    AddNode(result, 0);
+    return result;
+  }
+  // Both are not zero
+  Node * current1 = head1->next;
+  int position = 0;
+  while (current1) {
+    Node * current0 = result;
+    Node * current2 = head2->next;
+    for (int i = 0; i < position; i++) {
+      current0 = current0->next;
+    } // To locate
+    position++;
+    numType num = 0;
+    numType carry = 0;
+    while (current2) {
+      num = current1->num * current2->num + carry;
+      CarryOrNot(num, carry);
+      if (!current0->next) {
+        // If there is no higher node, create a new one.
+        AddNode(current0, num);
+        current0 = current0->next;  // NOTE1 
+      } else {                      /* NOTE1 and NOTE2 must be in this position
+                                        cuz the node that wanna operate are different*/
+        current0 = current0->next;  // NOTE2
+        numType temp = carry;       // This is the carry from before operate
+        num += current0->num;
+        CarryOrNot(num, carry);     // Now we got a new carry
+        carry += temp;              // add up two carry
+        current0->num = num;
+        current0->length++;
+      }
+      current2 = current2->next;
+      if (!current2 && carry) {
+        num = carry;
+        CarryOrNot(num, carry);
+        AddNode(current0, num);
+      }
+    }
+    current1 = current1->next;
+  }
   return result;
 }
 // Process Functions

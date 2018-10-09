@@ -17,7 +17,7 @@ typedef enum status {
   DONE = 0,
   RUNNING = 1
 } Status;
-typedef short numType;
+typedef int numType;
 typedef struct bigintnode {
   struct bigintnode * prev;
   numType num;

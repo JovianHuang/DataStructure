@@ -12,7 +12,7 @@ int main(void) {
 
 
   // test module
-  Node * result = Operate(head1, head2, Subtract);
+  Node * result = Operate(head1, head2, Multiply);
   PrintList(result);
   // test module
 
