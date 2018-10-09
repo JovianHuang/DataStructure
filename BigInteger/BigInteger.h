@@ -17,6 +17,10 @@ typedef enum status {
   DONE = 0,
   RUNNING = 1
 } Status;
+typedef enum origin {
+  TXT = 2,
+  KEYBOARD
+} Origin;
 typedef int numType;
 typedef struct bigintnode {
   struct bigintnode * prev;
@@ -33,7 +37,13 @@ Status YesOrNo(void);
 
 
 // Input Functions
-char * ObtainedAsStr(int &size);
+void ClearBuf(void);
+
+Status VerifyRange(int &size, char *source);
+
+char * ReadFromKeyboard(int &size); 
+
+char * ReadFromFile(FILE * fp, int &size);
 // Input Functions
 
 
@@ -53,11 +63,7 @@ Node * CopyList(Node *source);
 // Linked List Operation
 
 
-// Process Functions
-void ClearBuf(void);
-
-void ReadStr(char * source);
-
+// Operation Functions
 Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node *, Node*));
 
 void CarryOrNot(numType &num, numType &carry);
@@ -69,6 +75,6 @@ bool Compare(Node *a, Node *b);
 Node * Subtract(Node *result, Node *head2);
 
 Node * Multiply(Node *result, Node *head2);
-// Process Functions
+// Operation Functions
 
 #endif // !BIGINTEGER_H

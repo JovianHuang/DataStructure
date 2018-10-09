@@ -18,44 +18,105 @@ Status YesOrNo(void) {
   }
   return status;
 }
+
+
 // User Functions
 
 
 // Input Functions
-char * ObtainedAsStr(int &size) {
+void ClearBuf(void) {
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF);
+}
+
+Status VerifyRange(int &size, char *source) {
+  Status status = RUNNING;
+  size = strlen(source);
+  if (size == 0) {
+    puts("\nERROR:");
+    puts("You have entered nothing.");
+    puts("Do you want to re-enter?");
+    status = YesOrNo();
+    if (status == DONE) {
+      exit(DONE);
+    }
+  } else if (size > MAXLEN) {
+    puts("\nERROR:");
+    puts("The number you entered is beyond the range of calculations");
+    puts("that this program can accept.\n");
+    puts("Do you want to re-enter?");
+    status = YesOrNo();
+    if (status == DONE) {
+      exit(OVERFLOW);
+    }
+  } else {
+    status = DONE;
+  }
+  return status;
+}
+
+char * ReadFromKeyboard(int &size) {
   char * source = (char *)malloc(sizeof(char) * MAXLEN + 1);
   /* malloc a large enough temporary space to prevent overflow
      '+ 1' is to consider that the input just reaches the upper limit */
+  int c;
+  int i = 0;
   Status status = RUNNING;
-  while (status) {
-    ReadStr(source);
-    size = strlen(source);
-    if (size == 0) {
-      puts("\nERROR:");
-      puts("You have entered nothing.");
-      puts("Do you want to re-enter?");
-      status = YesOrNo();
-      if (status == DONE) {
-        exit(DONE);
+  do {
+    while ((c = getchar()) != '\n' && c != EOF) {
+      if (c >= '0' && c <= '9') {
+        source[i++] = c;
+      } else {
+        puts("\nERROR:");
+        puts("Contains illegal characters!\n");
+        puts("Do you want to re-enter?");
+        ClearBuf();
+        status = YesOrNo();
+        if (status == RUNNING) {
+          ReadFromKeyboard(size);
+        } else {
+          exit(ERROR);
+        }
       }
-    } else if (size > MAXLEN) {
-      puts("\nERROR:");
-      puts("The number you entered is beyond the range of calculations");
-      puts("that this program can accept.\n");
-      puts("Do you want to re-enter?");
-      status = YesOrNo();
-      if (status == DONE) {
-        exit(OVERFLOW);
-      }
-    } else {
-      status = DONE;
     }
-  }
+    source[i] = '\0';
+  } while (status = VerifyRange(size, source));
   char * numInstr = (char *)malloc(sizeof(char) * size);
   strcpy(numInstr, source);
   free(source);
   return numInstr;
 }
+
+char * ReadFromFile(FILE * fp, int &size) {
+  char *source = (char *)malloc(sizeof(char) * MAXLEN + 1);
+  int c;
+  int i = 0;
+  Status status = RUNNING;
+  do {
+    while ((c = fgetc(fp)) != '\n' && c != EOF) {
+      if (c >= '0' && c <= '9') {
+        source[i++] = c;
+      } else {
+        puts("\nERROR:");
+        puts("Contains illegal characters!\n");
+        puts("Do you want to re-enter?");
+        ClearBuf();
+        status = YesOrNo();
+        if (status == RUNNING) {
+          ReadFromKeyboard(size);
+        } else {
+          exit(ERROR);
+        }
+      }
+    }
+    source[i] = '\0';
+  } while (status = VerifyRange(size, source));
+  char * numInstr = (char *)malloc(sizeof(char) * size);
+  strcpy(numInstr, source);
+  free(source);
+  return numInstr;
+}
+
 // Input Functions
 
 
@@ -147,35 +208,7 @@ Node * CopyList(Node *source) {
 // Linked List Operation
 
 
-// Process Functions
-void ClearBuf(void) {
-  int c;
-  while ((c = getchar()) != '\n' && c != EOF);
-}
-
-void ReadStr(char * source) {
-  int c;
-  int i = 0;
-  Status status = RUNNING;
-  while ((c = getchar()) != '\n' && c != EOF) {
-    if (c >= '0' && c <= '9') {
-      source[i++] = c;
-    } else {
-      puts("\nERROR:");
-      puts("Contains illegal characters!\n");
-      puts("Do you want to re-enter?");
-      ClearBuf();
-      status = YesOrNo();
-      if (status == RUNNING) {
-        ReadStr(source);
-      } else {
-        exit(ERROR);
-      }
-    }
-  }
-  source[i] = '\0';
-}
-
+// Operation Functions
 Node * Operate(Node *head1, Node *head2, Node *(*operation)(Node * , Node*)) {
   Node * result = CopyList(head1);
   result = (*operation)(result, head2);
@@ -323,4 +356,4 @@ Node * Multiply(Node *head1, Node *head2) {
   }
   return result;
 }
-// Process Functions
+// Operation Functions
