@@ -28,7 +28,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source.txt">
+    <Text Include="source1.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="source2.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="result.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

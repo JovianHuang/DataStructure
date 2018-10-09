@@ -33,6 +33,8 @@ typedef struct bigintnode {
 
 // User Functions
 Status YesOrNo(void);
+
+void DisplayWelcome(void);
 // User Functions
 
 
@@ -49,6 +51,8 @@ char * ReadFromFile(FILE * fp, int &size);
 
 // Output Functions
 void PrintList(Node * head);
+
+void OutputToFile(Node *head);
 // Output Functions
 
 

@@ -19,7 +19,17 @@ Status YesOrNo(void) {
   return status;
 }
 
-
+void DisplayWelcome(void) {
+  puts("Welcome To Use This Program!");
+  puts("*==================================================================*");
+  puts("* @Author: \tJovianHuang");
+  puts("* @StudentID: \t416125000301");
+  puts("* @Unit: \tClass II, CS, School of IE, Hebei GEO University");
+  puts("* @Description: This program can implement addition, subtraction");
+  puts("*   and multiplication beteween two 'Big Integer' of any length.");
+  puts("* @Version: \t1.10.9.181008_beta");
+  puts("*==================================================================*");
+}
 // User Functions
 
 
@@ -116,7 +126,6 @@ char * ReadFromFile(FILE * fp, int &size) {
   free(source);
   return numInstr;
 }
-
 // Input Functions
 
 
@@ -142,6 +151,34 @@ void PrintList(Node * head) {
       current = current->prev;
       if (current->prev) {
         printf(",");  // ',' is no need in tha last
+      }
+    }
+  } while (current->prev);  // util to the head
+}
+
+void OutputToFile(Node *head) {
+  FILE *fp;
+  fp = fopen("result.txt", "w");
+  Node * current = head->next;
+  while (current->next) { // reach to the end
+    current = current->next;
+  }
+  do {
+    if (!current->next) {
+      if (current->num < 0) {
+        fprintf(fp ,"%-d", current->num);
+      } else if (current->num) {
+        fprintf(fp, "%d", current->num);
+      }
+      if (current->num && current->prev->num != -1) {
+        fprintf(fp, ",");  // if it's a '0'
+      }
+      current = current->prev;
+    } else {
+      fprintf(fp, "%03d", current->num);
+      current = current->prev;
+      if (current->prev) {
+        fprintf(fp, ",");  // ',' is no need in tha last
       }
     }
   } while (current->prev);  // util to the head
@@ -202,7 +239,6 @@ Node * CopyList(Node *source) {
     current0 = current0->next;
     current1 = current1->next;
   }
-
   return destination;
 }
 // Linked List Operation

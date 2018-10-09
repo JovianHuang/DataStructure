@@ -128,7 +128,9 @@
     <ClInclude Include="BigInteger.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source.txt" />
+    <Text Include="result.txt" />
+    <Text Include="source1.txt" />
+    <Text Include="source2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
