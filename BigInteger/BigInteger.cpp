@@ -83,6 +83,7 @@ char * ReadFromKeyboard(int &size) {
         ClearBuf();
         status = YesOrNo();
         if (status == RUNNING) {
+          puts("Please re-enter:");
           ReadFromKeyboard(size);
         } else {
           exit(ERROR);
@@ -139,7 +140,7 @@ void PrintList(Node * head) {
     if (!current->next) {
       if (current->num < 0) {
         printf("%-d", current->num);
-      } else if (current->num){
+      } else {
         printf("%d", current->num);
       }
       if (current->num && current->prev->num != -1) {
@@ -153,7 +154,7 @@ void PrintList(Node * head) {
         printf(",");  // ',' is no need in tha last
       }
     }
-  } while (current->prev);  // util to the head
+  } while (current->prev);  // until to the head
 }
 
 void OutputToFile(Node *head) {
@@ -178,10 +179,10 @@ void OutputToFile(Node *head) {
       fprintf(fp, "%03d", current->num);
       current = current->prev;
       if (current->prev) {
-        fprintf(fp, ",");  // ',' is no need in tha last
+        fprintf(fp, ",");  // ',' is no need in the last
       }
     }
-  } while (current->prev);  // util to the head
+  } while (current->prev);  // until to the head
 }
 // Output Functions
 
@@ -273,17 +274,26 @@ Node * Add(Node *result, Node *head2) {
     current0 = current0->next;
     current2 = current2->next;
   }
-  while (current0 && carry) {
-    current0->num += carry;
-    CarryOrNot(current0->num, carry);
-    current0 = current0->next;
-  }
-  while (current2) {
-    current2->num += carry;
-    CarryOrNot(current2->num, carry);
-    AddNode(current0, current2->num);
-    current2 = current2->next;
-  }
+  if (current0 && carry) {
+     while (current0 && carry) {
+      current0->num += carry;
+      CarryOrNot(current0->num, carry);
+      current0 = current0->next;
+    }
+  } else if (current2) {
+    current0 = result->next;
+    while (current0->next) {
+      current0 = current0->next;
+    }
+    while (current2) {
+      current2->num += carry;
+      CarryOrNot(current2->num, carry);
+      AddNode(current0, current2->num);
+      current0->length++;
+      current0 = current0->next;
+      current2 = current2->next;
+    }
+  }  
   return result;
 }
 

@@ -27,14 +27,12 @@ int main(void) {
     {
       int size1 = 0;
       int size2 = 0;
-      puts("Please enter the first BigInterger:");
       FILE *fp1 = fopen("source1.txt", "r");
       char *str1 = ReadFromFile(fp1, size1);
       head1 = StrToNum(size1, str1);
       fclose(fp1);
-      puts("Please enter the second BigInterger:");
       FILE *fp2 = fopen("source2.txt", "r");
-      char *str2 = ReadFromFile(fp2, size1);
+      char *str2 = ReadFromFile(fp2, size2);
       head2 = StrToNum(size2, str2);
       fclose(fp2);
       break;
@@ -67,6 +65,7 @@ int main(void) {
     case 'c':
     {
       result = Multiply(head1, head2);
+      break;
     }
     default:
       puts("EROOR INPUT!");
