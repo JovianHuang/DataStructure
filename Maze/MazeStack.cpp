@@ -1,48 +1,59 @@
-#include "Stack.h"
 #include "MazeStack.h"
 
-Maze CreateMazePrototype(void) {
-  Maze M;
-  M = (Maze)malloc(sizeof(MNode));
-  // malloc a two-dimensional array
-  M->status = (StatusType **)malloc(sizeof(StatusType *) * ROW);
-  for (int i = 0; i < ROW; i++) {
-    M->status[i] = (StatusType *)malloc(sizeof(StatusType) * COLUMN);
+bool IsEmpty(Stack S) {
+  bool isempty = false;
+  if (S->TopOfStack == EmptyTOS) {
+    isempty = true;
   }
-  M->row = ROW;
-  M->column = COLUMN;
-  M->initialization = false;
-  return M;
+  return isempty;
 }
 
-Maze GetMazeFromFile(Maze M, const char * filename) {
-  FILE *fp;
-  if ((fp = fopen(filename, "r")) == NULL) {
-    printf("The file: %s does not exist, maze initialization failed!", filename);
-    return M;
+bool IsFull(Stack S) {
+  bool isfull = false;
+  if (S->TopOfStack == MaxCap) {
+    isfull = true;
   }
-  int temp;
-  for (int i = 0; i < M->row; i++) {
-    for (int j = 0; j < M->column; j++) {
-      temp = fgetc(fp);
-      if (temp == '\n') {
-        j--;  // Avoid getting carriage return
-        continue;
-      } else {
-        M->status[i][j] = temp - '0';
-      }
-    }
-  }
-  fclose(fp);
-  M->initialization = true;
-  return M;
+  return isfull;
 }
 
-void PrintMaze(Maze M) {
-  for (int i = 0; i < M->row; i++) {
-    for (int j = 0; j < M->column; j++) {
-      printf("%d", M->status[i][j]);
-    }
-    printf("\n");
+Stack CreateStack(void) {
+  Stack S;
+  S = (Stack)malloc(sizeof(SNode));
+  S->Path = (ElementType *)malloc(sizeof(SNode) * MaxCap);
+  S->Capacity = MaxCap;
+  MakeEmpty(S);
+  return S;
+}
+
+void MakeEmpty(Stack S) {
+  S->TopOfStack = EmptyTOS;
+}
+
+void DisposeStack(Stack S) {
+  if (S != NULL) {
+    free(S->Path);
+    free(S);
+  }
+}
+
+void Push(ElementType x, Stack S) {
+  if (IsFull(S)) {
+    puts("ERROR: Fail to push! Cuz the stack is full.");
+  } else {
+    S->Path[++S->TopOfStack].dir = x.dir;
+    S->Path[S->TopOfStack].pos.row = x.pos.row;
+    S->Path[S->TopOfStack].pos.column = x.pos.column;
+  }
+}
+
+ElementType Top(Stack S) {
+  return S->Path[S->TopOfStack];
+}
+
+void Pop(Stack S) {
+  if (IsEmpty(S)) {
+    puts("ERROE: Empty stack");
+  } else {
+    S->TopOfStack--;
   }
 }

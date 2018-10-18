@@ -1,34 +1,70 @@
-#ifndef MAZESTACK_H
-#define MAZESTACK_H
+#ifndef STACK_H
+#define STACK_H
 
-/* standrad header files */
+/* standard header files */
 #include <stdio.h>
 #include <stdlib.h>
-/* standrad header files */
+#include <stdbool.h>
+/* stdanard header files */
 
 /* Predefine */
-#define ROW 11
-#define COLUMN 11
-typedef int StatusType;
-struct MNode {
-  StatusType **status;  // To storage the status of this cell
-  int row;              // The length of this maze
-  int column;           // The width of this maze
-  bool initialization;  // To identify if the maze has been initialized
+#define EmptyTOS -1
+#define MaxCap 50
+struct Position {
+  int row;
+  int column;
 };
-typedef struct MNode *Maze;
+enum DirEnum {
+  Up = 0,
+  Right,
+  Down,
+  Left
+};
+struct PNode {
+  Position pos;
+  DirEnum dir;
+}; 
+typedef PNode ElementType;
+struct SNode {
+  ElementType *Path;    // Array of storage elements
+  int TopOfStack;  // Point to the top
+  int Capacity;         // Maximum capacity of the stack
+};
+typedef struct SNode *Stack;
 /* Predefine */
 
-Maze CreateMazePrototype(void);
-// Operation-result: Create an uninitialized maze.
+bool IsEmpty(Stack S);
+// Preconditions: Stack S already exists
+// Operation-result: Return a bool value to represent this stack is empty or not
 
-Maze GetMazeFromFile(Maze M, const char * filename);
-// Preconditions: Maze M and the file containing maze information already exists.
-// Operation-result: The maze is initialized.
+bool IsFull(Stack S);
+// Preconditions: Stack S already exists
+// Operation-result: Return a bool value to represent this stack is full or not
 
-void PrintMaze(Maze M);
-// Preconditions: Maze M already exists.
-// Operation-result: Print the maze to the screen.
+Stack CreateStack(void);
+// Operation-result: Construct an empty stack S
+
+void MakeEmpty(Stack S);
+// Preconditions: Stack S already exists
+// Operation-result: Stack S seted to empty
+
+void DisposeStack(Stack S);
+// Preconditons: Stack S already exists
+// Operation-result: The memory allocated to the stack have been free
+
+void Push(ElementType x, Stack S);
+// Preconditions: Stack S already exists
+// Operation-result: Push top of stack
+
+ElementType Top(Stack S);
+// Preconditions: Stack S already exists
+// Operation-result: Return the top of stack
+
+void Pop(Stack S);
+// Preconditions: Stack S already exists
+// Operation-result: Pop the top of stack
 
 
-#endif // !MAZESTACK_H
+#endif // !STACK_H
+
+
