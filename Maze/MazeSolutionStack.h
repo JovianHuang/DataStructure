@@ -28,6 +28,7 @@ struct PNode {
   DirEnum dir;
 }; 
 typedef PNode ElementType;
+#include "Maze.h"
 //-------------------------//
 
 struct SNode {
@@ -69,6 +70,23 @@ void Pop(Stack S);
 // Preconditions: Stack S already exists
 // Operation-result: Pop the top of stack
 
+void FootPrint(Maze M, Position curpos);
+// Operation-result: Identifies this block to show that it have passed
+
+void MarkPrint(Maze M, Position curpos);
+// Operation-result: Identifies this block to show that no way to go
+
+Position NextPos(Position curpos, DirEnum dir);
+// Operation-result: To know next block to go
+
+bool Pass(const Maze M, Position curpos);
+// Operation-result: To know can it pass
+
+void NextDir(DirEnum & dir);
+// Operation-result: To change the dir
+
+bool MazePath(Maze M);
+// Operation-result: To solve the maze
 
 #endif // !MAZESOLUTIONSTACK_H
 

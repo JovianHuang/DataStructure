@@ -1,4 +1,5 @@
 #include "MazeSolutionStack.h"
+#include "Maze.h"
 
 bool IsEmpty(Stack S) {
   bool isempty = false;
@@ -54,4 +55,103 @@ void Pop(Stack S) {
   } else {
     S->TopOfStack--;
   }
+}
+
+void FootPrint(Maze M, Position curpos) {
+  M->status[curpos.row][curpos.column] = '*';
+}
+
+void MarkPrint(Maze M, Position curpos) {
+  M->status[curpos.row][curpos.column] = '@';
+}
+
+Position NextPos(Position curpos, DirEnum dir) {
+  switch (dir) {
+    case Up: 
+    {
+      curpos.row--;
+      break;
+    }
+    case Right:
+    {
+      curpos.column++;
+      break;
+    }
+    case Down:
+    {
+      curpos.row++;
+      break;
+    }
+    case Left:
+    {
+      curpos.column--;
+      break;
+    }
+  }
+  return curpos;
+}
+
+bool Pass(const Maze M, Position curpos) {
+  if (M->status[curpos.row][curpos.column] == '0' || M->status[curpos.row][curpos.column] == '2') {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void NextDir(DirEnum& dir) {
+  switch (dir) {
+    case Up:
+    {
+      dir = Right;
+      break;
+    }
+    case Right:
+    {
+      dir = Down;
+      break;
+    }
+    case Down:
+    {
+      dir = Left;
+      break;
+    }
+  }
+}
+
+bool MazePath(Maze M) {
+  Stack path = CreateStack();
+  Position start, end;
+  FindGate(M, start, end);
+  Position curpos = start;
+  ElementType block;
+  block.pos = curpos;
+  block.dir = Up;
+  do {
+    if (Pass(M, curpos)) {
+      FootPrint(M, curpos);
+      block.pos = curpos;
+      block.dir = Up;
+      Push(block, path);
+      if (curpos.row == end.row && curpos.column == curpos.column) {
+          return true;
+      }
+      curpos = NextPos(block.pos, block.dir);
+    } else {
+      if (!IsEmpty(path)) {
+        Pop(path);
+        while (block.dir == Left && !IsEmpty(path)) {
+          MarkPrint(M, block.pos);
+          block = Top(path);
+          Pop(path);
+        }
+        if (block.dir != Left) {
+          NextDir(block.dir);
+          Push(block, path);
+          curpos = NextPos(block.pos, block.dir);;
+        }
+      }
+    }
+  } while (!IsEmpty(path));
+  return false;
 }

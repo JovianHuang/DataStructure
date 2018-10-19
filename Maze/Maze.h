@@ -9,7 +9,7 @@
 /* Predefine */
 #define ROW 11
 #define COLUMN 11
-typedef int StatusType;
+typedef char StatusType;
 struct MNode {
   StatusType **status;  // To storage the status of this cell
   int row;              // The length of this maze
@@ -34,6 +34,8 @@ void DisposeMaze(Maze M);
 // Preconditions: Maze M already exists
 // Operation-result: The two-dimensional array standing of maze was freed.
 
-
+void FindGate(Maze M, Position & start, Position & end);
+// Preconditions: Maze M already exists, besides both entrance and exit must exists
+// Operation-result: Find the gate of the maze
 
 #endif // !MAZE_H
