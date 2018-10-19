@@ -1,5 +1,5 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef MAZESOLUTIONSTACK_H
+#define MAZESOLUTIONSTACK_H
 
 /* standard header files */
 #include <stdio.h>
@@ -10,6 +10,9 @@
 /* Predefine */
 #define EmptyTOS -1
 #define MaxCap 50
+
+//---------------------------------//
+// Specialization for solving maze //
 struct Position {
   int row;
   int column;
@@ -25,8 +28,10 @@ struct PNode {
   DirEnum dir;
 }; 
 typedef PNode ElementType;
+//-------------------------//
+
 struct SNode {
-  ElementType *Path;    // Array of storage elements
+  ElementType *Data;    // Array of storage elements
   int TopOfStack;  // Point to the top
   int Capacity;         // Maximum capacity of the stack
 };
@@ -52,7 +57,7 @@ void DisposeStack(Stack S);
 // Preconditons: Stack S already exists
 // Operation-result: The memory allocated to the stack have been free
 
-void Push(ElementType x, Stack S);
+void Push(ElementType x, Stack &S);
 // Preconditions: Stack S already exists
 // Operation-result: Push top of stack
 
@@ -65,6 +70,6 @@ void Pop(Stack S);
 // Operation-result: Pop the top of stack
 
 
-#endif // !STACK_H
+#endif // !MAZESOLUTIONSTACK_H
 
 

@@ -1,4 +1,4 @@
-#include "MazeStack.h"
+#include "MazeSolutionStack.h"
 #include "Maze.h"
 
 int main(int argc, char *argv[]) {

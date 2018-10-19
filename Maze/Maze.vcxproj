@@ -123,11 +123,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
-    <ClCompile Include="MazeStack.cpp" />
+    <ClCompile Include="MazeSolutionStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h" />
-    <ClInclude Include="MazeStack.h" />
+    <ClInclude Include="MazeSolutionStack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Maze0.txt" />

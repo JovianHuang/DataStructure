@@ -21,7 +21,7 @@
     <ClCompile Include="Maze.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MazeStack.cpp">
+    <ClCompile Include="MazeSolutionStack.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="Maze.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MazeStack.h">
+    <ClInclude Include="MazeSolutionStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

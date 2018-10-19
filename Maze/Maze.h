@@ -1,5 +1,5 @@
-#ifndef MAZESTACK_H
-#define MAZESTACK_H
+#ifndef MAZE_H
+#define MAZE_H
 
 /* standrad header files */
 #include <stdio.h>
@@ -36,4 +36,4 @@ void DisposeMaze(Maze M);
 
 
 
-#endif // !MAZESTACK_H
+#endif // !MAZE_H

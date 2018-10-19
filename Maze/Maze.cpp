@@ -1,4 +1,4 @@
-#include "MazeStack.h"
+#include "MazesolutionStack.h"
 #include "Maze.h"
 
 Maze CreateMazePrototype(void) {

@@ -1,4 +1,4 @@
-#include "MazeStack.h"
+#include "MazeSolutionStack.h"
 
 bool IsEmpty(Stack S) {
   bool isempty = false;
@@ -19,7 +19,7 @@ bool IsFull(Stack S) {
 Stack CreateStack(void) {
   Stack S;
   S = (Stack)malloc(sizeof(SNode));
-  S->Path = (ElementType *)malloc(sizeof(SNode) * MaxCap);
+  S->Data= (ElementType *)malloc(sizeof(SNode) * MaxCap);
   S->Capacity = MaxCap;
   MakeEmpty(S);
   return S;
@@ -31,23 +31,21 @@ void MakeEmpty(Stack S) {
 
 void DisposeStack(Stack S) {
   if (S != NULL) {
-    free(S->Path);
+    free(S->Data);
     free(S);
   }
 }
 
-void Push(ElementType x, Stack S) {
+void Push(ElementType x, Stack &S) {
   if (IsFull(S)) {
     puts("ERROR: Fail to push! Cuz the stack is full.");
   } else {
-    S->Path[++S->TopOfStack].dir = x.dir;
-    S->Path[S->TopOfStack].pos.row = x.pos.row;
-    S->Path[S->TopOfStack].pos.column = x.pos.column;
+    S->Data[++S->TopOfStack] = x;
   }
 }
 
 ElementType Top(Stack S) {
-  return S->Path[S->TopOfStack];
+  return S->Data[S->TopOfStack];
 }
 
 void Pop(Stack S) {
