@@ -65,31 +65,7 @@ void MarkPrint(Maze M, Position curpos) {
   M->status[curpos.row][curpos.column] = '@';
 }
 
-Position NextPos(Position curpos, DirEnum dir) {
-  switch (dir) {
-    case Up: 
-    {
-      curpos.row--;
-      break;
-    }
-    case Right:
-    {
-      curpos.column++;
-      break;
-    }
-    case Down:
-    {
-      curpos.row++;
-      break;
-    }
-    case Left:
-    {
-      curpos.column--;
-      break;
-    }
-  }
-  return curpos;
-}
+
 
 bool Pass(const Maze M, Position curpos) {
   if (curpos.row < 0 ||curpos.row > M->row) {
@@ -102,26 +78,6 @@ bool Pass(const Maze M, Position curpos) {
     return true;
   } else {
     return false;
-  }
-}
-
-void NextDir(DirEnum& dir) {
-  switch (dir) {
-    case Up:
-    {
-      dir = Right;
-      break;
-    }
-    case Right:
-    {
-      dir = Down;
-      break;
-    }
-    case Down:
-    {
-      dir = Left;
-      break;
-    }
   }
 }
 

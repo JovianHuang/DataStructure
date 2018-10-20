@@ -91,3 +91,49 @@ void FindGate(Maze M, Position& start, Position& end) {
     }
   }
 }
+
+void NextDir(DirEnum& dir) {
+  switch (dir) {
+    case Up:
+    {
+      dir = Right;
+      break;
+    }
+    case Right:
+    {
+      dir = Down;
+      break;
+    }
+    case Down:
+    {
+      dir = Left;
+      break;
+    }
+  }
+}
+
+Position NextPos(Position curpos, DirEnum dir) {
+  switch (dir) {
+    case Up:
+    {
+      curpos.row--;
+      break;
+    }
+    case Right:
+    {
+      curpos.column++;
+      break;
+    }
+    case Down:
+    {
+      curpos.row++;
+      break;
+    }
+    case Left:
+    {
+      curpos.column--;
+      break;
+    }
+  }
+  return curpos;
+}

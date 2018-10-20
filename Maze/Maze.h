@@ -17,6 +17,16 @@ struct MNode {
   bool initialization;  // To identify if the maze has been initialized
 };
 typedef struct MNode *Maze;
+struct Position {
+  int row;
+  int column;
+};
+enum DirEnum {
+  Up = 0,
+  Right,
+  Down,
+  Left
+};
 /* Predefine */
 
 Maze CreateMazePrototype(void);
@@ -37,5 +47,11 @@ void DisposeMaze(Maze M);
 void FindGate(Maze M, Position & start, Position & end);
 // Preconditions: Maze M already exists, besides both entrance and exit must exists
 // Operation-result: Find the gate of the maze
+
+void NextDir(DirEnum & dir);
+// Operation-result: To change the dir
+
+Position NextPos(Position curpos, DirEnum dir);
+// Operation-result: To know next block to go
 
 #endif // !MAZE_H
