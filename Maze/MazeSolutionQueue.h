@@ -13,6 +13,7 @@
 // Specialization for solving maze //
 #include "Maze.h"
 struct QPNode {
+  int order;
   Position pos;
   DirEnum dir;
 };
@@ -42,8 +43,14 @@ bool IsEmpty(Queue Q);
 bool AddQ(ElementType x, Queue Q);
 // Operation-result: Add a new element to the queue rear
 
-ElementType DeleteQ(Queue Q);
+bool DeleteQ(Queue Q);
 // Operation-result: Delete an element from front
 
+void DisposeQueue(Queue Q);
+// Preconditions: Queue Q already exists.
+// Operation-result: The memory allocated to this queue is free
+
+ElementType Front(Queue Q);
+// Operation-result: return the front element
 
 #endif // !MAZESOLUTIONQUEUE_H

@@ -48,6 +48,9 @@ void FindGate(Maze M, Position & start, Position & end);
 // Preconditions: Maze M already exists, besides both entrance and exit must exists
 // Operation-result: Find the gate of the maze
 
+bool Pass(const Maze M, Position curpos);
+// Operation-result: To know can it pass
+
 void NextDir(DirEnum & dir);
 // Operation-result: To change the dir
 

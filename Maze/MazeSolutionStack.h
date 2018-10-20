@@ -48,7 +48,7 @@ void DisposeStack(Stack S);
 // Preconditons: Stack S already exists
 // Operation-result: The memory allocated to the stack have been free
 
-void Push(ElementType x, Stack &S);
+bool Push(ElementType x, Stack &S);
 // Preconditions: Stack S already exists
 // Operation-result: Push top of stack
 
@@ -56,7 +56,7 @@ ElementType Top(Stack S);
 // Preconditions: Stack S already exists
 // Operation-result: Return the top of stack
 
-void Pop(Stack S);
+bool Pop(Stack S);
 // Preconditions: Stack S already exists
 // Operation-result: Pop the top of stack
 
@@ -65,9 +65,6 @@ void FootPrint(Maze M, Position curpos);
 
 void MarkPrint(Maze M, Position curpos);
 // Operation-result: Identifies this block to show that no way to go\
-
-bool Pass(const Maze M, Position curpos);
-// Operation-result: To know can it pass
 
 bool MazePathStack(Maze M);
 // Operation-result: To solve the maze

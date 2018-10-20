@@ -1,5 +1,4 @@
 #include "MazeSolutionStack.h"
-#include "Maze.h"
 
 bool IsEmpty(Stack S) {
   bool isempty = false;
@@ -37,11 +36,13 @@ void DisposeStack(Stack S) {
   }
 }
 
-void Push(ElementType x, Stack &S) {
+bool Push(ElementType x, Stack &S) {
   if (IsFull(S)) {
     puts("ERROR: Fail to push! Cuz the stack is full.");
+    return false;
   } else {
     S->Data[++S->TopOfStack] = x;
+    return true;
   }
 }
 
@@ -49,11 +50,13 @@ ElementType Top(Stack S) {
   return S->Data[S->TopOfStack];
 }
 
-void Pop(Stack S) {
+bool Pop(Stack S) {
   if (IsEmpty(S)) {
     puts("ERROE: Empty stack");
+    return false;
   } else {
     S->TopOfStack--;
+    return true;
   }
 }
 
@@ -65,30 +68,12 @@ void MarkPrint(Maze M, Position curpos) {
   M->status[curpos.row][curpos.column] = '@';
 }
 
-
-
-bool Pass(const Maze M, Position curpos) {
-  if (curpos.row < 0 ||curpos.row > M->row) {
-    return false;
-  }
-  if (curpos.column < 0 || curpos.column > M->column) {
-    return false;
-  }
-  if (M->status[curpos.row][curpos.column] == '0' || M->status[curpos.row][curpos.column] == '2') {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 bool MazePathStack(Maze M) {
   Stack path = CreateStack();
   Position start, end;
   FindGate(M, start, end);
   Position curpos = start;
   ElementType block;
-  block.pos = curpos;
-  block.dir = Up;
   do {
     if (Pass(M, curpos)) {
       FootPrint(M, curpos);
@@ -96,7 +81,8 @@ bool MazePathStack(Maze M) {
       block.dir = Up;
       Push(block, path);
       if (curpos.row == end.row && curpos.column == curpos.column) {
-          return true;
+        DisposeStack(path);
+        return true;
       }
       curpos = NextPos(block.pos, block.dir);
     } else {
@@ -115,5 +101,6 @@ bool MazePathStack(Maze M) {
       }
     }
   } while (!IsEmpty(path));
+  DisposeStack(path);
   return false;
 }

@@ -92,6 +92,20 @@ void FindGate(Maze M, Position& start, Position& end) {
   }
 }
 
+bool Pass(const Maze M, Position curpos) {
+  if (curpos.row < 0 || curpos.row > M->row) {
+    return false;
+  }
+  if (curpos.column < 0 || curpos.column > M->column) {
+    return false;
+  }
+  if (M->status[curpos.row][curpos.column] == '0' || M->status[curpos.row][curpos.column] == '2') {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 void NextDir(DirEnum& dir) {
   switch (dir) {
     case Up:
