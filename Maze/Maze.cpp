@@ -18,7 +18,7 @@ Maze CreateMazePrototype(void) {
 Maze GetMazeFromFile(Maze M, const char * filename) {
   FILE *fp;
   if ((fp = fopen(filename, "r")) == NULL) {
-    printf("The file: %s does not exist, maze initialization failed!", filename);
+    printf("The file: \"%s\" does not exist, maze initialization failed!", filename);
     return M;
   }
   int temp;
@@ -48,6 +48,7 @@ void PrintMaze(Maze M) {
     }
     printf("\n");
   }
+  printf("\n");
 }
 
 void DisposeMaze(Maze M) {

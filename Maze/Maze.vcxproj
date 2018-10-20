@@ -123,14 +123,19 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="MazeSolutionQueue.cpp" />
     <ClCompile Include="MazeSolutionStack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h" />
+    <ClInclude Include="MazeSolutionQueue.h" />
     <ClInclude Include="MazeSolutionStack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Maze0.txt" />
+    <Text Include="Maze1.txt" />
+    <Text Include="Maze2.txt" />
+    <Text Include="Maze3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

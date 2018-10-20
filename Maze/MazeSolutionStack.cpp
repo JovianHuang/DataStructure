@@ -92,6 +92,12 @@ Position NextPos(Position curpos, DirEnum dir) {
 }
 
 bool Pass(const Maze M, Position curpos) {
+  if (curpos.row < 0 ||curpos.row > M->row) {
+    return false;
+  }
+  if (curpos.column < 0 || curpos.column > M->column) {
+    return false;
+  }
   if (M->status[curpos.row][curpos.column] == '0' || M->status[curpos.row][curpos.column] == '2') {
     return true;
   } else {
@@ -119,7 +125,7 @@ void NextDir(DirEnum& dir) {
   }
 }
 
-bool MazePath(Maze M) {
+bool MazePathStack(Maze M) {
   Stack path = CreateStack();
   Position start, end;
   FindGate(M, start, end);

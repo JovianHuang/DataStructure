@@ -85,7 +85,7 @@ bool Pass(const Maze M, Position curpos);
 void NextDir(DirEnum & dir);
 // Operation-result: To change the dir
 
-bool MazePath(Maze M);
+bool MazePathStack(Maze M);
 // Operation-result: To solve the maze
 
 #endif // !MAZESOLUTIONSTACK_H
