@@ -19,7 +19,7 @@ bool IsFull(Stack S) {
 Stack CreateStack(void) {
   Stack S;
   S = (Stack)malloc(sizeof(SNode));
-  S->Data= (ElementType *)malloc(sizeof(SNode) * MaxCap);
+  S->Data= (SElementType *)malloc(sizeof(SNode) * MaxCap);
   S->Capacity = MaxCap;
   MakeEmpty(S);
   return S;
@@ -36,7 +36,7 @@ void DisposeStack(Stack S) {
   }
 }
 
-bool Push(ElementType x, Stack &S) {
+bool Push(SElementType x, Stack &S) {
   if (IsFull(S)) {
     puts("ERROR: Fail to push! Cuz the stack is full.");
     return false;
@@ -46,7 +46,7 @@ bool Push(ElementType x, Stack &S) {
   }
 }
 
-ElementType Top(Stack S) {
+SElementType Top(Stack S) {
   return S->Data[S->TopOfStack];
 }
 
@@ -60,27 +60,25 @@ bool Pop(Stack S) {
   }
 }
 
-void FootPrint(Maze M, Position curpos) {
-  M->status[curpos.row][curpos.column] = '*';
-}
-
-void MarkPrint(Maze M, Position curpos) {
-  M->status[curpos.row][curpos.column] = '@';
-}
-
 bool MazePathStack(Maze M) {
   Stack path = CreateStack();
   Position start, end;
   FindGate(M, start, end);
   Position curpos = start;
-  ElementType block;
+  SElementType block;
+  Maze tempM = CopyMaze(M);
   do {
-    if (Pass(M, curpos)) {
-      FootPrint(M, curpos);
+    if (Pass(tempM, curpos)) {
+      FootPrint(tempM, curpos);
       block.pos = curpos;
       block.dir = Up;
       Push(block, path);
       if (curpos.row == end.row && curpos.column == curpos.column) {
+        while (!IsEmpty(path)) {
+          FootPrint(M, curpos);
+          Pop(path);
+          curpos = Top(path).pos;
+        }
         DisposeStack(path);
         return true;
       }
@@ -89,7 +87,7 @@ bool MazePathStack(Maze M) {
       if (!IsEmpty(path)) {
         Pop(path);
         while (block.dir == Left && !IsEmpty(path)) {
-          MarkPrint(M, block.pos);
+          MarkPrint(tempM, block.pos);
           block = Top(path);
           Pop(path);
         }

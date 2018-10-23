@@ -2,7 +2,7 @@
 
 Queue CreateQueue(void) {
   Queue Q = (Queue)malloc(sizeof(QNode));
-  Q->Data = (ElementType *)malloc(sizeof(ElementType) * MaxSize);
+  Q->Data = (QElementType *)malloc(sizeof(QElementType) * MaxSize);
   Q->Front = Q->Rear = 0;
   Q->Size = MaxSize;
   return Q;
@@ -16,7 +16,7 @@ bool IsEmpty(Queue Q) {
   return (Q->Front == Q->Rear);
 }
 
-bool AddQ(ElementType x, Queue Q) {
+bool AddQ(QElementType x, Queue &Q) {
   if (IsFull(Q)) {
     puts("Queue is full.");
     return false;
@@ -44,7 +44,7 @@ void DisposeQueue(Queue Q) {
   }
 }
 
-ElementType Front(Queue Q) {
+QElementType Front(Queue Q) {
   return Q->Data[Q->Front];
 }
 
@@ -52,29 +52,48 @@ bool MazePathQueue(Maze M) {
   Queue path = CreateQueue();
   Position start, end;
   FindGate(M, start, end);
-  Position curpos = start;
-  ElementType block;
-  do {
-    if (Pass(M, curpos)) {
-
-      block.pos = curpos;
-      block.dir = Up;
-      if (curpos.row == end.row && curpos.column == end.column) {
-
-        return true;
-      }
+  Position curpos;
+  QElementType block;
+  block.order = 1;
+  block.pos = start;
+  block.pre = -1;
+  block.dir = Up;
+  AddQ(block, path);
+  Maze tempM = CopyMaze(M);
+  tempM->status[start.row][start.column] = '*';
+  while (!IsEmpty(path)) {
+    do {
       curpos = NextPos(block.pos, block.dir);
+      if (Pass(tempM, curpos)) {
+        FootPrint(tempM, curpos);
+        QElementType temp;
+        temp.pos = curpos;
+        temp.pre = block.order;
+        temp.dir = Up;
+        temp.order = path->Rear + 1;
+        AddQ(temp, path);
+      } else {
+        if (!OutOfBound(curpos)) {
+          MarkPrint(tempM, curpos);
+        }
+      }
+      NextDir(block.dir);
+    } while (block.dir != Up);
+    if (block.order + 1 <= path->Rear) {
+      block = path->Data[block.order + 1];
     } else {
-
-      while (block.dir == Left && !IsEmpty(path)) {
-
-      }
-      if (block.dir != Left) {
-        NextDir(block.dir);
-
-      }
+      DisposeQueue(path);
+      return false;
     }
-  } while (!IsEmpty(path));
-  DisposeQueue(path);
-  return false;
+    if (block.pos.row == end.row && block.pos.column == end.column) {
+      QElementType mark = path->Data[path->Rear];
+      while (mark.pre != -1) {
+        FootPrint(M, mark.pos);
+        mark = path->Data[mark.pre];
+      }
+      FootPrint(M, start);
+      DisposeQueue(path);
+      return true;
+    }
+  }
 }

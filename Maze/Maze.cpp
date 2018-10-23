@@ -93,10 +93,7 @@ void FindGate(Maze M, Position& start, Position& end) {
 }
 
 bool Pass(const Maze M, Position curpos) {
-  if (curpos.row < 0 || curpos.row > M->row) {
-    return false;
-  }
-  if (curpos.column < 0 || curpos.column > M->column) {
+  if (OutOfBound(curpos)) {
     return false;
   }
   if (M->status[curpos.row][curpos.column] == '0' || M->status[curpos.row][curpos.column] == '2') {
@@ -104,6 +101,24 @@ bool Pass(const Maze M, Position curpos) {
   } else {
     return false;
   }
+}
+
+bool OutOfBound(Position pos) {
+  if (pos.row < 0 || pos.row > ROW) {
+    return true;
+  } else if (pos.column < 0 || pos.column > COLUMN) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void FootPrint(Maze &M, Position curpos) {
+  M->status[curpos.row][curpos.column] = '*';
+}
+
+void MarkPrint(Maze &M, Position curpos) {
+  M->status[curpos.row][curpos.column] = '@';
 }
 
 void NextDir(DirEnum& dir) {
@@ -121,6 +136,11 @@ void NextDir(DirEnum& dir) {
     case Down:
     {
       dir = Left;
+      break;
+    }
+    case Left:
+    {
+      dir = Up;
       break;
     }
   }
@@ -150,4 +170,15 @@ Position NextPos(Position curpos, DirEnum dir) {
     }
   }
   return curpos;
+}
+
+Maze CopyMaze(Maze source) {
+  Maze newMaze = CreateMazePrototype();
+  for (int i = 0; i < ROW; i++) {
+    for (int j = 0; j < COLUMN; j++) {
+      newMaze->status[i][j] = source->status[i][j];
+    }
+  }
+  newMaze->initialization = true;
+  return newMaze;
 }

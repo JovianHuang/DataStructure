@@ -51,10 +51,22 @@ void FindGate(Maze M, Position & start, Position & end);
 bool Pass(const Maze M, Position curpos);
 // Operation-result: To know can it pass
 
+bool OutOfBound(Position pos);
+// Operation-result: To check if this position out of bound
+
+void FootPrint(Maze &M, Position curpos);
+// Operation-result: Identifies this block to show that it have passed
+
+void MarkPrint(Maze &M, Position curpos);
+// Operation-result: Identifies this block to show that no way to go\
+
 void NextDir(DirEnum & dir);
 // Operation-result: To change the dir
 
 Position NextPos(Position curpos, DirEnum dir);
 // Operation-result: To know next block to go
+
+Maze CopyMaze(Maze source);
+// Operation-result: Copy a maze
 
 #endif // !MAZE_H

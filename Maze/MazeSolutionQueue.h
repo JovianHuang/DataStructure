@@ -8,21 +8,22 @@
 /* stdanard header files */
 
 /* Predefine */
-#define MaxSize 50
+#define MaxSize 100
 //---------------------------------//
 // Specialization for solving maze //
 #include "Maze.h"
 struct QPNode {
   int order;
   Position pos;
+  int pre;
   DirEnum dir;
 };
-typedef QPNode ElementType;
+typedef QPNode QElementType;
 //-------------------------//
 
 typedef int Ptr;
 struct QNode {
-  ElementType *Data;  // Array of storage elements
+  QElementType *Data;  // Array of storage elements
   Ptr Front, Rear;    // Pointer to the front and the rear of the queue
   int Size;        // The maximum size of the queue
 };
@@ -40,7 +41,7 @@ bool IsEmpty(Queue Q);
 // Preconditions: Queue already exists.
 // Operation-result£ºreturn a bool value to represent is empty or not
 
-bool AddQ(ElementType x, Queue Q);
+bool AddQ(QElementType x, Queue &Q);
 // Operation-result: Add a new element to the queue rear
 
 bool DeleteQ(Queue Q);
@@ -50,7 +51,9 @@ void DisposeQueue(Queue Q);
 // Preconditions: Queue Q already exists.
 // Operation-result: The memory allocated to this queue is free
 
-ElementType Front(Queue Q);
+QElementType Front(Queue Q);
 // Operation-result: return the front element
+
+bool MazePathQueue(Maze M);
 
 #endif // !MAZESOLUTIONQUEUE_H
