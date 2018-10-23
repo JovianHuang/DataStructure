@@ -60,7 +60,7 @@ bool MazePathQueue(Maze M) {
   block.dir = Up;
   AddQ(block, path);
   Maze tempM = CopyMaze(M);
-  tempM->status[start.row][start.column] = '*';
+  FootPrint(tempM, start);
   while (!IsEmpty(path)) {
     do {
       curpos = NextPos(block.pos, block.dir);
