@@ -6,9 +6,9 @@ int main(int argc, char * argv[]) {
   StrAssign(test1, str);
   printf("%s\n", test1.str);
   String test2 = StrIniti();
-  //StrCopy(test2, test1, 1, 5);
+  StrCopy(test2, test1, 1, 5);
   printf("%s\n", test2.str);
-  int cmp = StrCompare(test1, test2);
+  int cmp = StrCompare(test2, test1);
   printf("%d", cmp);
   return 0;
 }
