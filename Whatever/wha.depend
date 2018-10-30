@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1540641635 source:c:\users\jovian\desktop\wha\src\string.cpp
+	"String.h"
+
+1540641635 source:c:\users\jovian\desktop\wha\heap.cpp
+	"Heap.h"
+
+1540641635 c:\users\jovian\desktop\wha\heap.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1540641635 source:c:\users\jovian\desktop\wha\string.cpp
+	"String.h"
+
+1540641635 c:\users\jovian\desktop\wha\string.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Fixed.h"
+
+1540641635 c:\users\jovian\desktop\wha\fixed.h
+
+1540641966 source:c:\users\jovian\desktop\wha\main.cpp
+	"Heap.h"
+	"String.h"
+

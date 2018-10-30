@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MergingofOrderedLLSequences
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Whatever", "Whatever\Whatever.vcxproj", "{16BC978F-BFED-423C-AE89-A8272FD66B3B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextEditor", "TextEditor\TextEditor.vcxproj", "{404EBF2E-E656-44ED-B17A-501D943832E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{16BC978F-BFED-423C-AE89-A8272FD66B3B}.Release|x64.Build.0 = Release|x64
 		{16BC978F-BFED-423C-AE89-A8272FD66B3B}.Release|x86.ActiveCfg = Release|Win32
 		{16BC978F-BFED-423C-AE89-A8272FD66B3B}.Release|x86.Build.0 = Release|Win32
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Debug|x64.ActiveCfg = Debug|x64
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Debug|x64.Build.0 = Debug|x64
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Debug|x86.ActiveCfg = Debug|Win32
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Debug|x86.Build.0 = Debug|Win32
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x64.ActiveCfg = Release|x64
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x64.Build.0 = Release|x64
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x86.ActiveCfg = Release|Win32
+		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
