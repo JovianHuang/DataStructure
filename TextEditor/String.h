@@ -13,6 +13,7 @@ typedef struct {
   the length of the string, otherwise str is NULL */
   int length;
 }String;
+#define SIZE_STOP 1
 
 String StrIniti(void);
 
@@ -23,6 +24,10 @@ void StrAssign(String & T, char * chars);
 void StrCopy(String & T, String source, int pos, int len);
 
 int StrCompare(String S, String T);
+
+void StrConcat(String & T, String S1, String S2);
+
+String SubString(String S, int pos, int len);
 
 
 #endif // !STRING_H

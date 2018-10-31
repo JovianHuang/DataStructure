@@ -121,9 +121,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="String.cpp" />
+    <ClCompile Include="TextEdit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="String.h" />
+    <ClInclude Include="TextEdit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
