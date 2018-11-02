@@ -40,10 +40,10 @@ void StrCopy(String &T, String source, int pos, int len) {
 }
 
 int StrCompare(String S, String T) {
-  if (!S.str || !T.str) {
-    puts("String doesn't exsit.");
-  } else {
+  if (S.str && T.str) {
     return S.length - T.length;
+  } else {
+    puts("String doesn't exsit.");
   }
 }
 
@@ -75,3 +75,5 @@ String SubString(String S, int pos, int len) {
 void StringInsert(String &T, char * s, int pos) {
 
 }
+
+

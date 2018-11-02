@@ -5,7 +5,7 @@
 
 typedef struct {
   int rows;
-  (String *) *content;
+  String * *content;
 }Text;
 
 #endif // !TEXTEDIT_H
