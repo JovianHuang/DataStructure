@@ -78,16 +78,19 @@ String SubString(String S, int pos, int len) {
 }
 
 void StrInsert(String &T, int pos, char * s) {
-  String FrontSub = SubString(T, 0, pos);
-  String RearSub = SubString(T, pos, T.length - pos);
+  String frontSub = SubString(T, 0, pos);
+  String rearSub = SubString(T, pos, T.length - pos);
   String S = StrIniti();
   StrAssign(S, s);
-  StrConcat(T, FrontSub, S);
+  StrConcat(T, frontSub, S);
   String temp = StrIniti();
   StrCopy(temp, T, 1, T.length);
-  StrConcat(T, temp, RearSub);
+  StrConcat(T, temp, rearSub);
 }
 
 void StrDelete(String &T, int pos, int len) {
-  
+  int endPos = pos + len; // The end position of the substring that should be deleted
+  int rearSubLen = T.length - endPos; // len of rear substring
+  String sub = SubString(T, endPos, rearSubLen);
+
 }
