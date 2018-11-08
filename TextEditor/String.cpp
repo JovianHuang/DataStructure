@@ -18,8 +18,9 @@ void StrAssign(String &T, char * chars) {
   if (T.str) {
     free(T.str);
   }
-  T.length = StrLength(chars);
-  T.str = (char *)malloc((T.length + SIZE_STOP) * sizeof(char));
+  int len = StrLength(chars);
+  T.str = (char *)malloc((len + SIZE_STOP) * sizeof(char));
+  T.length = len;
   for (int j = 0; j <= T.length; j++) { // inculding the '\0'
     T.str[j] = chars[j];
   }
@@ -48,8 +49,12 @@ int StrCompare(String S, String T) {
 }
 
 void StrConcat(String &T, String S1, String S2) {
-  T.length = S1.length + S2.length;
-  T.str = (char *)malloc((T.length +SIZE_STOP) * sizeof(char));
+  int len = S1.length + S2.length;
+  if (T.str) {
+    free(T.str);
+  }
+  T.str = (char *)malloc((len +SIZE_STOP) * sizeof(char));
+  T.length = len;
   int i;
   for (i = 0; i < S1.length; i++) {
     T.str[i] = S1.str[i];
@@ -72,8 +77,17 @@ String SubString(String S, int pos, int len) {
   return sub;
 }
 
-void StringInsert(String &T, char * s, int pos) {
-
+void StrInsert(String &T, int pos, char * s) {
+  String FrontSub = SubString(T, 0, pos);
+  String RearSub = SubString(T, pos, T.length - pos);
+  String S = StrIniti();
+  StrAssign(S, s);
+  StrConcat(T, FrontSub, S);
+  String temp = StrIniti();
+  StrCopy(temp, T, 1, T.length);
+  StrConcat(T, temp, RearSub);
 }
 
-
+void StrDelete(String &T, int pos, int len) {
+  
+}

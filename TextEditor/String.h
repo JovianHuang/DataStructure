@@ -42,7 +42,7 @@ String SubString(String S, int pos, int len);
 // Preconditions: String S already exists
 // Operation-result: Cut the sub - string
 
-void StringInsert(String &T, char * s, int pos);
+void StrInsert(String &T, int pos, char * s);
 // Preconditions: String T already exists
 // Operation-result: Insert string s into the String T on the position pos.
 
