@@ -46,6 +46,16 @@ void StrInsert(String &T, int pos, char * s);
 // Preconditions: String T already exists
 // Operation-result: Insert string s into the String T on the position pos.
 
+void StrDelete(String & T, int pos, int len);
+// Preconditions: String T already exists
+// Operation-result: Delete a string that length is len from position pos at T
+
+void GetNext(String T, int next[]);
+// Operation-result: Get ¡®next¡¯ of T
+
+int IndexKMP(String S, String T, int pos);
+// Operation-result: Find the String T in the String S from the begin position pos
+
 
 #endif // !STRING_H
 

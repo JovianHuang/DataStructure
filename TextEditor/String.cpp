@@ -91,6 +91,45 @@ void StrInsert(String &T, int pos, char * s) {
 void StrDelete(String &T, int pos, int len) {
   int endPos = pos + len; // The end position of the substring that should be deleted
   int rearSubLen = T.length - endPos; // len of rear substring
-  String sub = SubString(T, endPos, rearSubLen);
+  String rearSub = SubString(T, endPos, rearSubLen);
+  String frontSub = SubString(T, 0, pos);
+  StrConcat(T, frontSub, rearSub);
+}
 
+void GetNext(String T, int next[]) {
+  int i = 1;
+  int j = 0;
+  next[1] = 0;
+  while (i < T.length) {
+    if (j == 0 || T.str[i] == T.str[j]) {
+      ++i;
+      ++j;
+      if (T.str[i] != T.str[j]) {
+        next[i] = j;
+      } else {
+        next[i] = next[j];
+      }
+    } else {
+      j = next[j];
+    }
+  }
+}
+
+int IndexKMP(String S, String T, int pos) {
+  int *next = (int *)malloc(sizeof(int) * T.length);
+  int i = pos;
+  int j = 1;
+  while (i <= S.length && j <= T.length) {
+    if (j == 0 || S.str[i] == S.str[j]) {
+      ++i;
+      ++j;
+    } else {
+      j = next[j];
+    }
+  }
+  if (j > T.length) {
+    return i - T.length;
+  } else {
+    return 0;
+  }
 }
