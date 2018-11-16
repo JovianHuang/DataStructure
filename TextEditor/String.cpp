@@ -1,10 +1,10 @@
 #include "String.h"
 
 String StrIniti(void) {
-  String string;
-  string.length = 0;
-  string.str = NULL;
-  return string;
+  String *string = (String *)malloc(sizeof(String));
+  string->length = 0;
+  string->str = NULL;
+  return *string;
 }
 
 int StrLength(char * str) {
