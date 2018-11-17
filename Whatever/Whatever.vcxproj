@@ -19,16 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Another_fuc.cpp" />
+    <Text Include="text.txt" />
+    <Text Include="text2.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SString.cpp" />
+    <ClCompile Include="String.cpp" />
+    <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Mazein.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Another_fuc.h" />
-    <ClInclude Include="SString.h" />
+    <ClInclude Include="String.h" />
+    <ClInclude Include="user.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

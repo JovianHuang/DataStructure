@@ -15,26 +15,29 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Another_fuc.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SString.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Mazein.txt">
+    <Text Include="text.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="text2.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Another_fuc.h">
+    <ClCompile Include="user.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="String.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="String.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SString.h">
+    <ClInclude Include="user.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
