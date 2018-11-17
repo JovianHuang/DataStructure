@@ -148,13 +148,15 @@ bool DeleteARow(Text &T, int row) {
     for (int i = row; i < T.rows; i++) {
       Swap(T, i, i + 1);
     }
-    free(T.content[T.rows]);
+    //free(T.content[T.rows]);
     T.rows--;
+    const int remain = 1;
+    String ** newBlock= (String **)realloc(T.content, sizeof(String *) * (T.rows+ remain));
     return true;
   }
 }
 
-bool InsertARow(Text &T, String newRow, int row) {
+bool InsertARow(Text &T, String &newRow, int row) {
   T.rows++;
   String ** newBlock = (String **)realloc(T.content, sizeof(String *) * T.rows);
   if (newBlock == NULL) {
@@ -167,5 +169,9 @@ bool InsertARow(Text &T, String newRow, int row) {
     Swap(T, i, i - 1);
   }
   return true;
+}
+
+bool SearchStr(Text T, String S, int row) {
+
 }
 

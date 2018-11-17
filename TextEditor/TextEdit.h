@@ -11,6 +11,7 @@ typedef struct {
 
 void ReadFromFile(Text & text, char * filename);
 
+
 bool SaveToFile(Text text, char * filename);
 
 bool SaveAsFile(Text text, char * filename);
@@ -35,7 +36,7 @@ int CountNumOfRows(const Text T);
 
 bool DeleteARow(Text & T, int row);
 
-bool InsertARow(Text & T, String newRow, int row);
+bool InsertARow(Text & T, String &newRow, int row);
 
 
 #endif // !TEXTEDIT_H

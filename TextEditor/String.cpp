@@ -45,6 +45,7 @@ int StrCompare(String S, String T) {
     return S.length - T.length;
   } else {
     puts("String doesn't exsit.");
+    return -99;
   }
 }
 
@@ -133,3 +134,5 @@ int IndexKMP(String S, String T, int pos) {
     return 0;
   }
 }
+
+

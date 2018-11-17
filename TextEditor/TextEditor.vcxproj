@@ -124,10 +124,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="TextEdit.cpp" />
+    <ClCompile Include="UserFunctions.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="String.h" />
     <ClInclude Include="TextEdit.h" />
+    <ClInclude Include="UserFunctions.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="test.txt" />
