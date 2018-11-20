@@ -27,6 +27,9 @@
     <ClCompile Include="UserFunctions.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="InputCheck.cpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="String.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="UserFunctions.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InputCheck.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

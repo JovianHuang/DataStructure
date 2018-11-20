@@ -179,6 +179,18 @@ bool SearchStr(Text T, String S, int row) {
       return true;
     }
   }
+  puts("Search term not found.");
   return false;
+}
+
+bool ReplaceStr(String &S1, String S2, int row) {
+  int pos = IndexKMP(S1, S2, 0);
+  if (pos) {
+    StrDelete(S1, pos, S2.length);
+    StrInsert(S1, pos, S2.str);
+    return true;
+  } else {
+    return false;
+  }
 }
 

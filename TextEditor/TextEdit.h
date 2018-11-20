@@ -38,6 +38,8 @@ bool DeleteARow(Text & T, int row);
 
 bool InsertARow(Text & T, String &newRow, int row);
 
+int SearchStr(Text T, String S, int row);
+
 
 #endif // !TEXTEDIT_H
 

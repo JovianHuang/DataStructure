@@ -8,6 +8,7 @@
 * =========================================================================== *
 */
 #include "TextEdit.h"
+#include "InputCheck.h"
 
 int main(int argc, char * argv[]) {
   Text text;
