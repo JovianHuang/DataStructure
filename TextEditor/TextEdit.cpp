@@ -172,6 +172,13 @@ bool InsertARow(Text &T, String &newRow, int row) {
 }
 
 bool SearchStr(Text T, String S, int row) {
-
+  for (int i = row; i < T.rows; i++) {
+    int pos = IndexKMP(*T.content[row], S, 0);
+    if (pos) {
+      PrintRow(T, i);
+      return true;
+    }
+  }
+  return false;
 }
 

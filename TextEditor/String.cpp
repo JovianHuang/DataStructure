@@ -118,6 +118,7 @@ void GetNext(String T, int next[]) {
 
 int IndexKMP(String S, String T, int pos) {
   int *next = (int *)malloc(sizeof(int) * T.length);
+  GetNext(T, next);
   int i = pos;
   int j = 1;
   while (i <= S.length && j <= T.length) {

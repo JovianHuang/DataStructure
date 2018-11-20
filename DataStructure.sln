@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Whatever", "Whatever\Whatev
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextEditor", "TextEditor\TextEditor.vcxproj", "{404EBF2E-E656-44ED-B17A-501D943832E9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InputCheck", "InputCheck\InputCheck.vcxproj", "{8D48487B-598E-4E81-BF99-2FC60C795739}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -91,6 +93,14 @@ Global
 		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x64.Build.0 = Release|x64
 		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x86.ActiveCfg = Release|Win32
 		{404EBF2E-E656-44ED-B17A-501D943832E9}.Release|x86.Build.0 = Release|Win32
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Debug|x64.ActiveCfg = Debug|x64
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Debug|x64.Build.0 = Debug|x64
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Debug|x86.ActiveCfg = Debug|Win32
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Debug|x86.Build.0 = Debug|Win32
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Release|x64.ActiveCfg = Release|x64
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Release|x64.Build.0 = Release|x64
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Release|x86.ActiveCfg = Release|Win32
+		{8D48487B-598E-4E81-BF99-2FC60C795739}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

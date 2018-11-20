@@ -47,11 +47,14 @@ char *String_Connect(char *d, char *s) {
     //h = c + i;
   }
 
-  for (; *d != '\0'; h++, d++)//串连接
+  //for (; *d != '\0'; h++, d++)//串连接
+  for (; *d != '\0'; c++, d++)//串连接
   {
-    *h = *d;
+    //*h = *d;
+    *c = *d;
   }
-  *h = '\0';
+  //*h = '\0';
+  *c = '\0';
   //return c;
   return s;
 }

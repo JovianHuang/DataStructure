@@ -10,6 +10,16 @@
 #include "TextEdit.h"
 
 int main(int argc, char * argv[]) {
+  Text text;
+  char filename[] = "text.txt";
+  ReadFromFile(text, filename);
+  PrintTxt(text);
+  puts("str to search:");
+  String S = StrIniti();
+  char sts[100];
+  fgets(sts, 100, stdin);
   
+  StrAssign(S, sts);
+
   return 0;
 }
