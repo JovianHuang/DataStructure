@@ -16,6 +16,8 @@ bool SaveToFile(Text text, char * filename);
 
 bool SaveAsFile(Text text, char * filename);
 
+bool RowNumIsLegal(const Text text, int row);
+
 int PrintRow(Text text, int row);
 
 int PrintTxt(Text text);
@@ -38,7 +40,7 @@ bool DeleteARow(Text & T, int row);
 
 bool InsertARow(Text & T, String &newRow, int row);
 
-int SearchStr(Text T, String S, int row);
+bool SearchStr(Text T, String S, int row);
 
 
 #endif // !TEXTEDIT_H

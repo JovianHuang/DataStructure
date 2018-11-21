@@ -98,42 +98,39 @@ void StrDelete(String &T, int pos, int len) {
 }
 
 void GetNext(String T, int next[]) {
-  int i = 1;
-  int j = 0;
-  next[1] = 0;
-  while (i < T.length) {
-    if (j == 0 || T.str[i] == T.str[j]) {
-      ++i;
-      ++j;
-      if (T.str[i] != T.str[j]) {
-        next[i] = j;
-      } else {
-        next[i] = next[j];
-      }
+  int i , j;
+  next[0] = -1;
+  for (j = 1; j < T.length; j++) {
+    i = next[j - 1];
+    while ((i >= 0) && (T.str[i + 1] != T.str[j])) {
+      i = next[i];
+    }
+    if (T.str[i + 1] == T.str[j]) {
+      next[j] = i + 1;
     } else {
-      j = next[j];
+      next[j] = -1;
     }
   }
 }
 
 int IndexKMP(String S, String T, int pos) {
+  if (S.length < T.length) {
+    return -1;
+  }
   int *next = (int *)malloc(sizeof(int) * T.length);
   GetNext(T, next);
-  int i = pos;
-  int j = 1;
-  while (i <= S.length && j <= T.length) {
-    if (j == 0 || S.str[i] == S.str[j]) {
-      ++i;
-      ++j;
+  int s, t;
+  s = t = 0;
+  while (s < S.length && t < T.length) {
+    if (S.str[s] == T.str[t]) {
+      s++; t++;
+    } else if (t >0) {
+      t = next[t - 1] + 1;
     } else {
-      j = next[j];
+      s++;
     }
   }
-  if (j > T.length) {
-    return i - T.length;
-  } else {
-    return 0;
-  }
+  return (t == T.length) ? (s - T.length) : -1;
 }
 
 

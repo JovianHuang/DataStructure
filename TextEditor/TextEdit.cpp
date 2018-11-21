@@ -63,8 +63,15 @@ bool SaveAsFile(Text text, char *filename) {
   return true;
 }
 
+bool RowNumIsLegal(const Text text, int row) {
+  if (row > 0 && row < text.rows) {
+    return true;
+  }
+  return false;
+}
+
 int PrintRow(Text text, int row) {
-  if (row > 0 || row <= text.rows) {
+  if (RowNumIsLegal(text, row)) {
     printf("%d: %s", row, text.content[row]->str);
     return row;
   } else {
@@ -77,7 +84,7 @@ int PrintTxt(Text text) {
   for (int i = 1; i <= text.rows; i++) {
     printf("%d: %s",i, text.content[i]->str);
   }
-  printf("\n");
+  printf("\n\n");
   return text.rows;
 }
 
@@ -89,7 +96,7 @@ void Swap(Text &T, int row1, int row2) {
 }
 
 bool MoveUp(Text &T, int row, int times) {
-  if (row - times <= 0) {
+  if (RowNumIsLegal(T, row - times)) {
     puts("Exceeding the range of existing lines.");
     return false;
   }
@@ -101,7 +108,7 @@ bool MoveUp(Text &T, int row, int times) {
 }
 
 bool MoveDown(Text &T, int row, int times) {
-  if (row - times <= 0) {
+  if (RowNumIsLegal(T, row + times)) {
     puts("Exceeding the range of existing lines.");
     return false;
   }
@@ -144,19 +151,21 @@ bool DeleteARow(Text &T, int row) {
   if (row < 1 || row > T.rows) {
     puts("Exceeding the range of existing lines.");
     return false;
-  } else {
-    for (int i = row; i < T.rows; i++) {
-      Swap(T, i, i + 1);
-    }
-    //free(T.content[T.rows]);
-    T.rows--;
-    const int remain = 1;
-    String ** newBlock= (String **)realloc(T.content, sizeof(String *) * (T.rows+ remain));
-    return true;
   }
+  for (int i = row; i < T.rows; i++) {
+    Swap(T, i, i + 1);
+  }
+  //free(T.content[T.rows]);
+  T.rows--;
+  const int remain = 1;
+  String ** newBlock= (String **)realloc(T.content, sizeof(String *) * (T.rows+ remain));
+  return true;
 }
 
 bool InsertARow(Text &T, String &newRow, int row) {
+  if (!RowNumIsLegal(T, row)) {
+    return false;
+  }
   T.rows++;
   String ** newBlock = (String **)realloc(T.content, sizeof(String *) * T.rows);
   if (newBlock == NULL) {
@@ -172,9 +181,12 @@ bool InsertARow(Text &T, String &newRow, int row) {
 }
 
 bool SearchStr(Text T, String S, int row) {
+  if (!RowNumIsLegal(T, row)) {
+    return false;
+  }
   for (int i = row; i < T.rows; i++) {
-    int pos = IndexKMP(*T.content[row], S, 0);
-    if (pos) {
+    int pos = IndexKMP(*T.content[i], S, 0);
+    if (pos != -1) {
       PrintRow(T, i);
       return true;
     }
@@ -183,7 +195,7 @@ bool SearchStr(Text T, String S, int row) {
   return false;
 }
 
-bool ReplaceStr(String &S1, String S2, int row) {
+bool ReplaceStr(String &S1, String S2) {
   int pos = IndexKMP(S1, S2, 0);
   if (pos) {
     StrDelete(S1, pos, S2.length);
