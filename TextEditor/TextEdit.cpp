@@ -34,13 +34,13 @@ void ReadFromFile(Text &text, char *filename) {
   fclose(fp);
 }
 
-bool SaveToFile(Text text, char *filename) {
+bool SaveToFile(Text  &text, char *filename) {
   FILE *fp;
   if ((fp = fopen(filename, "r+")) == NULL) {
     puts("File does not exist.");
     return false;
   } else {
-    for (int i = 0; i < text.rows; i++) {
+    for (int i = 1; i <= text.rows; i++) {
       fputs(text.content[i]->str, fp);
     }
   }
@@ -48,7 +48,7 @@ bool SaveToFile(Text text, char *filename) {
   return true;
 }
 
-bool SaveAsFile(Text text, char *filename) {
+bool SaveAsFile(Text &text, char *filename) {
   FILE *fp;
   if ((fp = fopen(filename, "r")) != NULL) {
     puts("A file with the same name already exists");
@@ -81,6 +81,7 @@ int PrintRow(Text text, int row) {
 }
 
 int PrintTxt(Text text) {
+  puts("The text now is as follows");
   for (int i = 1; i <= text.rows; i++) {
     printf("%d: %s",i, text.content[i]->str);
   }
@@ -96,7 +97,7 @@ void Swap(Text &T, int row1, int row2) {
 }
 
 bool MoveUp(Text &T, int row, int times) {
-  if (RowNumIsLegal(T, row - times)) {
+  if (!RowNumIsLegal(T, row - times)) {
     puts("Exceeding the range of existing lines.");
     return false;
   }
@@ -108,7 +109,7 @@ bool MoveUp(Text &T, int row, int times) {
 }
 
 bool MoveDown(Text &T, int row, int times) {
-  if (RowNumIsLegal(T, row + times)) {
+  if (!RowNumIsLegal(T, row + times)) {
     puts("Exceeding the range of existing lines.");
     return false;
   }

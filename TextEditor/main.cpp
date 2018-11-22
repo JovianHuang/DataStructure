@@ -19,15 +19,18 @@ int main(int argc, char * argv[]) {
   fgets(filename, 20, stdin);
   filename[strlen(filename) - 1] = '\0';
   ReadFromFile(text, filename);
-  puts("The text is as follows.");
   PrintTxt(text);
   bool go_on = true;
-  char choice;
+  char choice[10];
   while (go_on) {
     DisplayFirstLevelMenu();
-    scanf("%c", &choice);
+    scanf("%s", &choice);
     ClearBuffer();
-    switch (choice) {
+    if (!StrLenIsProper(choice, 2)) {
+      puts("Invalid input! Please try again.");
+      continue;
+    }
+    switch (choice[0]) {
       case 'A':
       {
         int row, times;
@@ -36,10 +39,18 @@ int main(int argc, char * argv[]) {
         puts("Please enter the times you wanna move.");
         scanf("%d", &times);
         MoveUp(text, row, times);
+        PrintTxt(text);
         break;
       }
       case 'B':
       {
+        int row, times;
+        puts("Please enter the row you wanna move.");
+        scanf("%d", &row);
+        puts("Please enter the times you wanna move.");
+        scanf("%d", &times);
+        MoveDown(text, row, times);
+        PrintTxt(text);
         break;
       }
       case 'C':
@@ -48,21 +59,51 @@ int main(int argc, char * argv[]) {
         puts("Please enter the row you wanna delete:");
         scanf("%d", &row);
         DeleteARow(text, row);
-        puts("The text now is as follows");
         PrintTxt(text);
         break;
       }
       case 'D':
       {
+        puts("Please enter content you wanna insert:");
+        String newStr = StrIniti();
+        char str[100];
+        fgets(str, 100, stdin);
+        StrAssign(newStr, str);
+        int row;
+        puts("Please enter the row position you wanna insert:");
+        scanf("%d", &row);
+        InsertARow(text, newStr, row);
+        PrintTxt(text);
         break;
       }
       case 'E':
       {
-
+        puts("Please enter content you wanna search:");
+        String item = StrIniti();
+        char str[100];
+        fgets(str, 100, stdin);
+        str[strlen(str) - 1] = '\0';
+        StrAssign(item, str);
+        SearchStr(text, item, 1);
         break;
       }
       case 'F':
       {
+        int row;
+        puts("Please enter the row position that you wanna replace some contents:");
+        scanf("%d%*c", &row);
+        puts("Please enter the content you wanna be replaced:");
+        String beReplaced = StrIniti();
+        char str[100];
+        fgets(str, 100, stdin);
+        str[strlen(str) - 1] = '\0';
+        StrAssign(beReplaced, str);
+        puts("Please enter the new content.");
+        char newcontent[100];
+        fgets(newcontent, 100, stdin);
+        newcontent[strlen(newcontent) - 1] = '\0';
+        ReplaceStr(*text.content[row], beReplaced, newcontent);
+        PrintTxt(text);
         break;
       }
       case 'G':
@@ -93,20 +134,24 @@ int main(int argc, char * argv[]) {
         ch = getchar();
         int num = CountNumOfSpecificChar(text, ch);
         printf("Number of this character:%d\n", num);
-        ClearBuffer();
         break;
       }
       case 'K':
       {
-        puts("The text have been save to the original file");
-        SaveToFile(text, filename);
+        if (SaveToFile(text, filename)) {
+          puts("The text have been save to the original file");
+        }
         break;
       }
       case 'L':
       {
         puts("The filename you wanna save as");
         char newfilename[20];
-        SaveAsFile(text, newfilename);
+        fgets(newfilename, 20, stdin);
+        newfilename[strlen(newfilename) - 1] = '\0';
+        if (SaveToFile(text, newfilename)) {
+          printf("The text have been save as %s", newfilename);
+        }
         break;
       }
       case 'M':

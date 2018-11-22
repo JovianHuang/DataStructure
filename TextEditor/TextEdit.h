@@ -12,9 +12,9 @@ typedef struct {
 void ReadFromFile(Text & text, char * filename);
 
 
-bool SaveToFile(Text text, char * filename);
+bool SaveToFile(Text &text, char * filename);
 
-bool SaveAsFile(Text text, char * filename);
+bool SaveAsFile(Text &text, char * filename);
 
 bool RowNumIsLegal(const Text text, int row);
 
@@ -41,6 +41,8 @@ bool DeleteARow(Text & T, int row);
 bool InsertARow(Text & T, String &newRow, int row);
 
 bool SearchStr(Text T, String S, int row);
+
+bool ReplaceStr(String & S1, String S2, char * r);
 
 
 #endif // !TEXTEDIT_H
