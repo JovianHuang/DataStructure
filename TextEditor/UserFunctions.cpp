@@ -35,4 +35,3 @@ bool YesOrNo(void) {
     }
   }
 }
-
