@@ -155,10 +155,15 @@ bool DeleteARow(Text &T, int row) {
   for (int i = row; i < T.rows; i++) {
     Swap(T, i, i + 1);
   }
-  //free(T.content[T.rows]);
+  free(T.content[T.rows]);
   T.rows--;
   const int remain = 1;
   String ** newBlock= (String **)realloc(T.content, sizeof(String *) * (T.rows+ remain));
+  if (newBlock == NULL) {
+    puts("Insufficient allocateable memory.");
+    return false;
+  }
+  T.content = newBlock;
   return true;
 }
 
@@ -167,7 +172,8 @@ bool InsertARow(Text &T, String &newRow, int row) {
     return false;
   }
   T.rows++;
-  String ** newBlock = (String **)realloc(T.content, sizeof(String *) * T.rows);
+  const int remain = 1;
+  String ** newBlock = (String **)realloc(T.content, sizeof(String *) * (T.rows + remain));
   if (newBlock == NULL) {
     puts("Insufficient allocateable memory.");
     return false;
@@ -195,14 +201,13 @@ bool SearchStr(Text T, String S, int row) {
   return false;
 }
 
-bool ReplaceStr(String &S1, String S2) {
+bool ReplaceStr(String &S1, String S2, char * r) {
   int pos = IndexKMP(S1, S2, 0);
   if (pos) {
     StrDelete(S1, pos, S2.length);
-    StrInsert(S1, pos, S2.str);
+    StrInsert(S1, pos, r);
     return true;
   } else {
     return false;
   }
 }
-

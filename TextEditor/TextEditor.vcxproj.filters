@@ -24,10 +24,10 @@
     <ClCompile Include="TextEdit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="UserFunctions.c">
+    <ClCompile Include="InputCheck.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="InputCheck.cpp">
+    <ClCompile Include="UserFunctions.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

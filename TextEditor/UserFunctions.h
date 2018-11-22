@@ -9,8 +9,6 @@ void DisplayWelcome(void);
 
 void DisplayFirstLevelMenu(void);
 
-void DisplayTheSearchMenu(void);
-
 bool YesOrNo(void);
 
 #endif // !USERFUNCTIONS_H

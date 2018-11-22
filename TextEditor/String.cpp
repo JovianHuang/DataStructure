@@ -132,5 +132,3 @@ int IndexKMP(String S, String T, int pos) {
   }
   return (t == T.length) ? (s - T.length) : -1;
 }
-
-
