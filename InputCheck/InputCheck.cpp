@@ -72,5 +72,8 @@ bool StrIsPureNum(char * str) {
 //}
 
 void ClearBuffer(void) {
-  while (getchar() != EOF);
+  int ch;
+  do {
+    ch = getchar();
+  } while (ch != EOF && ch != '\0');
 }

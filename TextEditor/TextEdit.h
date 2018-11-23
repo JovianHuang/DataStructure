@@ -11,7 +11,6 @@ typedef struct {
 
 void ReadFromFile(Text & text, char * filename);
 
-
 bool SaveToFile(Text &text, char * filename);
 
 bool SaveAsFile(Text &text, char * filename);
