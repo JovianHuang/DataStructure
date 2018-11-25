@@ -156,7 +156,9 @@ bool DeleteARow(Text &T, int row) {
   for (int i = row; i < T.rows; i++) {
     Swap(T, i, i + 1);
   }
-  free(T.content[T.rows]);
+  if (T.content[T.rows]) {
+    free(T.content[T.rows]->str);
+  }
   T.rows--;
   const int remain = 1;
   String ** newBlock= (String **)realloc(T.content, sizeof(String *) * (T.rows+ remain));
@@ -168,7 +170,7 @@ bool DeleteARow(Text &T, int row) {
   return true;
 }
 
-bool InsertARow(Text &T, String &newRow, int row) {
+bool InsertARow(Text &T, String *newRow, int row) {
   if (!RowNumIsLegal(T, row)) {
     return false;
   }
@@ -180,7 +182,7 @@ bool InsertARow(Text &T, String &newRow, int row) {
     return false;
   }
   T.content = newBlock;
-  T.content[T.rows] = &newRow;
+  T.content[T.rows] = newRow;
   for (int i = T.rows; i > row; i--) {
     Swap(T, i, i - 1);
   }

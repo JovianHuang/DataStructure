@@ -72,7 +72,7 @@ int main(int argc, char * argv[]) {
         int row;
         puts("Please enter the row position you wanna insert:");
         scanf("%d", &row);
-        InsertARow(text, newStr, row);
+        InsertARow(text, &newStr, row);
         PrintTxt(text);
         break;
       }
