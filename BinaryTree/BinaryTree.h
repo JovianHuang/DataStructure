@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "status.h"
+#include "Stack.h"
+#include "Queue.h"
 
 typedef int ItemType;
 typedef int DepthType;
@@ -30,10 +32,10 @@ BiTree NewNode(void);
 /* Postconditions: Output the item and do not change the node */
 Status PrintNode(BiTree node);
 
-/* Operation: To judge if this tree is empty or if the node is existing */
+/* Operation: To judge if this tree/node is existing */
 /* Preconditions: None */
-/* Postconditions:  If the tree is empty or the node does not exist, return TRUE */
-Status IsEmpty(BiTree BT);
+/* Postconditions:  If the tree/node does not exist, return FALSE */
+Status IsExisting(BiTree BT);
 
 
 

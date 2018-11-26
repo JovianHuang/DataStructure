@@ -14,7 +14,7 @@
 int main(void) {
   BiTree BT;
   BT = NewNode();
-  if (IsEmpty(BT)) {
+  if (IsExisting(BT)) {
     puts("empty");
   } else {
     puts("not empty");
