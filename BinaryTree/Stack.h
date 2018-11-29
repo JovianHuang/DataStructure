@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "BinaryTree.h"
 #include "status.h"
 #define EmptyTOS -1
 #define MAXCAP 50
