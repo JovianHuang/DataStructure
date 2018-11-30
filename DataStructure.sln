@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InputCheck", "InputCheck\In
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinaryTree", "BinaryTree\BinaryTree.vcxproj", "{27622BAB-E4CC-4E3B-A366-F728F8C98CFF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HuffmanCoding", "HuffmanCoding\HuffmanCoding.vcxproj", "{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{27622BAB-E4CC-4E3B-A366-F728F8C98CFF}.Release|x64.Build.0 = Release|x64
 		{27622BAB-E4CC-4E3B-A366-F728F8C98CFF}.Release|x86.ActiveCfg = Release|Win32
 		{27622BAB-E4CC-4E3B-A366-F728F8C98CFF}.Release|x86.Build.0 = Release|Win32
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Debug|x64.ActiveCfg = Debug|x64
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Debug|x64.Build.0 = Debug|x64
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Debug|x86.ActiveCfg = Debug|Win32
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Debug|x86.Build.0 = Debug|Win32
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Release|x64.ActiveCfg = Release|x64
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Release|x64.Build.0 = Release|x64
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Release|x86.ActiveCfg = Release|Win32
+		{CE2EA556-90AA-4C4C-8CE3-48D44F9D386A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
