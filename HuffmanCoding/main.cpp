@@ -3,6 +3,9 @@
 #include "HuffmanCoding.h"
 
 int main(void) {
-  fprintf(stderr, "ERROR");
+  Tree * tree;
+  InitializeTree(tree);
+
+
   return 0;
 }

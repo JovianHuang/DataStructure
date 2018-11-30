@@ -47,4 +47,22 @@ Status TreeIsEmpty(const Tree * ptree);
 /*                  full and return false otherwise   */
 Status TreeIsFull(const Tree * ptree);
 
+/* operation:       determine number of items in tree */
+/* preconditions:   ptree points to a tree            */
+/* postconditions:  function return number of items in*/
+/*                  tree                              */
+SizeType TreeItemCount(const Tree * ptree);
+
+/* operation:       apply a function to each item in    */
+/*                  the tree                            */
+/* preconditions:   ptree points to a tree              */
+/*                  pfun points to a function that takes*/
+/*                  an Trnode pointer argument and has  */
+/*                  no return value                     */
+/* postconditions:  the function pointed to by pfun is  */
+/*                  excuted once for each item in tree  */
+void Traverse(const Tree * ptree, void(*pfun)(const Trnode * root));
+
+
+
 #endif // !HUFFMANCODING_H
