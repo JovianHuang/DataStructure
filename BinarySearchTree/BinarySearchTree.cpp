@@ -133,7 +133,7 @@ static void AddNode(ptNode new_node, ptNode root) {
     if (root->left = NULL) {  // empty subtree
       root->left = new_node;  // so add node here
     } else {
-      AddNode(new_node, root->right); // else process subtree
+      AddNode(new_node, root->left); // else process subtree
     }
   } else if (ToRight(new_node->item, root->item)) {
     if (root->right = NULL) {  // empty subtree
@@ -181,7 +181,7 @@ static void DeleteNode(ptNode * ptr) {
     free(temp);
   } else {
     // deleted node has two children
-    // fund where to reattach right subtree
+    // find where to reattach right subtree
     for (temp = (*ptr)->left; temp->right != NULL; temp = temp->right) {
       continue;
     }
