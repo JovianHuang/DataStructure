@@ -19,21 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BiTreeFunction.cpp" />
-    <ClCompile Include="HuffmanCode.cpp" />
+    <Text Include="Huffman.txt" />
+    <Text Include="Huffman1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BiTree.cpp" />
+    <ClCompile Include="HuffmanTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Stack.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BiTreeFunction.h" />
-    <ClInclude Include="HuffmanCode.h" />
+    <ClInclude Include="BiTree.h" />
+    <ClInclude Include="HuffmanTree.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="tree.txt" />
-    <Text Include="Weight.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

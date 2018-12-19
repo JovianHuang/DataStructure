@@ -15,13 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Huffman1.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="Huffman.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BiTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HuffmanTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="BiTreeFunction.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HuffmanCode.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Queue.cpp">
@@ -32,25 +40,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BiTreeFunction.h">
+    <ClInclude Include="BiTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HuffmanTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Queue.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="HuffmanCode.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Stack.h">
       <Filter>头文件</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="tree.txt">
-      <Filter>资源文件</Filter>
-    </Text>
-    <Text Include="Weight.txt">
-      <Filter>资源文件</Filter>
-    </Text>
   </ItemGroup>
 </Project>
