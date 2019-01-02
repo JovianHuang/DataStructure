@@ -9,6 +9,25 @@ typedef struct pair {
   ptNode child;
 } Pair;
 
+typedef ptNode ElementType;
+typedef int Position;
+typedef int CapType;
+
+#define EMPTYTOS -1
+#define MAXCAP_Stack 50
+typedef struct SNode {
+  ElementType *Data;    // Array of storage elements
+  Position TopOfStack;  // Point to the top
+  CapType Capacity;     // Maximum capacity of the stack
+} *Stack;
+
+#define MAXCAP_Queue 50
+typedef struct QNode {
+  ElementType *Data;  // Array of storage elements
+  Position Front, Rear;  // Pointer to the front and the rear of the queue
+  CapType Capacity;  // The maximum capacity of the queue
+} *Queue;
+
 /* prototype for local functions */
 static ptNode MakeNode(const ItemType item);
 static Status ToLeft(const ItemType item1, const ItemType item2);
@@ -17,6 +36,15 @@ static void AddNode(ptNode new_node, ptNode root);
 static Pair SeekItem(const ItemType item, const BSTree tree);
 static void DeleteNode(ptNode * ptr);
 static void DeleteAllNode(ptNode root);
+static Stack CreateStack(void);
+static Status DisposeStack(Stack S);
+static Status Push(ElementType x, Stack S);
+static Status Pop(Stack S);
+static Queue CreateQueue(void);
+static Status DisposeQueue(Queue Q);
+static Status AddQ(ElementType x, Queue Q);
+static Status DeleteQ(Queue Q);
+
 
 /* function definition */
 
@@ -99,6 +127,14 @@ void DeleteAll(BSTree tree) {
   tree->size = 0;
 }
 
+void Traversal(BSTree tree) {
+  // preorder
+  // inorder
+  // postorder
+  // preorder in stack
+  // inorder in stack
+  // postorder in stack
+}
 
 /* local functions */
 
@@ -200,4 +236,81 @@ static void DeleteAllNode(ptNode root) {
     DeleteAllNode(rightSub);
   }
 }
+
+static Stack CreateStack(void) {
+  Stack S = (Stack)malloc(sizeof(SNode));
+  S->Data = (ElementType *)malloc(sizeof(ElementType) * MAXCAP_Stack);
+  S->Capacity = MAXCAP_Stack;
+  S->TopOfStack = EMPTYTOS;
+  return S;
+}
+
+static Status DisposeStack(Stack S) {
+  if (S != NULL) {
+    free(S->Data);
+    free(S);
+    return false;
+  } else {
+    return true;
+  }
+}
+
+static Status Push(ElementType x, Stack S) {
+  if (S->TopOfStack == MAXCAP_Stack) {
+    return false;
+  } else {
+    S->Data[++S->TopOfStack] = x;
+    return true;
+  }
+}
+
+static Status Pop(Stack S) {
+  if (S->TopOfStack == EMPTYTOS) {
+    fprintf(stderr, "ERROR: Empty stack.\n");
+    return false;
+  } else {
+    S->TopOfStack--;
+    return true;
+  }
+}
+
+static Queue CreateQueue(void) {
+  Queue Q = (Queue)malloc(sizeof(QNode));
+  Q->Data = (ElementType *)malloc(sizeof(ElementType) * MAXCAP_Queue);
+  Q->Front = Q->Rear = 0;
+  Q->Capacity = MAXCAP_Queue;
+  return Q;
+}
+
+static Status DisposeQueue(Queue Q) {
+  if (Q != NULL) {
+    free(Q->Data);
+    free(Q);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+static Status AddQ(ElementType x, Queue Q) {
+  if ((Q->Rear + 1) % Q->Capacity == Q->Front) {
+    fprintf(stderr, "Queue is full.\n");
+    return false;
+  } else {
+    Q->Rear = (Q->Rear + 1) % Q->Capacity;
+    Q->Data[Q->Rear] = x;
+    return true;
+  }
+}
+
+static Status DeleteQ(Queue Q) {
+  if (Q->Front == Q->Rear) {
+    fprintf(stderr, "Queue is empty.\n");
+    return false;
+  } else {
+    Q->Front = (Q->Front + 1) % Q->Capacity;
+    return true;
+  }
+}
+
 
