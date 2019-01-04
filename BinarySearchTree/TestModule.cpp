@@ -4,19 +4,15 @@
 
 int main(int argc, char * agrv[]) {
   BSTree t = CreateNewBSTree();
-  printf("%d\n", TreeItemCount(t));
-  if (AddItem(20, t)) {
-    printf("%d\n", TreeItemCount(t));
+  FILE * fp;
+  if ((fp = fopen("NumsInBS.txt", "r")) != NULL) {
+    ItemType temp;
+    while (!feof(fp)) {
+      fscanf(fp, "%d", &temp);
+      AddItem(temp, t);
+    }
   }
-  if (InTree(20, t)) {
-    puts("it's in");
-  } else {
-    puts("no");
-  }
-  DeleteAll(t);
-  if (TreeIsEmpty(t)) {
-    puts("empty");
-    printf("%d\n", TreeItemCount(t));
-  }
+  fclose(fp);
+  Traversal(t);
   return 0;
 }

@@ -59,7 +59,7 @@ void DeleteAll(BSTree tree);
 /* operation: apply a function to each item in the tree */
 /* precondtions: */
 /* postcondtions: the function pointed to by */
-
+void Traversal(const BSTree tree);
 
 #endif // !BINARYSEARCHTREE
 

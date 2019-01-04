@@ -36,14 +36,22 @@ static void AddNode(ptNode new_node, ptNode root);
 static Pair SeekItem(const ItemType item, const BSTree tree);
 static void DeleteNode(ptNode * ptr);
 static void DeleteAllNode(ptNode root);
+static void PrintItem(const ItemType item);
+static void PreOrder(const ptNode root);
+static void InOrder(const ptNode root);
+static void PostOrder(const ptNode root);
 static Stack CreateStack(void);
 static Status DisposeStack(Stack S);
 static Status Push(ElementType x, Stack S);
 static Status Pop(Stack S);
+static void PreOrderByStack(const ptNode root);
+static void InOrderByStack(const ptNode root);
+static void PostOrderByStack(const ptNode root);
 static Queue CreateQueue(void);
 static Status DisposeQueue(Queue Q);
 static Status AddQ(ElementType x, Queue Q);
 static Status DeleteQ(Queue Q);
+static void LevelOrder(const ptNode root);
 
 
 /* function definition */
@@ -127,13 +135,21 @@ void DeleteAll(BSTree tree) {
   tree->size = 0;
 }
 
-void Traversal(BSTree tree) {
-  // preorder
-  // inorder
-  // postorder
-  // preorder in stack
-  // inorder in stack
-  // postorder in stack
+void Traversal(const BSTree tree) {
+  printf("\nThis is pre-order traveral:");
+  PreOrder(tree->root);
+  printf("\nThis is in-order traveral:");
+  InOrder(tree->root);
+  printf("\nThis is post-order traveral:");
+  PostOrder(tree->root);
+  printf("\nThis is non-recursive pre-order traveral :");
+  PreOrderByStack(tree->root);
+  printf("\nThis is non-recursive in-order traveral :");
+  InOrderByStack(tree->root);
+  printf("\nThis is non-recursive post-order traveral :");
+  PostOrderByStack(tree->root);
+  printf("\nThis is level-order traveral :");
+  LevelOrder(tree->root);
 }
 
 /* local functions */
@@ -166,13 +182,13 @@ static Status ToRight(const ItemType item1, const ItemType item2) {
 
 static void AddNode(ptNode new_node, ptNode root) {
   if (ToLeft(new_node->item, root->item)) {
-    if (root->left = NULL) {  // empty subtree
+    if (root->left == NULL) {  // empty subtree
       root->left = new_node;  // so add node here
     } else {
       AddNode(new_node, root->left); // else process subtree
     }
   } else if (ToRight(new_node->item, root->item)) {
-    if (root->right = NULL) {  // empty subtree
+    if (root->right == NULL) {  // empty subtree
       root->right = new_node;  // so add node here
     } else {
       AddNode(new_node, root->right); // else process subtree
@@ -237,6 +253,34 @@ static void DeleteAllNode(ptNode root) {
   }
 }
 
+static void PrintItem(const ItemType item) {
+    printf("%d ", item);
+}
+
+static void PreOrder(const ptNode root) {
+  if (root != NULL) {
+    PrintItem(root->item);
+    PreOrder(root->left);
+    PreOrder(root->right);
+  }
+}
+
+static void InOrder(const ptNode root) {
+  if (root != NULL) {
+    InOrder(root->left);
+    PrintItem(root->item);
+    InOrder(root->right);
+  }
+}
+
+static void PostOrder(const ptNode root) {
+  if (root != NULL) {
+    PostOrder(root->left);
+    PostOrder(root->right);
+    PrintItem(root->item);
+  }
+}
+
 static Stack CreateStack(void) {
   Stack S = (Stack)malloc(sizeof(SNode));
   S->Data = (ElementType *)malloc(sizeof(ElementType) * MAXCAP_Stack);
@@ -274,6 +318,73 @@ static Status Pop(Stack S) {
   }
 }
 
+static void PreOrderByStack(const ptNode root) {
+  Stack S = CreateStack();
+  if (root != NULL) {
+    Push(root, S);
+  }
+  ElementType temp;
+  while (S->TopOfStack != EMPTYTOS) {
+    temp = S->Data[S->TopOfStack];
+    Pop(S);
+    PrintItem(temp->item);
+    if (temp->right) {
+      Push(temp->right, S);
+    }
+    if (temp->left) {
+      Push(temp->left, S);
+    }
+  }
+  DisposeStack(S);
+}
+
+static void InOrderByStack(const ptNode root) {
+  Stack S = CreateStack();
+  ElementType temp = root;
+  while (temp != NULL || S->TopOfStack != EMPTYTOS) {
+    if (temp != NULL) {
+      Push(temp, S);
+      temp = temp->left;
+    } else {
+      temp = S->Data[S->TopOfStack];
+      Pop(S);
+      PrintItem(temp->item);
+      temp = temp->right;
+    }
+  }
+  DisposeStack(S);
+}
+
+static void PostOrderByStack(const ptNode root) {
+  Stack S = CreateStack();
+  ElementType temp = root;
+  ElementType node_pop;          //用来保存出栈的节点
+  ElementType pCur;              //定义指针，指向当前节点
+  ElementType pPre = NULL;       //定义指针，指向上一各访问的节点
+
+  Push(root, S);
+  //直到栈空时，结束循环
+  while (temp != NULL && S->TopOfStack != EMPTYTOS) {
+    pCur = S->Data[S->TopOfStack];   //当前节点置为栈顶节点
+    if ((pCur->left == NULL && pCur->right == NULL) ||
+      (pPre != NULL && (pCur->left == pPre || pCur->right == pPre))) {
+      //如果当前节点没有左右孩子，或者有左孩子或有孩子，但已经被访问输出，
+      //则直接输出该节点，将其出栈，将其设为上一个访问的节点
+      PrintItem(pCur->item);
+      node_pop = S->Data[S->TopOfStack];
+      Pop(S);
+      pPre = pCur;
+    } else {
+      //如果不满足上面两种情况,则将其右孩子左孩子依次入栈
+      if (pCur->right != NULL)
+        Push(pCur->right, S);
+      if (pCur->left != NULL)
+        Push(pCur->left, S);
+    }
+  }
+  DisposeStack(S);
+}
+
 static Queue CreateQueue(void) {
   Queue Q = (Queue)malloc(sizeof(QNode));
   Q->Data = (ElementType *)malloc(sizeof(ElementType) * MAXCAP_Queue);
@@ -297,8 +408,8 @@ static Status AddQ(ElementType x, Queue Q) {
     fprintf(stderr, "Queue is full.\n");
     return false;
   } else {
-    Q->Rear = (Q->Rear + 1) % Q->Capacity;
     Q->Data[Q->Rear] = x;
+    Q->Rear = (Q->Rear + 1) % Q->Capacity;
     return true;
   }
 }
@@ -313,4 +424,18 @@ static Status DeleteQ(Queue Q) {
   }
 }
 
-
+static void LevelOrder(const ptNode root) {
+  Queue Q = CreateQueue();
+  ElementType temp = root;
+  AddQ(temp, Q);
+  while (Q->Front < Q->Rear) {
+    temp = Q->Data[Q->Front];
+    if (temp->left)
+      AddQ(temp->left, Q);
+    if (temp->right)
+      AddQ(temp->right, Q);
+    PrintItem(Q->Data[Q->Front]->item);
+    DeleteQ(Q);
+  }
+  DisposeQueue(Q);
+}

@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BinarySearchTree", "BinaryS
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graph", "Graph\Graph.vcxproj", "{B850FBA4-274D-416D-ACD9-BE395CEE98BA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CollegeBookSubscriptionSystem", "CollegeBookSubscriptionSystem\CollegeBookSubscriptionSystem.vcxproj", "{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{B850FBA4-274D-416D-ACD9-BE395CEE98BA}.Release|x64.Build.0 = Release|x64
 		{B850FBA4-274D-416D-ACD9-BE395CEE98BA}.Release|x86.ActiveCfg = Release|Win32
 		{B850FBA4-274D-416D-ACD9-BE395CEE98BA}.Release|x86.Build.0 = Release|Win32
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Debug|x64.ActiveCfg = Debug|x64
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Debug|x64.Build.0 = Debug|x64
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Debug|x86.ActiveCfg = Debug|Win32
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Debug|x86.Build.0 = Debug|Win32
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Release|x64.ActiveCfg = Release|x64
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Release|x64.Build.0 = Release|x64
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Release|x86.ActiveCfg = Release|Win32
+		{8B73108F-A32D-4BF0-A1A3-6F1E43A8A539}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
