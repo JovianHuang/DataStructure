@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -119,7 +119,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BPlusTree.cpp" />
     <ClCompile Include="ExternalSorting.cpp" />
+    <ClCompile Include="Hash.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollegeInfo.cpp" />
     <ClCompile Include="Sort.cpp" />
@@ -127,12 +129,15 @@
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BPlusTree.h" />
     <ClInclude Include="CollegeInfo.h" />
     <ClInclude Include="ExternalSorting.h" />
+    <ClInclude Include="Hash.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="aha.txt" />
     <Text Include="books2018.txt" />
     <Text Include="university.txt" />
   </ItemGroup>

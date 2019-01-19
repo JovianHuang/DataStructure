@@ -33,6 +33,12 @@
     <ClCompile Include="ExternalSorting.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BPlusTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Hash.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sort.h">
@@ -47,12 +53,21 @@
     <ClInclude Include="ExternalSorting.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BPlusTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Hash.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="books2018.txt">
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="university.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="aha.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
