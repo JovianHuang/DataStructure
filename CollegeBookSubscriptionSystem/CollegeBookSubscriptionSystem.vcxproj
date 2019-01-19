@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ExternalSorting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollegeInfo.cpp" />
     <ClCompile Include="Sort.cpp" />
@@ -127,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollegeInfo.h" />
+    <ClInclude Include="ExternalSorting.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
