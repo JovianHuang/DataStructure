@@ -6,8 +6,11 @@
 #include "CollegeInfo.h"
 
 int main(void) {
-  school school;
-  getAllInfo(school);
-  printf("%s %s %s %s %s", school.Name, school.Id, school.supervisorDepartment, school.Location, school.Level);
+  int test[] = {0, 37, 43, 20, 2, 18, 1, 16, 21};
+  int size = sizeof(test) / sizeof(int);
+  QuickSort(test, size);
+  for (int i = 1; i < size; i++) {
+    printf("%d ", test[i]);
+  }
   return 0;
 }
