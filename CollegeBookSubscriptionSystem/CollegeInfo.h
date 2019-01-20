@@ -1,9 +1,9 @@
 #ifndef COLLEGEINFO_H
 #define COLLEGEINFO_H
 
-static const int LEN_SCHOOLNAME = 30;
+static const int LEN_SCHOOLNAME = 40;
 static const int LEN_ID = 12;
-static const int LEN_DEPARTMENT = 30;
+static const int LEN_DEPARTMENT = 40;
 static const int LEN_LOCATION = 10;
 static const int LEN_LEVEL = 10;
 

@@ -42,9 +42,12 @@ static void ConstructLoser(LoserTree &ls, WorkArea &wa) {
   }
   FILE * fi = fopen("aha.txt", "r");
   for (i = capacity - 1; i >= 0; i--) {
-    fscanf(fi, "%d", &wa[i].record);
-    wa[i].key = wa->record; // 提取关键字
-    wa[i].segementNum = 1;
-    SelectMinMax(ls, wa, i);
+    if (fscanf(fi, "%d", &wa[i].record) != EOF) {
+      wa[i].key = wa->record; // 提取关键字
+      wa[i].segementNum = 1;
+      SelectMinMax(ls, wa, i);
+    } else {
+      puts("fscanf error");
+    }
   }
 }

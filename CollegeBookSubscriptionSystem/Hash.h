@@ -18,4 +18,10 @@ typedef struct TableNode {
   List Heads;    /* An array pointing to the head of the list header */
 } *HashTable;
 
+HashTable CreateTable(int TableSize);
+Index Hash(ElementType key, int TableSize);
+bool InsertIntoHash(HashTable H, ElementType Key);
+Position Find(HashTable H, ElementType Key);
+void DestroyTable(HashTable H);
+
 #endif // !HASH_H

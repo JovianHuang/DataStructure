@@ -71,4 +71,9 @@
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="university.bat">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
 </Project>

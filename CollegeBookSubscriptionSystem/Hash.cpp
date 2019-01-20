@@ -17,17 +17,31 @@ HashTable CreateTable(int TableSize) {
   HashTable H;
   int i;
   H = (HashTable)malloc(sizeof(struct TableNode));
-  H->TableSize = NextPrime(TableSize);
-  H->Heads = (List)malloc(H->TableSize * sizeof(struct ListNode));
-  for (i = 0; i < H->TableSize; i++) {
-    H->Heads[i].Data[0] = '\0';
-    H->Heads[i].Next = NULL;
+  if (H != NULL) {
+    H->TableSize = NextPrime(TableSize);
+    H->Heads = (List)malloc(H->TableSize * sizeof(struct ListNode));
+    if (H->Heads != NULL) {
+      for (i = 0; i < H->TableSize; i++) {
+        H->Heads[i].Data[0] = '\0';
+        H->Heads[i].Next = NULL;
+      }
+    } else {
+      puts("Memory allocation error in H->heads");
+    }
+  } else {
+    puts("Memory allocation error in H");
   }
   return H;
 }
 
 Index Hash(ElementType key, int TableSize) {
-
+  Index pos;
+  int tmp = 0;
+  for (int i = 0; i < sizeof(key); i++) {
+    tmp += key[i] - 'a';
+  }
+  pos = tmp % TableSize;
+  return pos;
 }
 
 Position Find(HashTable H, ElementType Key) {
@@ -42,17 +56,21 @@ Position Find(HashTable H, ElementType Key) {
   return P; /* At this point P or point to the found node, or NULL */
 }
 
-bool Insert(HashTable H, ElementType Key) {
+bool InsertIntoHash(HashTable H, ElementType Key) {
   Position P, NewCell;
   Index Pos;
   P = Find(H, Key);
   if (!P) { /* Keyword not found, can be inserted */
     NewCell = (Position)malloc(sizeof(struct ListNode));
-    strcpy(NewCell->Data, Key);
-    Pos = Hash(Key, H->TableSize); /* Initial hash position */
-    /* Insert NewCell as the first node of the linked list H->Heads[Pos] */
-    NewCell->Next = H->Heads[Pos].Next;
-    H->Heads[Pos].Next = NewCell;
+    if (NewCell != NULL) {
+      strcpy(NewCell->Data, Key);
+      Pos = Hash(Key, H->TableSize); /* Initial hash position */
+      /* Insert NewCell as the first node of the linked list H->Heads[Pos] */
+      NewCell->Next = H->Heads[Pos].Next;
+      H->Heads[Pos].Next = NewCell;
+    } else {
+      return false;
+    }
     return true;
   } else { /* The keyword already exists */
     printf("¼üÖµÒÑ´æÔÚ");
@@ -78,7 +96,7 @@ void DestroyTable(HashTable H) {
 
 /* local functions */
 
-static int NextPrime(int N) { 
+static int NextPrime(int N) {
   /* Returns the smallest prime num greater than N and not exceeding MAXTABLESIZE */
   int i, p = (N % 2) ? N + 2 : N + 1; /* Start with the next odd number greater than N */
   while (p <= MAXTABLESIZE) {
@@ -90,7 +108,7 @@ static int NextPrime(int N) {
     if (i == 2) {/* for ends normally, indicating that p is a prime number */
       break;
     } else {/* Otherwise try the next odd number */
-      p += 2; 
+      p += 2;
     }
   }
   return p;

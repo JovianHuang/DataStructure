@@ -44,9 +44,9 @@ void getAllInfo(School & college) {
   getLevel(college.Level);
 }
 
-void scanInfo(School & college) {
-
-}
+//void scanInfo(School & college) {
+//
+//}
 
 /* local functions */
 

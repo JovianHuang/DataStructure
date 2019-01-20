@@ -141,6 +141,9 @@
     <Text Include="books2018.txt" />
     <Text Include="university.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="university.bat" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
