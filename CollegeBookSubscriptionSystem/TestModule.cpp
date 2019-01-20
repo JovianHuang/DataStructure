@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include "Sort.h"
 #include "CollegeInfo.h"
+#include "BPlusTree.h"
+#include "ExternalSorting.h"
+#include "Hash.h"
+#include "UserInterface.h"
 
 int main(void) {
   int test[] = {0, 37, 43, 20, 2, 18, 1, 16, 21};
