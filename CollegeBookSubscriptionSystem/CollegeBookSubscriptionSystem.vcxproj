@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BookInfo.cpp" />
     <ClCompile Include="BPlusTree.cpp" />
     <ClCompile Include="ExternalSorting.cpp" />
     <ClCompile Include="Hash.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BookInfo.h" />
     <ClInclude Include="BPlusTree.h" />
     <ClInclude Include="CollegeInfo.h" />
     <ClInclude Include="ExternalSorting.h" />
@@ -138,11 +140,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="aha.txt" />
-    <Text Include="books2018.txt" />
+    <Text Include="books.txt" />
     <Text Include="university.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="university.bat" />
+    <None Include="books.dat" />
+    <None Include="university.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

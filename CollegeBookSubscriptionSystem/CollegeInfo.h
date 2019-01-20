@@ -9,11 +9,11 @@ static const int LEN_LEVEL = 10;
 
 typedef struct school {
   int serialNum;          
-  char Name[LEN_SCHOOLNAME + 2];  // One Chinese character occupies two bytes
+  char Name[LEN_SCHOOLNAME + 1];  // One Chinese character occupies two bytes
   char Id[LEN_ID];
   char supervisorDepartment[LEN_DEPARTMENT + 2];
-  char Location[LEN_LOCATION + 2];
-  char Level[LEN_LEVEL + 2];
+  char Location[LEN_LOCATION + 1];
+  char Level[LEN_LEVEL + 1];
 } School;
 
 void getName(char * collegeName);
