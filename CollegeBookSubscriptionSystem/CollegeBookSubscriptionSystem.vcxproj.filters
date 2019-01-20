@@ -13,12 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\基础ADT">
+      <UniqueIdentifier>{969c8516-71ca-49f1-99fa-de1caa47de8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\基础ADT">
+      <UniqueIdentifier>{f09ae358-1c83-48f4-8635-dac3b4d687f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Sort.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TestModule.cpp">
@@ -30,39 +33,48 @@
     <ClCompile Include="CollegeInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ExternalSorting.cpp">
+    <ClCompile Include="BookInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BPlusTree.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\基础ADT</Filter>
+    </ClCompile>
+    <ClCompile Include="ExternalSorting.cpp">
+      <Filter>源文件\基础ADT</Filter>
     </ClCompile>
     <ClCompile Include="Hash.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\基础ADT</Filter>
     </ClCompile>
-    <ClCompile Include="BookInfo.cpp">
+    <ClCompile Include="Sort.cpp">
+      <Filter>源文件\基础ADT</Filter>
+    </ClCompile>
+    <ClCompile Include="SubscriptionInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sort.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="UserInterface.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CollegeInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ExternalSorting.h">
+    <ClInclude Include="BookInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BPlusTree.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\基础ADT</Filter>
     </ClInclude>
     <ClInclude Include="Hash.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\基础ADT</Filter>
     </ClInclude>
-    <ClInclude Include="BookInfo.h">
+    <ClInclude Include="Sort.h">
+      <Filter>头文件\基础ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalSorting.h">
+      <Filter>头文件\基础ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="SubscriptionInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

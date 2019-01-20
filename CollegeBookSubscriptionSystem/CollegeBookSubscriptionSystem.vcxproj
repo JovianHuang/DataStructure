@@ -126,6 +126,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollegeInfo.cpp" />
     <ClCompile Include="Sort.cpp" />
+    <ClCompile Include="SubscriptionInfo.cpp" />
     <ClCompile Include="TestModule.cpp" />
     <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
@@ -136,6 +137,7 @@
     <ClInclude Include="ExternalSorting.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="Sort.h" />
+    <ClInclude Include="SubscriptionInfo.h" />
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
