@@ -13,7 +13,7 @@ static int NextPrime(int N);
 
 /* functions definition */
 
-HashTable CreateTable(int TableSize) {
+HashTable CreateTable(unsigned TableSize) {
   HashTable H;
   int i;
   H = (HashTable)malloc(sizeof(struct TableNode));
@@ -26,15 +26,15 @@ HashTable CreateTable(int TableSize) {
         H->Heads[i].Next = NULL;
       }
     } else {
-      puts("Memory allocation error in H->heads");
+      puts("内存分配错误（00）");
     }
   } else {
-    puts("Memory allocation error in H");
+    puts("内存分配错误（01）");
   }
   return H;
 }
 
-Index Hash(ElementType key, int TableSize) {
+Index Hash(ElementType key, unsigned TableSize) {
   Index pos;
   int tmp = 0;
   for (int i = 0; i < sizeof(key); i++) {
@@ -44,7 +44,7 @@ Index Hash(ElementType key, int TableSize) {
   return pos;
 }
 
-Position Find(HashTable H, ElementType Key) {
+Position FindInHash(HashTable H, ElementType Key) {
   Position P;
   Index Pos;
   Pos = Hash(Key, H->TableSize); /* Initial hash position */
@@ -59,7 +59,7 @@ Position Find(HashTable H, ElementType Key) {
 bool InsertIntoHash(HashTable H, ElementType Key) {
   Position P, NewCell;
   Index Pos;
-  P = Find(H, Key);
+  P = FindInHash(H, Key);
   if (!P) { /* Keyword not found, can be inserted */
     NewCell = (Position)malloc(sizeof(struct ListNode));
     if (NewCell != NULL) {
