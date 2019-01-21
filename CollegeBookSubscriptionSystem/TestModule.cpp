@@ -11,6 +11,7 @@
 #include "SubscriptionInfo.h"
 
 int main(void) {
-  
+  //system("mode con cols=150 lines=300");
+
   return 0;
 }

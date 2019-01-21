@@ -83,7 +83,6 @@ void HeapSort(sortedArray_Type a, int size) {
 void MergeSort(sortedArray_Type A, int size) {
   int length;
   sortedArray_Type TmpA;
-
   length = 1; /* 初始化子序列长度*/
   TmpA = (sortedArray_Type)malloc(size * sizeof(sortedArray_Type));
   if (TmpA != NULL) {
@@ -112,7 +111,6 @@ static void Swap(sortedItem_Type & a, sortedItem_Type  & b) {
 static void PercDown(sortedArray_Type a, int p, int size) {
   int Parent, Child;
   sortedItem_Type x;
-
   x = a[p];
   for (Parent = p; (Parent * 2 + 1) < size; Parent = Child) {
     Child = Parent * 2 + 1;
