@@ -44,8 +44,8 @@ Index Hash(ElementType key, unsigned TableSize) {
   return pos;
 }
 
-Position FindInHash(HashTable H, ElementType Key) {
-  Position P;
+Pos FindInHash(HashTable H, ElementType Key) {
+  Pos P;
   Index Pos;
   Pos = Hash(Key, H->TableSize); /* Initial hash position */
   P = H->Heads[Pos].Next; /* Starting from the first node of the list */
@@ -57,17 +57,17 @@ Position FindInHash(HashTable H, ElementType Key) {
 }
 
 bool InsertIntoHash(HashTable H, ElementType Key) {
-  Position P, NewCell;
-  Index Pos;
+  Pos P, NewCell;
+  Index pos;
   P = FindInHash(H, Key);
   if (!P) { /* Keyword not found, can be inserted */
-    NewCell = (Position)malloc(sizeof(struct ListNode));
+    NewCell = (Pos)malloc(sizeof(struct ListNode));
     if (NewCell != NULL) {
       strcpy(NewCell->Data, Key);
-      Pos = Hash(Key, H->TableSize); /* Initial hash position */
+      pos = Hash(Key, H->TableSize); /* Initial hash position */
       /* Insert NewCell as the first node of the linked list H->Heads[Pos] */
-      NewCell->Next = H->Heads[Pos].Next;
-      H->Heads[Pos].Next = NewCell;
+      NewCell->Next = H->Heads[pos].Next;
+      H->Heads[pos].Next = NewCell;
     } else {
       return false;
     }
@@ -80,7 +80,7 @@ bool InsertIntoHash(HashTable H, ElementType Key) {
 
 void DestroyTable(HashTable H) {
   int i;
-  Position P, Tmp;
+  Pos P, Tmp;
   /* Release the nodes of each linked list */
   for (i = 0; i < H->TableSize; i++) {
     P = H->Heads[i].Next;

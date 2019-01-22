@@ -1,67 +1,142 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "ExternalSorting.h"
 #include "Sort.h"
 
 /* local data type */
-typedef int LoserTree[7];
 
 /* prototype for local functions */
 
-//static void get_run(LoserTree &ls, WorkArea &wa);
-//static void SelectMinMax(LoserTree &ls, WorkArea wa, int q);
-//static void ConstructLoser(LoserTree &ls, WorkArea &wa);
+static void InternalSort(int arr[], int size, int method);
+static void Segement(FILE *fi, int wayNum, int capacity);
+static int * ConstructLoser(int wayNum, ExNode *seges);
+static void AdjustLoserTree(int * ls, ExNode * seges, int wayNum, int winner);
+static void Merge(FILE *fo, int wayNum);
 
 /* functions definition */
 
-//void ReplaceSelectionSort(LoserTree &ls, WorkArea &wa, FILE *fi, FILE *fo) {
-//  ConstructLoser(ls, wa);
-//  int rmax;
-//  wa[0].record = rmax = 1;
-//  while (wa[0].record <= rmax) {
-//    get_run(ls, wa);
-//    
-//  }
-//}
-
-void SevenWayMergeSort(FILE *fi) {
-
+void SevenWayMergeSort(FILE *fi, FILE *fo, int size) {
+  int capacity = size / WAYNUM + 1;
+  // Prevent the last path from having no content
+  int wayNum = size % capacity == 0 ? size / capacity : (size / (WAYNUM - 1)) == capacity ? WAYNUM : WAYNUM - 1;
+  Segement(fi, wayNum, capacity);
+  Merge(fo, wayNum);
 }
 
 /* local functions */
-//static void get_run(LoserTree &ls, WorkArea &wa) {
-//  // 求得一个初始归并段，fi 为输入文件指针，f0 为输出文件指针
-//  while (wa[ls[0]].segementNum == wa->record) {
-//
-//  }
-//}
-//
-//static void SelectMinMax(LoserTree &ls, WorkArea wa, int q) {
-//  // 从 wa[q] 起到败者树的根比较选择 MINMAX 记录，并由 q 指示它所在的归并段
-//  int t, p;
-//  for (t = (capacity + q) / 2, p = ls[t]; t > 0; t = t / 2, p = ls[t]) {
-//    if (wa[p].segementNum < wa[q].segementNum || wa[p].segementNum == wa[q].segementNum && wa[p].key < wa[q].key) {
-//      int temp = q;
-//      q = ls[t];
-//      ls[t] = temp;
-//    }
-//    ls[0] = q;
-//  }
-//}
-//
-//static void ConstructLoser(LoserTree &ls, WorkArea &wa) {
-//  // 输入 w 个记录到内存工作区 wa，建得败者树 ls，选出关键字最小的记录并有 s 指示其在 wa 中的位置
-//  int i;
-//  for (i = 0; i < capacity; i++) {  // 工作区初始化
-//    wa[i].segementNum = wa[i].key = ls[i] = 0;
-//  }
-//  FILE * fi = fopen("aha.txt", "r");
-//  for (i = capacity - 1; i >= 0; i--) {
-//    if (fscanf(fi, "%d", &wa[i].record) != EOF) {
-//      wa[i].key = wa->record; // 提取关键字
-//      wa[i].segementNum = 1;
-//      SelectMinMax(ls, wa, i);
-//    } else {
-//      puts("fscanf error");
-//    }
-//  }
-//}
+
+static void Segement(FILE *fi, int wayNum, int capacity) {
+  int i, j;
+  int *sege = (int *)malloc(sizeof(int) * capacity);
+  for (i = 0; i < wayNum; i++) {
+    memset(sege, 0, capacity * sizeof(int));
+    j = 0;
+    fscanf(fi, "%d", &sege[j]);
+    while (!feof(fi)) {
+      j++;
+      if (j >= capacity) {
+        break;
+      }
+      fscanf(fi, "%d", &sege[j]);
+      if (feof(fi)) {
+        j++;
+        break;
+      }
+    }
+    char filename[15];
+    sprintf(filename, "temp%d.txt", i);
+    FILE *fp = fopen(filename, "w");
+    InternalSort(sege, j, i);
+    for (int t = 0; t < j; t++) {
+      fprintf(fp, "%d ", sege[t]);
+    }
+    fclose(fp);
+  }
+}
+
+static void Merge(FILE *fo, int wayNum) {
+  FILE **fp = (FILE **)malloc(sizeof(FILE *) * wayNum);
+  char filename[15];
+  int i;
+  for (i = 0; i < wayNum; i++) {
+    sprintf(filename, "temp%d.txt", i);
+    fp[i] = fopen(filename, "a+");
+  }
+  ExNode *seges = (ExNode *)malloc(sizeof(ExNode) * wayNum + 1);
+  for (i = 0; i < wayNum; i++) {
+    fscanf(fp[i], "%d", &seges[i].key);
+  }
+  int *ls = ConstructLoser(wayNum, seges);
+  int MAXKEY = 9999;
+  while (seges[ls[0]].key != MAXKEY) {
+    int pos;
+    pos = ls[0];
+    fprintf(fo, "%d ", seges[pos].key);
+    printf("%d ", seges[pos].key);
+    fscanf(fp[pos], "%d", &seges[pos].key);
+    if (feof(fp[pos])) {
+      seges[pos].key = MAXKEY;
+    }
+    AdjustLoserTree(ls, seges, wayNum, pos);
+  }
+}
+
+static void InternalSort(int arr[], int size, int method) {
+  switch (method) {
+    case 0: {
+      BubbleSort(arr, size);
+      break;
+    }
+    case 1: {
+      SelectionSort(arr, size);
+      break;
+    }
+    case 2: {
+      InsertionSort(arr, size);
+      break;
+    }
+    case 3: {
+      ShellSort(arr, size);
+      break;
+    }
+    case 4: {
+      HeapSort(arr, size);
+      break;
+    }
+    case 5: {
+      MergeSort(arr, size);
+      break;
+    }
+    case 6: {
+      QuickSort(arr, size);
+      break;
+    }
+  }
+}
+
+static int * ConstructLoser(int wayNum, ExNode *seges) {
+  seges[wayNum].key = 0;
+  int i;
+  int *ls = (int *)malloc(sizeof(int) * wayNum);
+  for (i = 0; i < wayNum; i++) {
+    ls[i] = wayNum;
+  }
+  for (i = wayNum - 1; i >= 0; i--) {
+    AdjustLoserTree(ls, seges, wayNum, i);
+  }
+  return ls;
+}
+
+static void AdjustLoserTree(int * ls, ExNode * seges, int wayNum, int winner) {
+  int t = (winner + wayNum) / 2;
+  while (t > 0) {
+    if (seges[winner].key > seges[ls[t]].key) {
+      int tmp = ls[t];
+      ls[t] = winner;
+      winner = tmp;
+    }
+    t = t / 2;
+  }
+  ls[0] = winner;
+}

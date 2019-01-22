@@ -10,7 +10,7 @@ typedef struct ListNode {
   ElementType Data;
   struct ListNode * Next;
 } *PtrToLNode;
-typedef PtrToLNode Position;
+typedef PtrToLNode Pos;
 typedef PtrToLNode List;
 
 typedef struct TableNode {
@@ -36,7 +36,7 @@ bool InsertIntoHash(HashTable H, ElementType Key);
 /* operation: Find element: key in hash table: H */
 /* preconditions: Pointer H is not empty */
 /* postconditions: Return the position of this element */
-Position FindInHash(HashTable H, ElementType Key);
+Pos FindInHash(HashTable H, ElementType Key);
 
 /* operation: Free up space occupied by the hash table */
 /* preconditions: Pointer H is not empty */

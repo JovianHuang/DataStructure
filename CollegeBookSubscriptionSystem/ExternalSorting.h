@@ -1,15 +1,11 @@
 #ifndef EXTERNALSORTING_H
 #define EXTERNALSORTING_H
 
-//typedef int RecordType;
-//typedef int KeyType;
-//const int capacity = 6;
-//typedef struct record {
-//  RecordType record;
-//  KeyType key;
-//  int segementNum;
-//} RecordNode, WorkArea[capacity];
+static const int WAYNUM = 7;
+typedef struct {
+  int key;
+} ExNode;
 
-
+void SevenWayMergeSort(FILE *fi, FILE *fp, int size);
 
 #endif // !EXTERNALSORTING_H
