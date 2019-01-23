@@ -38,7 +38,7 @@ Index Hash(ElementType key, unsigned TableSize) {
   Index pos;
   int tmp = 0;
   for (int i = 0; i < sizeof(key); i++) {
-    tmp += key[i] - 'a';
+    tmp += 'a';
   }
   pos = tmp % TableSize;
   return pos;

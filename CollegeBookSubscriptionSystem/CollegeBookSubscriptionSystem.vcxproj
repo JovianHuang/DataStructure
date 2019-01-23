@@ -141,7 +141,6 @@
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="aha.txt" />
     <Text Include="books.txt" />
     <Text Include="university.txt" />
   </ItemGroup>

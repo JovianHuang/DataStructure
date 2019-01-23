@@ -9,14 +9,8 @@
 #include "UserInterface.h"
 #include "BookInfo.h"
 #include "SubscriptionInfo.h"
-#include "Sort.h"
 
 int main(void) {
-  FILE *fi, *fo;
-  fi = fopen("aha.txt", "r");
-  fo = fopen("aha_sorted.txt", "w");
-  SevenWayMergeSort(fi, fo, 24);
-  fclose(fi);
-  fclose(fo);
+
   return 0;
 }
