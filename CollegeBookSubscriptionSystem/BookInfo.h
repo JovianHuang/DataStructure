@@ -29,6 +29,9 @@ typedef struct book {
   char Category[LEN_CATEGORY];
 } BOOK;
 
+
+BOOK InitializeBookNode(void);
+
 #endif // !BOOKINFO_H
 
 

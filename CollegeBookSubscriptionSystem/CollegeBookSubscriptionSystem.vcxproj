@@ -142,10 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="books.txt" />
+    <Text Include="subscription.txt" />
     <Text Include="university.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="books.dat" />
+    <None Include="subscription.dat" />
     <None Include="university.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

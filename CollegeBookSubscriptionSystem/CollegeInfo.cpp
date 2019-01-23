@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "CollegeInfo.h"
 
 /* local data type */
@@ -10,6 +12,12 @@ static void getString(char * st, int len);
 static void ClearBuffer(void);
 
 /* functions definition */
+
+School InitializeSchoolNode(void) {
+  School node;
+  memset(&node, 0, sizeof(School));
+  return node;
+}
 
 void getName(char * collegeName) {
   printf("请输入学校名称（限长30个字节，余则自动截取）：");

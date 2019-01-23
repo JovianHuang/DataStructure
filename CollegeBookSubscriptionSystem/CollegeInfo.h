@@ -16,6 +16,7 @@ typedef struct school {
   char Level[LEN_LEVEL];
 } School;
 
+School InitializeSchoolNode(void);
 void getName(char * collegeName);
 void getId(char * collegeId);
 void getDepartment(char * collegeDepartment);

@@ -85,12 +85,18 @@
     <Text Include="books.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="subscription.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="university.dat">
       <Filter>资源文件</Filter>
     </None>
     <None Include="books.dat">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="subscription.dat">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
