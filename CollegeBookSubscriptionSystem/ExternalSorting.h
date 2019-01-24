@@ -29,6 +29,7 @@ typedef struct nodeinfo{
 } NodeInfo;
 
 typedef struct exnode{
+  int serialNum;
   char key[KEYMAXLEN];
 } ExNode;
 typedef struct segeinfo {

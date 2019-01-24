@@ -1,8 +1,9 @@
 #ifndef SORT_H
 #define SORT_H
+#include "ExternalSorting.h"
 
-typedef char * sortedItem_Type;
-typedef char ** sortedArray_Type;
+typedef ExNode sortedItem_Type;
+typedef ExNode * sortedArray_Type;
 
 /* operation: Sort the array to be sorted in ascending order */
 /* preconditions: The array exists and the size is not zero */

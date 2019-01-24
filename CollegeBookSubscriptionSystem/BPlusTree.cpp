@@ -38,9 +38,7 @@ extern BPlusTree Initialize() {
 
 static Position FindMostLeft(Position P) {
   Position Tmp;
-
   Tmp = P;
-
   while (Tmp != NULL && Tmp->Children[0] != NULL) {
     Tmp = Tmp->Children[0];
   }
@@ -49,9 +47,7 @@ static Position FindMostLeft(Position P) {
 
 static Position FindMostRight(Position P) {
   Position Tmp;
-
   Tmp = P;
-
   while (Tmp != NULL && Tmp->Children[Tmp->KeyNum - 1] != NULL) {
     Tmp = Tmp->Children[Tmp->KeyNum - 1];
   }
@@ -62,9 +58,7 @@ static Position FindMostRight(Position P) {
 static Position FindSibling(Position Parent, int i) {
   Position Sibling;
   int Limit;
-
   Limit = M;
-
   Sibling = NULL;
   if (i == 0) {
     if (Parent->Children[1]->KeyNum < Limit)
@@ -74,7 +68,6 @@ static Position FindSibling(Position Parent, int i) {
   else if (i + 1 < Parent->KeyNum && Parent->Children[i + 1]->KeyNum < Limit) {
     Sibling = Parent->Children[i + 1];
   }
-
   return Sibling;
 }
 
@@ -83,9 +76,7 @@ static Position FindSiblingKeyNum_M_2(Position Parent, int i, int *j) {
   int Limit;
   Position Sibling;
   Sibling = NULL;
-
   Limit = LIMIT_M_2;
-
   if (i == 0) {
     if (Parent->Children[1]->KeyNum > Limit) {
       Sibling = Parent->Children[1];
@@ -99,9 +90,7 @@ static Position FindSiblingKeyNum_M_2(Position Parent, int i, int *j) {
       Sibling = Parent->Children[i + 1];
       *j = i + 1;
     }
-
   }
-
   return Sibling;
 }
 
@@ -109,7 +98,6 @@ static Position FindSiblingKeyNum_M_2(Position Parent, int i, int *j) {
    当要对Parent插入X节点的时候，i是要插入的位置，Key和j的值没有用
  */
 static Position InsertElement(int isKey, Position Parent, Position X, KeyType Key, int i, int j) {
-
   int k;
   if (isKey) {
     /* 插入key */
@@ -117,24 +105,18 @@ static Position InsertElement(int isKey, Position Parent, Position X, KeyType Ke
     while (k >= j) {
       X->Key[k + 1] = X->Key[k]; k--;
     }
-
     X->Key[j] = Key;
-
     if (Parent != NULL)
       Parent->Key[i] = X->Key[0];
-
     X->KeyNum++;
-
   } else {
     /* 插入节点 */
-
     /* 对树叶节点进行连接 */
     if (X->Children[0] == NULL) {
       if (i > 0)
         Parent->Children[i - 1]->Next = X;
       X->Next = Parent->Children[i];
     }
-
     k = Parent->KeyNum - 1;
     while (k >= i) {
       Parent->Children[k + 1] = Parent->Children[k];
