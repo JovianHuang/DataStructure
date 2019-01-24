@@ -122,7 +122,6 @@
     <ClCompile Include="BookInfo.cpp" />
     <ClCompile Include="BPlusTree.cpp" />
     <ClCompile Include="ExternalSorting.cpp" />
-    <ClCompile Include="Hash.cpp" />
     <ClCompile Include="HashFiles.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollegeInfo.cpp" />
@@ -136,7 +135,6 @@
     <ClInclude Include="BPlusTree.h" />
     <ClInclude Include="CollegeInfo.h" />
     <ClInclude Include="ExternalSorting.h" />
-    <ClInclude Include="Hash.h" />
     <ClInclude Include="HashFiles.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="SubscriptionInfo.h" />

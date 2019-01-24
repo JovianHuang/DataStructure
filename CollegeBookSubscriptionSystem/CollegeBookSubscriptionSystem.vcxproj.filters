@@ -42,9 +42,6 @@
     <ClCompile Include="ExternalSorting.cpp">
       <Filter>源文件\基础ADT</Filter>
     </ClCompile>
-    <ClCompile Include="Hash.cpp">
-      <Filter>源文件\基础ADT</Filter>
-    </ClCompile>
     <ClCompile Include="Sort.cpp">
       <Filter>源文件\基础ADT</Filter>
     </ClCompile>
@@ -66,9 +63,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="BPlusTree.h">
-      <Filter>头文件\基础ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="Hash.h">
       <Filter>头文件\基础ADT</Filter>
     </ClInclude>
     <ClInclude Include="Sort.h">
