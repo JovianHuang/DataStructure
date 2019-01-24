@@ -3,7 +3,7 @@
 
 static const int KEYMAXLEN = 160;
 
-enum  keyNameType {
+static enum  keyNameType {
   schoolName = 0,
   schoolId,
   schoolDepartment,

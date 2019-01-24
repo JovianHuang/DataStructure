@@ -51,6 +51,9 @@
     <ClCompile Include="SubscriptionInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="HashFiles.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserInterface.h">
@@ -75,6 +78,9 @@
       <Filter>头文件\基础ADT</Filter>
     </ClInclude>
     <ClInclude Include="SubscriptionInfo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HashFiles.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
