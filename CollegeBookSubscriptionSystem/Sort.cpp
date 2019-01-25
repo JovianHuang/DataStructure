@@ -51,7 +51,7 @@ void InsertionSort(sortedArray_Type arr, int num) {
     if (strcmp(arr[i].key, arr[i - 1].key) < 0) {
       Copy(temp, arr[i]);
       Copy(arr[i], arr[i - 1]);
-      for (j = i - 1; strcmp(arr[j].key, temp.key) > 0; j--) {
+      for (j = i - 1; j > 0 && strcmp(arr[j].key, temp.key) > 0; j--) {
         Copy(arr[j + 1], arr[j]);
       }
       Copy(arr[j + 1], temp);
@@ -117,7 +117,10 @@ static void Copy(sortedItem_Type &a, sortedItem_Type &b) {
 
 static sortedItem_Type InitializeItem(void) {
   sortedItem_Type temp;
-  memset(&temp, 0, sizeof(ExNode));
+  temp.serialNum = 0;
+  for (int i = 0; i < KEYMAXLEN; i++) {
+    temp.key[i] = 0;
+  }
   return temp;
 }
 

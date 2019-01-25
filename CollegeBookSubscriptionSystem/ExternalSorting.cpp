@@ -114,9 +114,10 @@ static void Segement_sub1(FILE *fi, School node, segeinfo segeinfo, nodeinfo nod
       }
       segeinfo.sege[j].serialNum = node.serialNum;
       SegeCopy_school(node, segeinfo.sege[j], nodeinfo);
-      printf("%d %s\n", segeinfo.sege[j].serialNum, segeinfo.sege[j].key);
+      //printf("%d %s\n", segeinfo.sege[j].serialNum, segeinfo.sege[j].key);
       j++;
     }
+    printf("排序前分段%d共有%d条数据。\n", i, j);
     char filename[15];
     sprintf(filename, "temp%d.dat", i);
     FILE *fp = fopen(filename, "wb");
@@ -125,7 +126,7 @@ static void Segement_sub1(FILE *fi, School node, segeinfo segeinfo, nodeinfo nod
       //printf("%d %s\n", segeinfo.sege[t].serialNum, segeinfo.sege[t].key);
       fwrite(&segeinfo.sege[t], sizeof(ExNode), 1, fp);
     }
-    printf("\n");
+    printf("排序后分段%d共有%d条数据。\n", i, j);
     fclose(fp);
   }
 }
@@ -133,23 +134,23 @@ static void Segement_sub1(FILE *fi, School node, segeinfo segeinfo, nodeinfo nod
 static void SegeCopy_school(School node, ExNode &sege, nodeinfo nodeinfo) {
   switch (nodeinfo.keyName) {
     case schoolName: {
-      memcpy(sege.key, node.Name, KEYMAXLEN);
+      strcpy(sege.key, node.Name);
       break;
     }
     case schoolId: {
-      memcpy(sege.key, node.Id, KEYMAXLEN);
+      strcpy(sege.key, node.Id);
       break;
     }
     case schoolDepartment: {
-      memcpy(sege.key, node.supervisorDepartment, KEYMAXLEN);
+      strcpy(sege.key, node.supervisorDepartment);
       break;
     }
     case schoolLocation: {
-      memcpy(sege.key, node.Location, KEYMAXLEN);
+      strcpy(sege.key, node.Location);
       break;
     }
     case schoolLevel: {
-      memcpy(sege.key, node.Level, KEYMAXLEN);
+      strcpy(sege.key, node.Level);
       break;
     }
   }
@@ -166,14 +167,16 @@ static void Segement_sub2(FILE *fi, BOOK node, segeinfo segeinfo, nodeinfo nodei
       segeinfo.sege[j].serialNum = node.serialNum;
       SegeCopy_book(node, segeinfo.sege[j++], nodeinfo);
     }
+    printf("排序前分段%d共有%d条数据。\n", i, j);
     char filename[15];
     sprintf(filename, "temp%d.dat", i);
     FILE *fp = fopen(filename, "wb");
     InternalSort(segeinfo.sege, j, i);
     for (int t = 0; t < j; t++) {
       fwrite(&segeinfo.sege[t], sizeof(ExNode), 1, fp);
-      printf("%d %s", segeinfo.sege[t].serialNum, segeinfo.sege[t].key);
+      //printf("%d %s", segeinfo.sege[t].serialNum, segeinfo.sege[t].key);
     }
+    printf("排序后分段%d共有%d条数据。\n\n", i, j);
     fclose(fp);
   }
 }
@@ -181,51 +184,51 @@ static void Segement_sub2(FILE *fi, BOOK node, segeinfo segeinfo, nodeinfo nodei
 static void SegeCopy_book(BOOK node, ExNode &sege, nodeinfo nodeinfo) {
   switch (nodeinfo.keyName) {
     case bookingNum: {
-      memcpy(sege.key, node.bookingNum, KEYMAXLEN);
+      strcpy(sege.key, node.bookingNum);
       break;
     }
     case bookVolume: {
-      memcpy(sege.key, node.Volume, KEYMAXLEN);
+      strcpy(sege.key, node.Volume);
       break;
     }
     case bookPublisher: {
-      memcpy(sege.key, node.publishedDate, KEYMAXLEN);
+      strcpy(sege.key, node.Publisher);
       break;
     }
     case bookISBN: {
-      memcpy(sege.key, node.ISBN, KEYMAXLEN);
+      strcpy(sege.key, node.ISBN);
       break;
     }
     case bookName: {
-      memcpy(sege.key, node.Name, KEYMAXLEN);
+      strcpy(sege.key, node.Name);
       break;
     }
     case bookAward: {
-      memcpy(sege.key, node.Award, KEYMAXLEN);
+      strcpy(sege.key, node.Award);
       break;
     }
     case bookAuthor: {
-      memcpy(sege.key, node.Author, KEYMAXLEN);
+      strcpy(sege.key, node.Author);
       break;
     }
     case bookGrade: {
-      memcpy(sege.key, node.Grade, KEYMAXLEN);
+      strcpy(sege.key, node.Grade);
       break;
     }
     case bookPrice: {
-      memcpy(sege.key, node.Price, KEYMAXLEN);
+      strcpy(sege.key, node.Price);
       break;
     }
     case bookEdition: {
-      memcpy(sege.key, node.Edition, KEYMAXLEN);
+      strcpy(sege.key, node.Edition);
       break;
     }
     case bookPublishedDate: {
-      memcpy(sege.key, node.publishedDate, KEYMAXLEN);
+      strcpy(sege.key, node.publishedDate);
       break;
     }
     case bookCategory: {
-      memcpy(sege.key, node.Category, KEYMAXLEN);
+      strcpy(sege.key, node.Category);
       break;
     }
   }
@@ -234,31 +237,38 @@ static void SegeCopy_book(BOOK node, ExNode &sege, nodeinfo nodeinfo) {
 static void InternalSort(ExNode *arr, int number, int method) {
   switch (method) {
     case 0: {
-      BubbleSort(arr, number);
+      printf("\r正在使用快速排序法进行排序。\n");
+      QuickSort(arr, number);
       break;
     }
     case 1: {
+      printf("\r正在使用选择排序法进行排序。\n");
       SelectionSort(arr, number);
       break;
     }
     case 2: {
+      printf("\r正在使用插入排序法进行排序。\n");
       InsertionSort(arr, number);
       break;
     }
     case 3: {
+      printf("\r正在使用希尔排序法进行排序。\n");
       ShellSort(arr, number);
       break;
     }
     case 4: {
+      printf("\r正在使用堆排序法进行排序。\n");
       HeapSort(arr, number);
       break;
     }
     case 5: {
+      printf("\r正在使用归并排序法进行排序。\n");
       MergeSort(arr, number);
       break;
     }
     case 6: {
-      QuickSort(arr, number);
+      printf("\r正在使用冒泡排序法进行排序。\n");
+      BubbleSort(arr, number);
       break;
     }
   }
@@ -276,7 +286,7 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
     fread(&segeinfo.sege[i], sizeof(ExNode), 1, fp[i]);
   }
   int *ls = ConstructLoser(segeinfo);
-  char MAXKEY[] = "尊";
+  char MAXKEY[] = "鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏鐏";
   while (strcmp(segeinfo.sege[ls[0]].key, MAXKEY) != 0) {
     int pos;
     pos = ls[0];
@@ -291,7 +301,7 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
         School node;
         fread(&node, nodeinfo.Size, 1, fi);
         fwrite(&node, nodeinfo.Size, 1, fo);
-        printf("%d %s %s %s %s %s\n", node.serialNum, node.Name, node.Id, node.supervisorDepartment, node.Location, node.Level);
+        //printf("%d %s %s %s %s %s\n", node.serialNum, node.Name, node.Id, node.supervisorDepartment, node.Location, node.Level);
         break;
       }
       case bookingNum:
@@ -309,14 +319,14 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
         BOOK node;
         fread(&node, nodeinfo.Size, 1, fi);
         fwrite(&node, nodeinfo.Size, 1, fo);
-        printf("%d %s %s %s %s %s %s %s %s %s %s %s %s\n", node.serialNum, node.bookingNum, node.bookingNum, node.Publisher,
+ /*       printf("%d %s %s %s %s %s %s %s %s %s %s %s %s\n", node.serialNum, node.bookingNum, node.bookingNum, node.Publisher,
           node.ISBN, node.Name, node.Award, node.Author, node.Grade, node.Price, node.Edition, node.publishedDate, node.Category);
-        break;
+ */       break;
       }
     }
     fread(&segeinfo.sege[pos], sizeof(ExNode), 1, fp[pos]);
     if (feof(fp[pos])) {
-      memcpy(segeinfo.sege[pos].key, MAXKEY, KEYMAXLEN);
+      strcpy(segeinfo.sege[pos].key, MAXKEY);
     }
     AdjustLoserTree(ls, segeinfo, pos);
   }
@@ -327,8 +337,10 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
 
 static int * ConstructLoser(segeinfo &segeinfo) {
   char MINKEY[160];
-  memset(MINKEY, 0, sizeof(MINKEY));
-  memcpy(segeinfo.sege[segeinfo.wayNum].key, MINKEY, KEYMAXLEN);
+  for (int i = 0; i < 160; i++) {
+    MINKEY[i] = 0;
+  }
+  strcpy(segeinfo.sege[segeinfo.wayNum].key, MINKEY);
   int i;
   int *ls = (int *)malloc(sizeof(int) * segeinfo.wayNum);
   for (i = 0; i < segeinfo.wayNum; i++) {

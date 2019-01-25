@@ -21,17 +21,17 @@ static RecordNode InitializeRecordNode(void) {
 }
 
 Bucket InitializeBucket(FILE * fo_bucket) {
-  Bucket bucket;
-  bucket.recordNum = 0;
+  Bucket *bucket = (Bucket *)malloc(sizeof(Bucket));
+  bucket->recordNum = 0;
   for (int i = 0; i < RECORDNUM; i++) {
-    bucket.records[i] = InitializeRecordNode();
+    bucket->records[i] = InitializeRecordNode();
   }
-  bucket.next = -1;
+  bucket->next = -1;
   for (int i = 0; i < BUCKETNUM; i++) {
-    bucket.index = i;
+    bucket->index = i;
     fwrite(&bucket, sizeof(bucket), 1, fo_bucket);
   }
-  return bucket;
+  return *bucket;
 }
 
 int * InitializeHashIndex(FILE * fo_index) {
@@ -54,7 +54,7 @@ void CreateHashFiles(FilePointer fp, RecordNodeType recordnode) {
     if (feof(fp.source)) {
       break;
     }
-    memcpy(record.content, node.Id, CONTENTMAXLEN);
+    strcpy(record.content, node.Id);
     record.serialNum = node.serialNum;
     int hashkey = Hash(record);
     fseek(fp.bucket, sizeof(Bucket) * HashIndex[hashkey], 0);
@@ -67,7 +67,7 @@ void CreateHashFiles(FilePointer fp, RecordNodeType recordnode) {
 
 void Insert(Bucket bucket, RecordNode record, int *HashIndex, FILE *fp_bucket) {
   if (bucket.recordNum < RECORDNUM) {
-    memcpy(bucket.records[bucket.recordNum].content, record.content, CONTENTMAXLEN);
+    strcpy(bucket.records[bucket.recordNum].content, record.content);
     bucket.records[bucket.recordNum].serialNum = record.serialNum;
     bucket.recordNum++;
     fwrite(&bucket, sizeof(bucket), 1, fp_bucket);
@@ -76,13 +76,16 @@ void Insert(Bucket bucket, RecordNode record, int *HashIndex, FILE *fp_bucket) {
     for (int i = 0; i < RECORDNUM; i++) {
       bucket.records[i] = InitializeRecordNode();
     }
-    memcpy(bucket.records[bucket.recordNum].content, record.content, CONTENTMAXLEN);
+    strcpy(bucket.records[bucket.recordNum].content, record.content);
     bucket.records[bucket.recordNum].serialNum = record.serialNum;
     bucket.recordNum++;
     int pos_index = bucket.index; // HashIndex 中的位置
     fseek(fp_bucket, -(int)sizeof(bucket), SEEK_END); 
     fread(&bucket.index, sizeof(bucket.index), 1, fp_bucket);
     bucket.index++; // 获取index
+    if (bucket.index == 11) {
+      bucket.index++;
+    }
     bucket.next = HashIndex[pos_index];
     HashIndex[pos_index] = bucket.index;
     fseek(fp_bucket, 0, SEEK_END);
