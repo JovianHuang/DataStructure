@@ -5,11 +5,11 @@
 
 typedef struct {
   int Number;
-  char Schoolname[26];
+  char Schoolname[40];
   char Schoolnum[15];
   char Quarter[50];  //征订号
   int  Quantity;
-}ElemRec;  //元素记录
+}Elem;  //元素记录
 
 typedef struct {
   char quarter[50]; //征订号
@@ -22,7 +22,7 @@ static void ClearBuffer(void);
 
 void InvertedList(void) { //List1
   FILE *fi;
-  ElemRec List1[501];
+  Elem List1[501];
   InList List2[100];
   int i = 1, n, j = 1, line, pos = 1, flag = 1;
 
@@ -32,7 +32,7 @@ void InvertedList(void) { //List1
     exit(0);
   }
   printf("学号 学校名 标识码 征订号 书的数量(倒序表（一），什么学校订阅了什么图书)\n");
-  while (fread(&List1[i], sizeof(ElemRec), 1, fi) == 1) {
+  while (fread(&List1[i], sizeof(Elem), 1, fi) == 1) {
     printf("%d %s %s %s %d\n", List1[i].Number, List1[i].Schoolname, List1[i].Schoolnum, List1[i].Quarter, List1[i].Number);
 
     i++;

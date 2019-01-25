@@ -2,27 +2,28 @@
 #include "CollegeInfo.h"
 
 
-void FreadRecord(Record R[], int &N)   //从文件读取记录并输出
+void FreadRecord(Record record[], int &N)   //从文件读取记录并输出
 {
-  FILE *fp;
+  FILE *fp = fopen("university.dat", "wb");
   int i = 0, j;
-  char num[10];
-  if ((fp = fopen("university.txt", "r")) == NULL) {
-    printf("can not open the file\n");
-    exit(0);
+  School node;
+  while (true) {
+    fread(&node, sizeof(School), 1, fp);
+    if (feof(fp)) {
+      break;
+    }
+   
   }
-  while (fscanf(fp, "%s%s%s%s%s%s", num, R[i + 1].SchoolName, R[i + 1].SchoolNum, R[i + 1].Department, R[i + 1].Place, R[i + 1].Level) != EOF)
     i++;
   N = i;
   printf("一共有信息记录：%d\n", i);
   for (j = 1; j <= i; j++)
-    printf("%d\t%s\t%s\t%s\t%s\t%s\n", j, R[j].SchoolName, R[j].SchoolNum, R[j].Department, R[j].Place, R[j].Level);
+    printf("%d\t%s\t%s\t%s\t%s\t%s\n", j, record[j].SchoolName, record[j].Id, record[j].Department, record[j].Place, record[j].Level);
   fclose(fp);
 }
 
-
-BPTree MallocNewNode(void)   //产生新结点并初始化
-{
+BPTree InitializeBPNode(void) {
+  //初始化
   BPTree  NewNode;
   int i;
   NewNode = (BPTree)malloc(sizeof(BPNode));
@@ -40,14 +41,6 @@ BPTree MallocNewNode(void)   //产生新结点并初始化
   return NewNode;
 }
 
-BPTree Initialize(void)
-{
-  //初始化
-  BPTree T;
-  T = MallocNewNode();
-  return T;
-}
-
 void KeySort(Record R[], int N)   //采用折半查找法
 {
   //使得关键字有序
@@ -58,7 +51,7 @@ void KeySort(Record R[], int N)   //采用折半查找法
     high = i - 1;
     while (low <= high) {
       M = (low + high) / 2;
-      if (strcmp(R[0].SchoolNum, R[M].SchoolNum) < 0)
+      if (strcmp(R[0].Id, R[M].Id) < 0)
         high = M - 1;
       else
         low = M + 1;
@@ -69,42 +62,37 @@ void KeySort(Record R[], int N)   //采用折半查找法
   }//for
 }
 
-
-
-
-Status CreateBPTree(BPTree &T, Record R[], int N)    //在R[]中存储的关键字有序
-{
+Status CreateBPTree(BPTree &Tree, Record record[], int &N) {
   //创建B+树,n表阶数
-  BPTree p;
+  BPTree ptr;
   int i, j;
   i = 1;
   j = 1;
-  T = Initialize();
-  p = T;    //移动指针
+  Tree = InitializeBPNode();
+  ptr = Tree;    //移动指针
   while (i <= m && j <= N) {
-    strcpy(p->key[i], R[j].SchoolNum);   //关键字赋值
-    p->recptr[i] = &R[j++];
-    p->keynum = i;
+    strcpy(ptr->key[i], record[j].Id);   //关键字赋值
+    ptr->recptr[i] = &record[j++];
+    ptr->keynum = i;
     i++;
     if (i > m) {
       i = 1;
-      p->next = Initialize();   //获取新的兄弟空间,指向下一个兄弟
-      p = p->next;
+      ptr->next = InitializeBPNode();   //获取新的兄弟空间,指向下一个兄弟
+      ptr = ptr->next;
     }
   }    //完成叶子层
 
-  CreateBPTreeParent(T);   //向上构建
+  CreateBPTreeParent(Tree);   //向上构建
   return OK;
 }
 
-Status CreateBPTreeParent(BPTree &T)
-{
+Status CreateBPTreeParent(BPTree &T) {
   //构建父亲
   BPTree p, parents;
   int i;
   p = T;
   i = 1;
-  T = Initialize();   //获取父亲结点
+  T = InitializeBPNode();   //获取父亲结点
   parents = T;
   while (i <= m && p) {
     strcpy(parents->key[i], p->key[p->keynum]);  //把最大放到上一层
@@ -115,7 +103,7 @@ Status CreateBPTreeParent(BPTree &T)
     p = p->next;
     if (i > m) {
       i = 1;
-      parents->next = Initialize();   //获取新的兄弟空间,指向下一个兄弟
+      parents->next = InitializeBPNode();   //获取新的兄弟空间,指向下一个兄弟
       parents = parents->next;
     }
   }//while
@@ -124,61 +112,55 @@ Status CreateBPTreeParent(BPTree &T)
   CreateBPTreeParent(T);
 }
 
-
-Result SearchUnByInput(BPTree T, KeyType num[])  //学校标识码作为关键字
-{
-  Result re;
+Result SearchByInput(BPTree T, KeyType num[]) {
+  Result result;
   int i = 1;
-  BPTree p;  //p为移动指针
-  p = T;
-  while (p&&i <= p->keynum) {
-    if (strcmp(num, p->key[i]) == 0) {
-      if (!p->children[i]) {
-        re.tag = 1;
-        re.i = i;
-        re.pt = p;
-      }
-      else {
-        p = p->children[i];
-        while (p->children[p->keynum]) {
-          p = p->children[p->keynum];
+  BPTree ptr;  //p为移动指针
+  ptr = T;
+  while (ptr&&i <= ptr->keynum) {
+    if (strcmp(num, ptr->key[i]) == 0) {
+      if (!ptr->children[i]) {
+        result.tag = 1;
+        result.i = i;
+        result.pt = ptr;
+      } else {
+        ptr = ptr->children[i];
+        while (ptr->children[ptr->keynum]) {
+          ptr = ptr->children[ptr->keynum];
         }
-        re.tag = 1;
-        re.i = p->keynum;
-        re.pt = p;
+        result.tag = 1;
+        result.i = ptr->keynum;
+        result.pt = ptr;
       }
       printf("\n结果：查到相应信息\n");
       break;
-    }
-    else if (strcmp(num, p->key[i]) < 0) {
-      if (!p->children[i]) {
-        re.i = i;
-        re.pt = p;
-        re.tag = 0;
+    } else if (strcmp(num, ptr->key[i]) < 0) {
+      if (!ptr->children[i]) {
+        result.i = i;
+        result.pt = ptr;
+        result.tag = 0;
       }
-      p = p->children[i];
+      ptr = ptr->children[i];
       i = 1;
       continue;
-    }
-    else
+    } else
       i++;
-    if (i > p->keynum) {
-      while (p->children[p->keynum])
-        p = p->children[p->keynum];
-      re.i = p->keynum + 1;
-      re.pt = p;
-      re.tag = 0;
+    if (i > ptr->keynum) {
+      while (ptr->children[ptr->keynum])
+        ptr = ptr->children[ptr->keynum];
+      result.i = ptr->keynum + 1;
+      result.pt = ptr;
+      result.tag = 0;
     }
 
   }//while
-  if (p == NULL || i > p->keynum) {
-    re.tag = 0;
+  if (ptr == NULL || i > ptr->keynum) {
+    result.tag = 0;
   }
-  return re;
+  return result;
 }
 
-Status InsertBPLeaf(BPTree &T, KeyType K[], BPTree q, int pos)
-{
+Status InsertBPLeaf(BPTree &T, KeyType K[], BPTree q, int pos) {
   //在m阶B+树T上结点*q的key[i]与key[i+1]之间插入关键字K;
   //若引起结点过大，则沿双亲链进行必要的结点分裂调整，使T仍是m阶B+树
   KeyType x[15];
@@ -193,34 +175,32 @@ Status InsertBPLeaf(BPTree &T, KeyType K[], BPTree q, int pos)
     if (q->keynum <= m) finished = TRUE;
     else {
       s = m / 2;//注意
-      split(q, s, ap);   //将q->key[s+1 ...n],q->children[s..n]和p->recptr[s+1..m]移入新结点*ap
+      Split(q, s, ap);   //将q->key[s+1 ...n],q->children[s..n]和p->recptr[s+1..m]移入新结点*ap
       strcpy(q->key[s], x);
       q = q->parent;
       if (q) i = Search(q, x);   //在双亲结点*q中查找x的插入位置
     }
   }
   if (!finished)
-    NewRoot(T, ap);
+    CreateNewRoot(T, ap);
   return OK;
 }
 
 
-Status NewRoot(BPTree &T, BPTree ap)  //构造新树根
-{
-  BPTree q;
-  q = Initialize();
-  strcmp(q->key[1], T->key[T->keynum]);
-  strcmp(q->key[2], ap->key[ap->keynum]);
-  q->keynum = 2;
-  T = q;
+Status CreateNewRoot(BPTree &T, BPTree ap) {
+  BPTree ptr;
+  ptr = InitializeBPNode();
+  strcmp(ptr->key[1], T->key[T->keynum]);
+  strcmp(ptr->key[2], ap->key[ap->keynum]);
+  ptr->keynum = 2;
+  T = ptr;
   return OK;
 }
 
 
-Status split(BPTree &q, int s, BPTree &ap)  //分裂
-{
+Status Split(BPTree &q, int s, BPTree &ap) {
   int i, j;
-  ap = Initialize();
+  ap = InitializeBPNode();
   for (i = s + 1, j = 1; i <= q->keynum; i++, j++) {
     strcpy(ap->key[j], q->key[i]); //把q上的关键字赋值 到ap上
     ap->keynum = j;
@@ -231,8 +211,7 @@ Status split(BPTree &q, int s, BPTree &ap)  //分裂
   return OK;
 }
 
-Status Insert(BPTree &q, int i, KeyType K[], BPTree &ap)
-{
+Status Insert(BPTree &q, int i, KeyType K[], BPTree &ap) {
   //将x和ap分别插入到q->key[i+1]和q->children[i+1],
   int j;
   BPTree pre;
@@ -241,11 +220,8 @@ Status Insert(BPTree &q, int i, KeyType K[], BPTree &ap)
       strcpy(q->key[j + 1], q->key[j]);
       q->recptr[j + 1] = q->recptr[j];
     }
-
     strcpy(q->key[i], K);   //j jm把关键字赋值给q->key
-  }
-  else                           //最大值，在最右边
-  {
+  } else {//最大值，在最右边
     strcpy(q->key[i], K);   //插入
     if (strcmp(K, q->key[q->keynum]) > 0)   //改非终端结点的值
     {
@@ -261,50 +237,40 @@ Status Insert(BPTree &q, int i, KeyType K[], BPTree &ap)
   return OK;
 }
 
-int Search(BPTree q, KeyType K[])
-{
-  int i;
-  if (strcmp(K, q->key[i]) <= 0)
+int Search(BPTree q, KeyType K[]) {
+  int i = 0;
+  if (strcmp(K, q->key[i++]) <= 0)
     return i;
 }
 
-
 //删除代码
-Status SearchFromBPTree(BPTree &T, KeyType k[], BPTree &q, int &i)   //Search
-{
-  BPTree p;
-  p = T;
+Status SearchInBPTree(BPTree &T, KeyType k[], BPTree &q, int &i) {
+  BPTree ptr;
+  ptr = T;
   int j;
-  for (j = 1; j <= p->keynum;) {
-    if (strcmp(k, p->key[j]) <= 0) {
-      if (p->children[j])
-        p = p->children[j];
+  for (j = 1; j <= ptr->keynum;) {
+    if (strcmp(k, ptr->key[j]) <= 0) {
+      if (ptr->children[j])
+        ptr = ptr->children[j];
       else {
-        if (strcmp(k, p->key[j]) == 0) {
-          //                    printf("已找到该校信息,该校信息是:\n");
-          //                    printf("%s\t%s\t%s\t%s\t%s\n",p->recptr[j]->identification_code,p->recptr[j]->school_name,p->recptr[j]->department,p->recptr[j]->address,p->recptr[j]->education_level);
+        if (strcmp(k, ptr->key[j]) == 0) {
           i = j;
-          q = p;
+          q = ptr;
           return 0;
-        }
-        else {
+        } else {
           i = j - 1;
-          q = p;
-          //                    printf("该校信息不存在\n");
+          q = ptr;
           return 0;
         }
       }
       j = 1;
-    }
-    else if (j == p->keynum&&strcmp(p->key[j], k) < 0) {
-      while (p->children[p->keynum])
-        p = p->children[p->keynum];
-      q = p;
-      i = p->keynum;//i是插入点前一个位置  。
-//            printf("查找失败\n");
+    } else if (j == ptr->keynum&&strcmp(ptr->key[j], k) < 0) {
+      while (ptr->children[ptr->keynum])
+        ptr = ptr->children[ptr->keynum];
+      q = ptr;
+      i = ptr->keynum;//i是插入点前一个位置  。
       return 0;
-    }
-    else
+    } else
       j++;
   }
   return OK;
@@ -323,8 +289,7 @@ Status DeleteUniInfo(BPTree &T)  //delete_one_information
     if (n == 10) {
       DeleteInfo(T, num);  //delete_one_infor
       break;
-    }
-    else
+    } else
       printf("请重新输入要删除的学校表示码\n");
   }
   return OK;
@@ -332,19 +297,12 @@ Status DeleteUniInfo(BPTree &T)  //delete_one_information
 
 Status DeleteInfo(BPTree &T, char num[])  //delete_one_infor
 {
-
   int i;
-
   BPTree q;
-
   int flag = 1;
-
-  SearchFromBPTree(T, num, q, i);//i  i+1是q中要删除的位置
-
+  SearchInBPTree(T, num, q, i);//i  i+1是q中要删除的位置
   DeletePos(T, i, flag);//delete_q_i
-
   int finished = FALSE;
-
   while (!finished) {
     if (flag)//如果删的不是最大关键字
     {
@@ -364,17 +322,13 @@ Status DeleteInfo(BPTree &T, char num[])  //delete_one_infor
           if (p != T && p->keynum >= (m / 2)) {
             finished = TRUE;
             flag = 1;
-          }
-          else {
+          } else {
             q = p;
             flag = 1;
             finished = FALSE;
           }
 
-        }
-        else//合并p到q中
-        {
-
+        } else {//合并p到q中
           Combine(p, q);   //合并
           char x[50];
           Return_Combine(q, x);//修改q的父节点的最大关键字。
@@ -382,89 +336,68 @@ Status DeleteInfo(BPTree &T, char num[])  //delete_one_infor
 
           if (q != T && q->keynum >= (m / 2)) {
             finished = TRUE;
-          }
-          else if (q == T)
+          } else if (q == T) {
             finished = TRUE;
-          else {
+          } else {
             if (strcmp(x, q->key[q->keynum]) == 0) {
               finished = FALSE;
               flag = 1;
-            }
-            else if (strcmp(x, q->key[q->keynum]) > 0)//x  you tangxiongdi fanhuide
-            {
+            } else if (strcmp(x, q->key[q->keynum]) > 0) {
               finished = FALSE;
               flag = 1;
-            }
-            else if (strcmp(q->key[q->keynum], x) < 0 && strcmp(q->next->key[1], x) >= 0)//x  gaideqde zuidaguanjianzi
-            {
+            } else if (strcmp(q->key[q->keynum], x) < 0 && strcmp(q->next->key[1], x) >= 0) {
               finished = FALSE;
               flag = 0;
-
             }
           }
-
         }
-      }
-      else {
+      } else {
         finished = TRUE;
       }
-    }
-    else  //删的是最大的关键字
-    {
+    } else {//删的是最大的关键字
       if (q->keynum < (m / 2)) {
         BPTree p;
-        if (p->next)
+        if (q->next) {
           p = q->next;
-        else {
-
+        } else {
           SearchLeft(q, p);//找左兄弟去
         }
         if (p->keynum > (m / 2)) {
           //从p借一个过来给 q
           BorrowToOther(p, q);
           Return_Borrow(q);//修改q的父节点的最大关键字。
-           //q=q->parent;
           if (p != T && p->keynum >= (m / 2)) {
             finished = TRUE;
-          }
-          else {
+          } else {
             finished = FALSE;
             q = p;
             flag = 1;
           }
-        }
-        else {
+        } else {
           Combine(p, q);
           char x[50];
           Return_Combine(q, x);//修改q的父节点的最大关键字。
           q = p->parent;
           if (q != T && q->keynum >= (m / 2)) {
             finished = TRUE;
-          }
-          else if (q == T)
+          } else if (q == T)
             finished = TRUE;
           else {
             if (strcmp(x, q->key[q->keynum]) == 0) {
               finished = FALSE;
               flag = 1;
-            }
-            else if (strcmp(x, q->key[q->keynum]) > 0)//x  you tangxiongdi fanhuide
+            } else if (strcmp(x, q->key[q->keynum]) > 0)  //堂兄弟
             {
               finished = FALSE;
               flag = 1;
-            }
-            else if (strcmp(q->key[q->keynum], x) < 0 && strcmp(q->next->key[1], x) >= 0)//x  gaideqde zuidaguanjianzi
+            } else if (strcmp(q->key[q->keynum], x) < 0 && strcmp(q->next->key[1], x) >= 0) // 最大关键字
             {
               finished = FALSE;
               flag = 0;
-
             }
           }
-
         }
-
-      }
-      else {
+      } else {
         char x[50];
         Return_Max(q, x);//修改q的父节点的最大关键字。
         q = q->parent;
@@ -508,9 +441,7 @@ Status BorrowToOther(BPTree &p, BPTree &q) //Borrow_p_to_q
     q->recptr[1] = p->recptr[p->keynum];
     p->keynum--;
 
-  }
-  //if(p->key[1]>q->key[q->keynum])//说明p是q的右兄弟
-  else {
+  } else {
     strcpy(q->key[q->keynum + 1], p->key[1]);
     q->children[q->keynum + 1] = p->children[1];
     q->recptr[q->keynum + 1] = p->recptr[1];
@@ -521,16 +452,13 @@ Status BorrowToOther(BPTree &p, BPTree &q) //Borrow_p_to_q
       p->recptr[i] = p->recptr[i + 1];
     }
     p->keynum--;
-
   }
   return OK;
 }
 
 
 
-Status Return_Borrow(BPTree &q)  //back_parents_because_borrow
-//修改q的父节点的最大关键字。
-{
+Status Return_Borrow(BPTree &q) {
   BPTree parents;
   parents = q->parent;
   int i;
@@ -542,23 +470,20 @@ Status Return_Borrow(BPTree &q)  //back_parents_because_borrow
       strcpy(parents->key[i - 1], p->key[p->keynum]);
 
       break;
-    }
-    else if (strcmp(parents->key[i], q->key[q->keynum]) > 0) {
+    } else if (strcmp(parents->key[i], q->key[q->keynum]) > 0) {
       strcpy(parents->key[i - 1], q->key[q->keynum]);
       break;
     }
 
   }
 
-  if (i > parents->keynum)// 从右边堂兄弟借的
-  {
+  if (i > parents->keynum) {// 从右边堂兄弟借的
     strcpy(parents->key[parents->keynum], q->key[q->keynum]);
   }
   return OK;
 }
 
-Status Return_Max(BPTree &q, char x[]) //back_parents_because_delele_max
-{//返回父亲因为删除了最大值
+Status Return_Max(BPTree &q, char x[]) {  //返回父亲,因为删除了最大值
   BPTree parents;
   parents = q->parent;
   int i;
@@ -574,8 +499,7 @@ Status Return_Max(BPTree &q, char x[]) //back_parents_because_delele_max
 }
 
 //找q的左兄弟去
-Status SearchLeft(BPTree q, BPTree &p)  //search_q_left_brother
-{
+Status SearchLeft(BPTree q, BPTree &p) {
   BPTree parent;
   parent = q->parent;
   int i;
@@ -593,8 +517,7 @@ Status SearchLeft(BPTree q, BPTree &p)  //search_q_left_brother
 }
 
 
-Status Combine(BPTree &p, BPTree &q)//合并 p 到 q 中
-{
+Status Combine(BPTree &p, BPTree &q) {
   int i, j;
   if (strcmp(p->key[1], q->key[q->keynum]) > 0)//p在q的右边
   {
@@ -605,8 +528,7 @@ Status Combine(BPTree &p, BPTree &q)//合并 p 到 q 中
     }
     q->keynum += p->keynum;
     p->keynum = 0;
-  }
-  else //p在左边q的
+  } else //p在左边q的
   {
     int n;
     n = p->keynum + q->keynum;
@@ -627,8 +549,7 @@ Status Combine(BPTree &p, BPTree &q)//合并 p 到 q 中
   return 0;
 }
 
-Status Return_Combine(BPTree &q, char x[]) // back_parents_because_combine
-{// 由于 p合并到了 q 中  修改q的父节点的最大关键字。
+Status Return_Combine(BPTree &q, char x[]) {// 由于 p合并到了 q 中  修改q的父节点的最大关键字。
   BPTree parent;
   parent = q->parent;
 
@@ -641,29 +562,22 @@ Status Return_Combine(BPTree &q, char x[]) // back_parents_because_combine
       p = parent->children[i];
       if (p->keynum == 0)//说明 合并 的p在q的右边
       {
-
         i -= 1;
         BPTree p1, p2;
         p1 = parent->children[i];
         p2 = p1->next;
         p1->next = p2->next;
         free(p2);
-        // i+=1;
         strcpy(parent->key[i], q->key[q->keynum]);
-        // parent->ptr[i] = q->ptr[q->keynum];
-
         for (j = i + 1; j < parent->keynum; j++) {
           strcpy(parent->key[j], parent->key[j + 1]);
           parent->children[j] = parent->children[j + 1];
-
         }
         parent->keynum--;
-      }
-      else   //合并 的 p 在q的左边
+      } else   //合并 的 p 在q的左边
       {
         i -= 1;
         j = i;
-
         BPTree p1;
         p1 = parent->children[i];
         i = i - 1;
@@ -671,14 +585,12 @@ Status Return_Combine(BPTree &q, char x[]) // back_parents_because_combine
         p2 = parent->children[i];
         p2->next = p1->next;
         free(p1);
-
         for (; j < parent->keynum; j++) {
           strcpy(parent->key[j], parent->key[j + 1]);
           parent->children[j] = parent->children[j + 1];
           parent->recptr[j] = parent->recptr[j];
         }
         parent->keynum--;
-
       }
       return 0;
     }
@@ -696,7 +608,6 @@ Status Return_Combine(BPTree &q, char x[]) // back_parents_because_combine
     }
     p1->keynum--;
     strcpy(x, p1->key[1]);
-
   }
   return OK;
 }
@@ -706,20 +617,16 @@ Status ModifyBptree(BPTree &T) {
   Record rec;
   Result pos;
   getId(rec.SchoolName);
-  pos = SearchUnByInput(T, rec.SchoolNum);
+  pos = SearchByInput(T, rec.Id);
   while (1) {
     printf("+");
     int n;
-    n = strlen(rec.SchoolNum);
+    n = strlen(rec.Id);
     if (n == 10) {
-      DeleteInfo(T, rec.SchoolNum);  //delete_one_infor
+      DeleteInfo(T, rec.Id);  //delete_one_infor
       break;
-    }
-    else
+    } else
       printf("请重新输入学校标识码\n");
-
-
   }
   return OK;
 }
-

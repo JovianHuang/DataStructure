@@ -113,15 +113,19 @@ static void Segement_sub1(FILE *fi, School node, segeinfo segeinfo, nodeinfo nod
         break;
       }
       segeinfo.sege[j].serialNum = node.serialNum;
-      SegeCopy_school(node, segeinfo.sege[j++], nodeinfo);
+      SegeCopy_school(node, segeinfo.sege[j], nodeinfo);
+      printf("%d %s\n", segeinfo.sege[j].serialNum, segeinfo.sege[j].key);
+      j++;
     }
     char filename[15];
     sprintf(filename, "temp%d.dat", i);
     FILE *fp = fopen(filename, "wb");
     InternalSort(segeinfo.sege, j, i);
     for (int t = 0; t < j; t++) {
+      //printf("%d %s\n", segeinfo.sege[t].serialNum, segeinfo.sege[t].key);
       fwrite(&segeinfo.sege[t], sizeof(ExNode), 1, fp);
     }
+    printf("\n");
     fclose(fp);
   }
 }
@@ -168,6 +172,7 @@ static void Segement_sub2(FILE *fi, BOOK node, segeinfo segeinfo, nodeinfo nodei
     InternalSort(segeinfo.sege, j, i);
     for (int t = 0; t < j; t++) {
       fwrite(&segeinfo.sege[t], sizeof(ExNode), 1, fp);
+      printf("%d %s", segeinfo.sege[t].serialNum, segeinfo.sege[t].key);
     }
     fclose(fp);
   }
@@ -286,6 +291,7 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
         School node;
         fread(&node, nodeinfo.Size, 1, fi);
         fwrite(&node, nodeinfo.Size, 1, fo);
+        printf("%d %s %s %s %s %s\n", node.serialNum, node.Name, node.Id, node.supervisorDepartment, node.Location, node.Level);
         break;
       }
       case bookingNum:
@@ -303,6 +309,8 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
         BOOK node;
         fread(&node, nodeinfo.Size, 1, fi);
         fwrite(&node, nodeinfo.Size, 1, fo);
+        printf("%d %s %s %s %s %s %s %s %s %s %s %s %s\n", node.serialNum, node.bookingNum, node.bookingNum, node.Publisher,
+          node.ISBN, node.Name, node.Award, node.Author, node.Grade, node.Price, node.Edition, node.publishedDate, node.Category);
         break;
       }
     }
@@ -311,6 +319,9 @@ static void Merge(FILE *fi, FILE *fo, SegeInfo segeinfo, NodeInfo nodeinfo) {
       memcpy(segeinfo.sege[pos].key, MAXKEY, KEYMAXLEN);
     }
     AdjustLoserTree(ls, segeinfo, pos);
+  }
+  for (i = 0; i < segeinfo.wayNum; i++) {
+    fclose(fp[i]);
   }
 }
 

@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BookInfo.cpp" />
     <ClCompile Include="BPlusTree.cpp" />
     <ClCompile Include="BPTbase.cpp" />
     <ClCompile Include="ExternalSorting.cpp" />
