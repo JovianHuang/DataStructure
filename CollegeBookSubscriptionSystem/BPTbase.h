@@ -11,7 +11,7 @@
 #define TRUE 1
 #define MAX_KEYNUM  3000
 //University Information
-typedef char KeyType;
+//typedef char KeyType;
 typedef int Status;
 typedef struct {
   char Id[15];

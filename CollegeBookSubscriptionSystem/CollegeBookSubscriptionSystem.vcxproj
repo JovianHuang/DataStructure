@@ -124,8 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BookInfo.cpp" />
-    <ClCompile Include="BPlusTree.cpp" />
-    <ClCompile Include="BPTbase.cpp" />
+    <ClCompile Include="B_Tree.cpp" />
     <ClCompile Include="ExternalSorting.cpp" />
     <ClCompile Include="HashFiles.cpp" />
     <ClCompile Include="main.cpp" />
@@ -137,8 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BookInfo.h" />
-    <ClInclude Include="BPlusTree.h" />
-    <ClInclude Include="BPTbase.h" />
+    <ClInclude Include="B_Tree.h" />
     <ClInclude Include="CollegeInfo.h" />
     <ClInclude Include="ExternalSorting.h" />
     <ClInclude Include="HashFiles.h" />
@@ -149,7 +147,6 @@
   <ItemGroup>
     <Text Include="books.txt" />
     <Text Include="subscription.txt" />
-    <Text Include="sub_info.txt" />
     <Text Include="university.txt" />
   </ItemGroup>
   <ItemGroup>

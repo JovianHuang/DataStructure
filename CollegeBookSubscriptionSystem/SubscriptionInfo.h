@@ -14,6 +14,5 @@ struct subscription {
   int subscriNum;
 } ;
 
-void InvertedList(void);
 
 #endif // !SUBSCRIPTIONINFO_H

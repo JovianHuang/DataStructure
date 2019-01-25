@@ -12,7 +12,6 @@ void FreadRecord(Record record[], int &N)   //从文件读取记录并输出
     if (feof(fp)) {
       break;
     }
-   
   }
     i++;
   N = i;
