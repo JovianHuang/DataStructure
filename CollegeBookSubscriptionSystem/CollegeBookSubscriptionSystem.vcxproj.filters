@@ -33,9 +33,6 @@
     <ClCompile Include="CollegeInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="BookInfo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="BPlusTree.cpp">
       <Filter>源文件\基础ADT</Filter>
     </ClCompile>
@@ -45,11 +42,14 @@
     <ClCompile Include="Sort.cpp">
       <Filter>源文件\基础ADT</Filter>
     </ClCompile>
+    <ClCompile Include="HashFiles.cpp">
+      <Filter>源文件\基础ADT</Filter>
+    </ClCompile>
     <ClCompile Include="SubscriptionInfo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="HashFiles.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="BPTbase.cpp">
+      <Filter>源文件\基础ADT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,9 +62,6 @@
     <ClInclude Include="BookInfo.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="BPlusTree.h">
-      <Filter>头文件\基础ADT</Filter>
-    </ClInclude>
     <ClInclude Include="Sort.h">
       <Filter>头文件\基础ADT</Filter>
     </ClInclude>
@@ -75,7 +72,13 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="HashFiles.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\基础ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="BPlusTree.h">
+      <Filter>头文件\基础ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="BPTbase.h">
+      <Filter>头文件\基础ADT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +89,9 @@
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="subscription.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="sub_info.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>

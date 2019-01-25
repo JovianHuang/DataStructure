@@ -77,10 +77,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -119,8 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BookInfo.cpp" />
     <ClCompile Include="BPlusTree.cpp" />
+    <ClCompile Include="BPTbase.cpp" />
     <ClCompile Include="ExternalSorting.cpp" />
     <ClCompile Include="HashFiles.cpp" />
     <ClCompile Include="main.cpp" />
@@ -133,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="BookInfo.h" />
     <ClInclude Include="BPlusTree.h" />
+    <ClInclude Include="BPTbase.h" />
     <ClInclude Include="CollegeInfo.h" />
     <ClInclude Include="ExternalSorting.h" />
     <ClInclude Include="HashFiles.h" />
@@ -143,6 +148,7 @@
   <ItemGroup>
     <Text Include="books.txt" />
     <Text Include="subscription.txt" />
+    <Text Include="sub_info.txt" />
     <Text Include="university.txt" />
   </ItemGroup>
   <ItemGroup>

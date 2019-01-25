@@ -16,6 +16,7 @@ typedef struct recordnode {
 } RecordNode;
 
 typedef struct bucket {
+  int index;
   RecordNode records[RECORDNUM];
   int recordNum;
   int next;

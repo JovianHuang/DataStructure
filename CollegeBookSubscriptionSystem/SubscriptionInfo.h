@@ -12,6 +12,8 @@ struct subscription {
   char bookingNum[BOOKINGNUM];
   char bookName[BOOKNAME];
   int subscriNum;
-};
+} ;
+
+void InvertedList(void);
 
 #endif // !SUBSCRIPTIONINFO_H

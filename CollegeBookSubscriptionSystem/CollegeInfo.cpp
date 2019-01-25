@@ -20,27 +20,27 @@ School InitializeSchoolNode(void) {
 }
 
 void getName(char * collegeName) {
-  printf("请输入学校名称（限长30个字节，余则自动截取）：");
+  printf("请输入学校名称：");
   getString(collegeName, LEN_SCHOOLNAME);
 }
 
 void getId(char * collegeId) {
-  printf("请输入学校标识码（限长12个字节，余则自动截取）：");
+  printf("请输入学校标识码：");
   getString(collegeId, LEN_ID);
 }
 
 void getDepartment(char * collegeDepartment) {
-  printf("请输入学校的主管部门（限长30个字节，余则自动截取）：");
+  printf("请输入学校的主管部门：");
   getString(collegeDepartment, LEN_DEPARTMENT);
 }
 
 void getLocation(char * collegeLocation) {
-  printf("请输入学校所在地（限长10个字节，余则自动截取）：");
+  printf("请输入学校所在地：");
   getString(collegeLocation, LEN_LOCATION);
 }
 
 void getLevel(char * collegeLevel) {
-  printf("请输入学校办学层次（限长10个字节，余则自动截取）：");
+  printf("请输入学校办学层次：");
   getString(collegeLevel, LEN_LEVEL);
 }
 
@@ -52,9 +52,6 @@ void getAllInfo(School & college) {
   getLevel(college.Level);
 }
 
-//void scanInfo(School & college) {
-//
-//}
 
 /* local functions */
 

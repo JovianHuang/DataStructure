@@ -98,10 +98,6 @@ static void Segement(FILE *fi, SegeInfo segeinfo, NodeInfo nodeinfo) {
 static SegeInfo InitializeSegeInfo(NodeInfo nodeinfo) {
   SegeInfo segeinfo;
   segeinfo.capacity = nodeinfo.Num / WAYNUM + 1;
-  // Prevent the last path from having no content
-  //segeinfo.wayNum = nodeinfo.Num % segeinfo.capacity == 0 ?
-  //  nodeinfo.Num / segeinfo.capacity : (nodeinfo.Num % (WAYNUM - 1)) == segeinfo.capacity ?
-  //  WAYNUM : WAYNUM - 1;
   segeinfo.wayNum = WAYNUM;
   segeinfo.sege = (ExNode *)malloc(sizeof(ExNode) * segeinfo.capacity);
   memset(segeinfo.sege, 0, segeinfo.capacity * sizeof(char) * KEYMAXLEN);

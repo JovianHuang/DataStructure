@@ -11,7 +11,6 @@
 /* prototype for local functions */
 
 
-
 /* functions definition */
 
 static RecordNode InitializeRecordNode(void) {
@@ -29,6 +28,7 @@ Bucket InitializeBucket(FILE * fo_bucket) {
   }
   bucket.next = -1;
   for (int i = 0; i < BUCKETNUM; i++) {
+    bucket.index = i;
     fwrite(&bucket, sizeof(bucket), 1, fo_bucket);
   }
   return bucket;
@@ -47,48 +47,48 @@ int * InitializeHashIndex(FILE * fo_index) {
 void CreateHashFiles(FilePointer fp, RecordNodeType recordnode) {
   int *HashIndex = InitializeHashIndex(fp.index);
   Bucket bucket = InitializeBucket(fp.bucket);
-  School node;
-  RecordNode record;
+  school node;
+  RecordNode record = InitializeRecordNode();
   while (true) {
-    fread(&node, sizeof(School), 1, fp.source);
+    fread(&node, sizeof(school), 1, fp.source);
     if (feof(fp.source)) {
       break;
     }
     memcpy(record.content, node.Id, CONTENTMAXLEN);
     record.serialNum = node.serialNum;
-    int index = Hash(record);
-    fseek(fp.bucket, sizeof(Bucket) * HashIndex[index], 0);
-    fread(&bucket, sizeof(bucket), 1, fp.bucket);
-    int back = sizeof(bucket);
-    fseek(fp.bucket, -back, 1);
+    int hashkey = Hash(record);
+    fseek(fp.bucket, sizeof(Bucket) * HashIndex[hashkey], 0);
+    fread(&bucket, sizeof(Bucket), 1, fp.bucket);
+    fseek(fp.bucket, -(int)sizeof(bucket), 1);  // 倒回一个桶的位置
     Insert(bucket, record, HashIndex, fp.bucket);
+    fwrite(&HashIndex, sizeof(HashIndex), 1, fp.index);
  }
 }
 
 void Insert(Bucket bucket, RecordNode record, int *HashIndex, FILE *fp_bucket) {
   if (bucket.recordNum < RECORDNUM) {
     memcpy(bucket.records[bucket.recordNum].content, record.content, CONTENTMAXLEN);
-    bucket.records->serialNum = record.serialNum;
+    bucket.records[bucket.recordNum].serialNum = record.serialNum;
     bucket.recordNum++;
     fwrite(&bucket, sizeof(bucket), 1, fp_bucket);
-  } else if (HashIndex[BUCKETNUM] != -1) {
-    fseek(fp_bucket, sizeof(Bucket) * HashIndex[BUCKETNUM], 0);
-    fread(&bucket, sizeof(bucket), 1, fp_bucket);
-    Insert(bucket, record, HashIndex, fp_bucket);
   } else {
-    bucket.recordNum = 0;
+    bucket.recordNum = 0; //建新桶
     for (int i = 0; i < RECORDNUM; i++) {
       bucket.records[i] = InitializeRecordNode();
     }
     memcpy(bucket.records[bucket.recordNum].content, record.content, CONTENTMAXLEN);
-    bucket.records->serialNum = record.serialNum;
+    bucket.records[bucket.recordNum].serialNum = record.serialNum;
     bucket.recordNum++;
+    int pos_index = bucket.index; // HashIndex 中的位置
+    fseek(fp_bucket, -(int)sizeof(bucket), SEEK_END); 
+    fread(&bucket.index, sizeof(bucket.index), 1, fp_bucket);
+    bucket.index++; // 获取index
+    bucket.next = HashIndex[pos_index];
+    HashIndex[pos_index] = bucket.index;
     fseek(fp_bucket, 0, SEEK_END);
     fwrite(&bucket, sizeof(bucket), 1, fp_bucket);
   }
 }
-
-
 
 int Hash(RecordNode record) {
   int i = 0;
@@ -100,3 +100,4 @@ int Hash(RecordNode record) {
 }
 
 /* local functions */
+
